@@ -1,0 +1,93 @@
+#include <stdio.h>
+
+#include <stdbool.h>
+
+// 定义状态类型和函数指针
+typedef int StateID;
+typedef bool (*ConditionFunc)();
+typedef void (*ActionFunc)(StateID*);
+
+// 配置表结构体（核心数据结构）
+typedef struct {
+    StateID id;
+    ConditionFunc check;
+    struct {
+        ActionFunc if_true;
+        ActionFunc if_false;
+    } actions;
+} StateTransition;
+
+// 示例条件函数
+bool check_temp_high() { return true; }
+bool check_voltage_low() { return false; }
+
+// 示例动作函数
+void alarm_action(StateID* next) {
+    printf("触发警报!\n");
+    *next = 0xFF; // 终止状态
+}
+
+void adjust_power(StateID* next) {
+    printf("调节功率...\n");
+    *next = 0x02;
+}
+
+// 配置表（精简状态转移表）
+static StateTransition config[] = {
+    {0x01, check_temp_high,  {alarm_action, adjust_power}},
+    {0x02, check_voltage_low, {adjust_power, alarm_action}},
+    {0xFF, NULL, {NULL, NULL}} // 终止状态
+};
+
+void execute_flow(StateID init) {
+    StateID current = init;
+    
+    while(current != 0xFF) {
+        for(StateTransition* p = config; p->id != 0xFF; p++) {
+            if(p->id == current) {
+                ActionFunc action = p->check() ? 
+                                  p->actions.if_true : 
+                                  p->actions.if_false;
+                action(&current);
+                break;
+            }
+        }
+    }
+}
+
+int main() {
+    execute_flow(0x01);
+    return 0;
+}
+
+
+解析:
+
+_
+关键设计特点：
+_
+双重跳转机制：每个条件可同时携带两种分支跳转函数
+_
+状态流转控制：通过修改next_state实现复杂跳转逻辑
+_
+复合判断支持：条件函数可扩展为组合逻辑表达式
+_
+零散配置管理：所有业务逻辑集中在配置表中
+_
+热更新能力：运行时动态修改配置表实现逻辑更新
+_
+性能优化方向：
+_
+使用哈希表存储状态配置（O(1)查找）
+_
+预编译状态转移表（ROM存储）
+_
+分支预测优化（通过likely/unlikely修饰符）
+_
+跳转缓存机制（记忆最近使用状态）
+
+
+
+
+
+

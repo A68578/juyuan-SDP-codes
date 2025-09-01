@@ -106,6 +106,18 @@
     <Filter Include="源文件\WatchDog">
       <UniqueIdentifier>{de793433-75ce-45b6-9588-e6ce3feb559a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\RTD">
+      <UniqueIdentifier>{a8d91789-88c0-49f2-b01c-73bcf88f094d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\RTD">
+      <UniqueIdentifier>{a7668def-4213-4d52-91dc-aa4c569e0b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\RTD\include">
+      <UniqueIdentifier>{ebdf59d5-6eea-44e9-8c0d-7b2476f32351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\RTD\src">
+      <UniqueIdentifier>{df57cc6b-31a6-4142-8df9-1d7fba3ced0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -185,6 +197,150 @@
     </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Data.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Divider.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_DividerTrigger.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_ExtOsc.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_FracDiv.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Frequency.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Gate.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_IntOsc.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Irq.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Monitor.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Pll.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_ProgFreqSwitch.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Selector.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Clock_Ip_Specific.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Det.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Det_stub.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\FlexCAN_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\FlexCAN_Ip_HwAccess.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\FlexCAN_Ip_Irq.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\IntCtrl_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\OsIf_Interrupts.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\OsIf_Timer.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\OsIf_Timer_System.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\OsIf_Timer_System_Internal_Systick.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Pit_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_CortexM7.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_DCM_GPR.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_FLASH.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_MC_ME.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_MC_RGM.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_MC_RGM_Irq.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_PMC.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_PMC_Irq.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Power_Ip_Private.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Can.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Dio.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Gpt.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Mcl.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Mcu.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Port.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\SchM_Wdg.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Siul2_Dio_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Siul2_Port_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Swt_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Swt_Ip_Irq.c">
+      <Filter>源文件\RTD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\src\Tspc_Port_Ip.c">
+      <Filter>源文件\RTD\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +439,189 @@
     </ClInclude>
     <ClInclude Include="MCU_Clock.h">
       <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Cache_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Cache_Ip_Devassert.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Cache_Ip_HwAcc_ArmCoreMx.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Cache_Ip_TrustedFunctions.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Cache_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Clock_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Clock_Ip_Private.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Clock_Ip_Specific.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Clock_Ip_TrustedFunctions.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Clock_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Det.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Det_stub.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_DeviceReg.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_HwAccess.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_Irq.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_TrustedFunctions.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\FlexCAN_Ip_Wrapper.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\IntCtrl_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\IntCtrl_Ip_TypesDef.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Cfg_TypesDef.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_DeviceRegisters.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Internal.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Interrupts.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Timer_Custom.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Timer_System.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\OsIf_Timer_System_Internal_Systick.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Pit_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Pit_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_CortexM7.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_DCM_GPR.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_DCM_GPR_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_FLASH.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_MC_ME.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_MC_ME_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_MC_RGM.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_MC_RGM_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_PMC.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_PMC_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_Private.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_Specific.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_TrustedFunctions.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Power_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Can.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Dio.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Gpt.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Mcl.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Mcu.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Port.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\SchM_Wdg.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Siul2_Dio_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Siul2_Port_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Siul2_Port_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Swt_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Swt_Ip_Irq.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Swt_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Tspc_Port_Ip.h">
+      <Filter>头文件\RTD\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Bootloader_3.4\Bootloader_S32K344\RTD\include\Tspc_Port_Ip_Types.h">
+      <Filter>头文件\RTD\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

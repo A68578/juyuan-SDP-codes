@@ -13,5 +13,276 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\Bootmanager">
+      <UniqueIdentifier>{643c08c8-be09-435d-b228-b4154e6b209c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Can">
+      <UniqueIdentifier>{9376d2a5-5c08-4dde-962d-25a4b3180bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CanIf">
+      <UniqueIdentifier>{02f41c6c-2cb0-4ec3-95f2-c4655547fd5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\CanTp">
+      <UniqueIdentifier>{69a9902b-2c60-4d30-9f89-e8774ebc0fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{e6d589bb-7736-44e7-917e-2644b5e0b8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Dcm">
+      <UniqueIdentifier>{1dcc1b0f-82ca-4fbc-9b2b-cbe523a9c61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Ea">
+      <UniqueIdentifier>{bc4582e9-96c0-4bd4-afb8-88bae4248a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\src">
+      <UniqueIdentifier>{7dc31f73-83b6-43c9-a717-fd967a6c81ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\EEPROM">
+      <UniqueIdentifier>{c3931f3b-19d6-44f7-91b3-52df547f712e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Fee">
+      <UniqueIdentifier>{4614fb3f-5f72-4038-b766-f1de0d997656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MemIf">
+      <UniqueIdentifier>{5af2f9d6-c663-4a74-b8fb-85ce676dd8fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Bootmanager">
+      <UniqueIdentifier>{1de1658a-643c-4724-9fc4-81321f2428d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Can">
+      <UniqueIdentifier>{35fe5ca9-3cae-410f-bda7-7af29be95f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\CanIf">
+      <UniqueIdentifier>{14be8c74-1364-40fd-af1f-6ab31a2d3bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\CanTp">
+      <UniqueIdentifier>{88702882-b11a-4fb1-9380-12463cf4edf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{755c7d67-963d-4bd5-b302-f8877f8b864b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dcm">
+      <UniqueIdentifier>{d6e0eca7-bd1f-4365-a7f8-8a2f0b9e269f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Ea">
+      <UniqueIdentifier>{ac17adcd-e7c7-4fff-8298-b8cf06676875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\EEPROM">
+      <UniqueIdentifier>{4640805c-5031-48c4-ad82-ce2739316cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Fee">
+      <UniqueIdentifier>{d4561480-4f4e-47fc-a728-7bddbdbb21c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\MemIf">
+      <UniqueIdentifier>{62efac9c-7d10-4781-ad35-9da5431e3913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\GPIO">
+      <UniqueIdentifier>{9004cf3f-f01c-46eb-8cfc-14192957453d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GPIO">
+      <UniqueIdentifier>{69ae7c98-2c58-4f6f-aeef-3d2dbc67708a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\SecurityManager">
+      <UniqueIdentifier>{9173bae2-fab8-442b-a40a-15b96ab71423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\System">
+      <UniqueIdentifier>{e500fc12-8fc6-4827-a232-b9dcac4e3bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Timer">
+      <UniqueIdentifier>{032d5beb-4450-40bd-9006-1231d10d341c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\WatchDog">
+      <UniqueIdentifier>{12783260-ffc2-4c5c-9ff8-79ac503260e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\SecM">
+      <UniqueIdentifier>{fd9e7b2a-c3d1-43fd-a5e2-97c0036879b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\System">
+      <UniqueIdentifier>{841b153b-4c2f-4b28-a417-15ea6de5a9b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Timer">
+      <UniqueIdentifier>{5db79c96-1f29-401f-9e3b-e210bd03dac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\WatchDog">
+      <UniqueIdentifier>{de793433-75ce-45b6-9588-e6ce3feb559a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件\src</Filter>
+    </ClCompile>
+    <ClCompile Include="bl_manager.cpp">
+      <Filter>源文件\Bootmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CanPBCfg.h">
+      <Filter>头文件\Can</Filter>
+    </ClCompile>
+    <ClCompile Include="CanPBCfg.cpp">
+      <Filter>源文件\Can</Filter>
+    </ClCompile>
+    <ClCompile Include="Can.cpp">
+      <Filter>源文件\Can</Filter>
+    </ClCompile>
+    <ClCompile Include="CanIf_Cfg.cpp">
+      <Filter>源文件\CanIf</Filter>
+    </ClCompile>
+    <ClCompile Include="CanIf.cpp">
+      <Filter>源文件\CanIf</Filter>
+    </ClCompile>
+    <ClCompile Include="CanTp_Cfg.cpp">
+      <Filter>源文件\CanTp</Filter>
+    </ClCompile>
+    <ClCompile Include="CanTp.cpp">
+      <Filter>源文件\CanTp</Filter>
+    </ClCompile>
+    <ClCompile Include="Dcm_Appl.cpp">
+      <Filter>源文件\Dcm</Filter>
+    </ClCompile>
+    <ClCompile Include="Dcm_Lcfg.cpp">
+      <Filter>源文件\Dcm</Filter>
+    </ClCompile>
+    <ClCompile Include="Dcm.cpp">
+      <Filter>源文件\Dcm</Filter>
+    </ClCompile>
+    <ClCompile Include="Ea.cpp">
+      <Filter>源文件\Ea</Filter>
+    </ClCompile>
+    <ClCompile Include="EEPROM.cpp">
+      <Filter>源文件\EEPROM</Filter>
+    </ClCompile>
+    <ClCompile Include="Fee_Cfg.cpp">
+      <Filter>源文件\Fee</Filter>
+    </ClCompile>
+    <ClCompile Include="Fee.cpp">
+      <Filter>源文件\Fee</Filter>
+    </ClCompile>
+    <ClCompile Include="FLASH.cpp">
+      <Filter>源文件\Fee</Filter>
+    </ClCompile>
+    <ClCompile Include="Fls.cpp">
+      <Filter>源文件\Fee</Filter>
+    </ClCompile>
+    <ClCompile Include="MemIf_Cfg.cpp">
+      <Filter>源文件\MemIf</Filter>
+    </ClCompile>
+    <ClCompile Include="MemIf.cpp">
+      <Filter>源文件\MemIf</Filter>
+    </ClCompile>
+    <ClCompile Include="Port.cpp">
+      <Filter>源文件\GPIO</Filter>
+    </ClCompile>
+    <ClCompile Include="SecM.cpp">
+      <Filter>源文件\SecM</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>源文件\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="WatchDog.cpp">
+      <Filter>源文件\WatchDog</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>源文件\System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bl_manager.h">
+      <Filter>头文件\Bootmanager</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Can.h">
+      <Filter>头文件\Can</Filter>
+    </ClInclude>
+    <ClInclude Include="CanIf.h">
+      <Filter>头文件\CanIf</Filter>
+    </ClInclude>
+    <ClInclude Include="CanIf_Cfg.h">
+      <Filter>头文件\CanIf</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp_Cbk.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp_Cfg.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp_Det.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp_LCfg.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp_Types.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="CanTp.h">
+      <Filter>头文件\CanTp</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm_Appl.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm_LCfg.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm_Cfg.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm_CoreType.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm_Types.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Dcm.h">
+      <Filter>头文件\Dcm</Filter>
+    </ClInclude>
+    <ClInclude Include="Ea.h">
+      <Filter>头文件\Ea</Filter>
+    </ClInclude>
+    <ClInclude Include="EEPROM.h">
+      <Filter>头文件\EEPROM</Filter>
+    </ClInclude>
+    <ClInclude Include="address_map.h">
+      <Filter>头文件\Fee</Filter>
+    </ClInclude>
+    <ClInclude Include="Fee_Cfg.h">
+      <Filter>头文件\Fee</Filter>
+    </ClInclude>
+    <ClInclude Include="Fee.h">
+      <Filter>头文件\Fee</Filter>
+    </ClInclude>
+    <ClInclude Include="FLASH.h">
+      <Filter>头文件\Fee</Filter>
+    </ClInclude>
+    <ClInclude Include="Fls.h">
+      <Filter>头文件\Fee</Filter>
+    </ClInclude>
+    <ClInclude Include="Port.h">
+      <Filter>头文件\GPIO</Filter>
+    </ClInclude>
+    <ClInclude Include="MemIf.h">
+      <Filter>头文件\MemIf</Filter>
+    </ClInclude>
+    <ClInclude Include="MemIf_Cfg.h">
+      <Filter>头文件\MemIf</Filter>
+    </ClInclude>
+    <ClInclude Include="MemIf_Types.h">
+      <Filter>头文件\MemIf</Filter>
+    </ClInclude>
+    <ClInclude Include="SecM.h">
+      <Filter>头文件\SecurityManager</Filter>
+    </ClInclude>
+    <ClInclude Include="WatchDog.h">
+      <Filter>头文件\WatchDog</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>头文件\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU_Clock.h">
+      <Filter>头文件\System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,7 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -53,27 +52,24 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -130,8 +126,68 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bl_manager.cpp" />
+    <ClCompile Include="Can.cpp" />
+    <ClCompile Include="CanIf.cpp" />
+    <ClCompile Include="CanIf_Cfg.cpp" />
+    <ClCompile Include="CanPBCfg.cpp" />
+    <ClCompile Include="CanPBCfg.h" />
+    <ClCompile Include="CanTp.cpp" />
+    <ClCompile Include="CanTp_Cfg.cpp" />
+    <ClCompile Include="common.cpp" />
+    <ClCompile Include="Dcm.cpp" />
+    <ClCompile Include="Dcm_Appl.cpp" />
+    <ClCompile Include="Dcm_Lcfg.cpp" />
+    <ClCompile Include="Ea.cpp" />
+    <ClCompile Include="EEPROM.cpp" />
+    <ClCompile Include="Fee.cpp" />
+    <ClCompile Include="Fee_Cfg.cpp" />
+    <ClCompile Include="FLASH.cpp" />
+    <ClCompile Include="Fls.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemIf.cpp" />
+    <ClCompile Include="MemIf_Cfg.cpp" />
+    <ClCompile Include="Port.cpp" />
+    <ClCompile Include="SecM.cpp" />
+    <ClCompile Include="System.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WatchDog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="address_map.h" />
+    <ClInclude Include="bl_manager.h" />
+    <ClInclude Include="Can.h" />
+    <ClInclude Include="CanIf.h" />
+    <ClInclude Include="CanIf_Cfg.h" />
+    <ClInclude Include="CanTp.h" />
+    <ClInclude Include="CanTp_Cbk.h" />
+    <ClInclude Include="CanTp_Cfg.h" />
+    <ClInclude Include="CanTp_Det.h" />
+    <ClInclude Include="CanTp_LCfg.h" />
+    <ClInclude Include="CanTp_Types.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="Dcm.h" />
+    <ClInclude Include="Dcm_Appl.h" />
+    <ClInclude Include="Dcm_Cfg.h" />
+    <ClInclude Include="Dcm_CoreType.h" />
+    <ClInclude Include="Dcm_LCfg.h" />
+    <ClInclude Include="Dcm_Types.h" />
+    <ClInclude Include="Ea.h" />
+    <ClInclude Include="EEPROM.h" />
+    <ClInclude Include="Fee.h" />
+    <ClInclude Include="Fee_Cfg.h" />
+    <ClInclude Include="FLASH.h" />
+    <ClInclude Include="Fls.h" />
+    <ClInclude Include="MCU_Clock.h" />
+    <ClInclude Include="MemIf.h" />
+    <ClInclude Include="MemIf_Cfg.h" />
+    <ClInclude Include="MemIf_Types.h" />
+    <ClInclude Include="Port.h" />
+    <ClInclude Include="SecM.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WatchDog.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

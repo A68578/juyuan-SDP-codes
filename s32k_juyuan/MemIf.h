@@ -1,1 +1,13 @@
 #pragma once
+#include "common.h"
+extern void MemIf_SwtichToEaType(void);
+extern Std_ReturnType MemIf_Read(unsigned int addr, unsigned int len, unsigned int* buf);
+extern Std_ReturnType MemIf_Erase(unsigned int addr, unsigned int len, unsigned int* buf);
+extern Std_ReturnType Ea_Write(MemIf_DataPtr* ptr);
+extern Std_ReturnType Ea_Read(MemIf_DataPtr* ptr);
+extern Std_ReturnType Fee_Write(MemIf_DataPtr* ptr);
+extern Std_ReturnType Fee_Read(MemIf_DataPtr* ptr);
+extern Std_ReturnType Fee_Erase(MemIf_DataPtr* ptr);
+extern Std_ReturnType MemIf_RamWrite(MemIf_DataPtr* ptr);
+extern Std_ReturnType MemIf_RamRead(MemIf_DataPtr* ptr);
+extern Std_ReturnType Ea_Erase(MemIf_DataPtr* ptr);

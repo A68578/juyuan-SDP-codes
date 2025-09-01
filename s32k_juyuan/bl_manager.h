@@ -1,12 +1,14 @@
 #pragma once
 #pragma once
 #include "common.h"
-#define _CRT_SECURE_NO_WARNINGS
+#include "MemIf_Cfg.h"
+#include "MemIf.h"
+#include "Dcm.h"
+#include "Dcm_Appl.h"
+#include "MCU_Clock.h"
 
-#define ExternVariable 1
 #define NULL_PTR (void*)0
-#define OFF_BOARD 1
-#define ON_BOARD 0
+
 
 /******************************************************************************************************************************************
 								 *Macro
@@ -19,27 +21,24 @@
 #define INVALID_RESET_FLAG              0x05U
 
 
+/*blmanager return type*/
+typedef enum
+{
+	Boot_Check_Success,
+	Boot_Check_Fail
+}bl_manager_ReturnType;
+
 /*state context*/
 typedef struct
 {
 	unsigned int stateCount;       /**< Number of elements in stateDefinitions (set by component(s) using this module) */
 	unsigned int currentstate;     /**< Current state */
-	unsigned int nextstate;        /**< Next event */
-	unsigned int index;            /*find the corresponding task to handle*/
 	unsigned int success_flag;     /*if function is successfully handled,skip the check*/
 }fblManagerContext;
 
 /*handler of event*/
-typedef StdReturnType(*EventHandler)(fblManagerContext*);
+typedef bl_manager_ReturnType(*EventHandler)(fblManagerContext*);
 
-
-#if OFF_BOARD
-/*backup data*/
-typedef struct
-{
-	fblManagerContext* fblmanagerContextBackup;
-}fblManagerBackup;
-#endif
 
 /*trigger of event*/
 typedef enum
@@ -84,3 +83,5 @@ typedef struct
 	EventHandler originfunc;
 	FuncRouterSelectType FuncRouterSelect;
 }FuncRouterType;
+
+void fblmain(void);

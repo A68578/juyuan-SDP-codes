@@ -3,3 +3,7 @@ void DCM_10DelayCancel(void)
 {
 	printf("Task Dcm 10 Delay Cancel\n");
 }
+void Dcm_Init(void)
+{
+	printf("Task Dcm Init\n");
+}

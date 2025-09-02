@@ -6,6 +6,12 @@
 #include "Dcm.h"
 #include "Dcm_Appl.h"
 #include "MCU_Clock.h"
+#include "Port.h"
+#include "Can.h"
+#include "Timer.h"
+#include "Ea.h"
+#include "WatchDog.h"
+#include "CanTp.h"
 
 #define NULL_PTR (void*)0
 
@@ -46,11 +52,12 @@ typedef enum
 	FBL_CheckReprog,
 	FBL_CheckReset,
 	FBL_Mcal_Init,
-	FBL_Diagnose_Init,
+	FBL_Diagnostic_Init,
 	FBL_MainFunction,
 	FBL_CheckApp,
 	FBL_GotoApp,
-	FBL_NULL
+	FBL_NULL,
+	FBL_END
 }TriggerState;
 
 /*flag of trigger event*/

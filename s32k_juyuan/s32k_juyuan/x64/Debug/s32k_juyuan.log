@@ -1,26 +1,14 @@
-﻿  bl_manager.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(102,12): error C3861: “MemIf_Erase”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(142,6): error C3861: “DCM_10DelayCancel”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(143,6): error C3861: “SendReprogramRespond”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(144,6): error C3861: “SetReprogramState”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(192,5): error C3861: “SendResponseMCUReset”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(223,4): error C3861: “MCU_ClkSet”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(225,4): error C3861: “Port_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(227,4): error C3861: “Can_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(229,4): error C3861: “TIM_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(231,4): error C3861: “Ea_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(233,4): error C3861: “WDog_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(235,4): error C3861: “MCU_ISR_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(260,4): error C3861: “CanTp_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(261,4): error C3861: “Dcm_Init”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(281,3): error C3861: “WdgM_Start”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(285,4): error C3861: “Can_MainFunction_Write”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(286,4): error C3861: “Can_MainFunction_Read”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(288,4): error C3861: “CanTp_MainFunction”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\bl_manager.cpp(289,4): error C3861: “Dcm_MainFunction”: 找不到标识符
-  main.cpp
-  MemIf.cpp
-  MemIf_Cfg.cpp
-  WatchDog.cpp
+﻿  CanTp.cpp
+  CanTp_Cfg.cpp
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,7): error C2065: “ChannelCounter”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,27): error C2065: “ChannelCounter”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,62): error C2065: “ChannelCounter”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,31): error C2065: “CanTpRunTimeTxData”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,50): error C2065: “ChannelCounter”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,3): error C3861: “CanTp_StartNewTransmission”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(29,2): error C2065: “InternalState”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(29,19): error C2065: “CanTp_InternalStateType”: 未声明的标识符
+  System.cpp
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\System.cpp(10,1): error C2059: 语法错误:“}”
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\System.cpp(10,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)
   正在生成代码...
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\MemIf.cpp(10,1): error C4716: “MemIf_Read”: 必须返回一个值

@@ -230,7 +230,7 @@ bl_manager_ReturnType FBL_Mcal_Init_Event(fblManagerContext* fblmanagercontext)
 			/* initializes the Ea module */
 			Ea_Init();
 			/* initializes the Watch Dog module */
-			WDog_Init();
+			Wdog_Init();
 			/*MCU interrupt initialization*/
 			MCU_ISR_Init();
 			fblmanagercontext->success_flag = Boot_Check_Success;
@@ -240,7 +240,7 @@ bl_manager_ReturnType FBL_Mcal_Init_Event(fblManagerContext* fblmanagercontext)
 	return result;
 }
 
-bl_manager_ReturnType FBL_Diagnose_Init_Event(fblManagerContext* fblmanagercontext)
+bl_manager_ReturnType FBL_Diagnostic_Init_Event(fblManagerContext* fblmanagercontext)
 {
 	printf("diagnose init\n");
 	bl_manager_ReturnType result = Boot_Check_Fail;
@@ -257,7 +257,7 @@ bl_manager_ReturnType FBL_Diagnose_Init_Event(fblManagerContext* fblmanagerconte
 		}
 		else
 		{
-			CanTp_Init();
+			CanTp_Init(CanTp_NULL_PTR);
 			Dcm_Init();
 			fblmanagercontext->success_flag = Boot_Check_Success;
 			result = Boot_Check_Success;
@@ -278,15 +278,18 @@ bl_manager_ReturnType FBL_MainFunction_Event(fblManagerContext* fblmanagercontex
 	else
 	{
 		/* start watchdog */
-		WdgM_Start();
+		Wdog_Start();
 		while (1)
 		{
 			/* Can sends and receives packets periodically */
-			Can_MainFunction_Write();
-			Can_MainFunction_Read();
-			/* Modules main run-time scheduling */
-			CanTp_MainFunction();
-			Dcm_MainFunction();
+			//Can_MainFunction_Write();
+			//Can_MainFunction_Read();
+			//if (timer == 1)
+			//{
+				/* Modules main run-time scheduling */
+				//CanTp_MainFunction();
+				//Dcm_MainFunction();
+			//}
 		}
 
 	}
@@ -358,7 +361,7 @@ static fblManagerEvent fblchange_channel_select[] =
 	{FBL_CheckReprog,FBL_CheckReprog_Event},
 	{FBL_CheckReset,FBL_CheckReset_Event},
 	{FBL_Mcal_Init,FBL_Mcal_Init_Event},
-	{FBL_Diagnose_Init,FBL_Diagnose_Init_Event},
+	{FBL_Diagnostic_Init,FBL_Diagnostic_Init_Event},
 	{FBL_MainFunction,FBL_MainFunction_Event},
 	{FBL_CheckApp,FBL_CheckApp_Event},
 	{FBL_GotoApp,FBL_GotoApp_Event}
@@ -367,10 +370,10 @@ static FuncRouterType FuncRouter[] =
 {
 	{FBL_CheckReprog_Event,{FBL_Mcal_Init,FBL_CheckApp}},
 	{FBL_CheckApp_Event,{FBL_GotoApp,FBL_Mcal_Init}},
-	{FBL_Mcal_Init_Event,{FBL_Diagnose_Init,FBL_MainFunction}},
-	{FBL_Diagnose_Init_Event,{FBL_MainFunction,FBL_CheckReset}},
-	{FBL_GotoApp_Event,{FBL_Mcal_Init,FBL_CheckReset}},
-	{FBL_MainFunction_Event,{FBL_MainFunction,FBL_MainFunction}},
+	{FBL_Mcal_Init_Event,{FBL_Diagnostic_Init,FBL_NULL}},
+	{FBL_Diagnostic_Init_Event,{FBL_MainFunction,FBL_NULL}},
+	{FBL_GotoApp_Event,{FBL_END,FBL_NULL}},
+	{FBL_MainFunction_Event,{FBL_END,FBL_NULL}},
 };
 
 

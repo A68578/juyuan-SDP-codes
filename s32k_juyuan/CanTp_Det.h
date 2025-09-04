@@ -18,3 +18,12 @@
 #define    CANTP_E_UNINIT                                                     (0x20u)
 #define    CANTP_E_INVALID_TX_ID                                              (0x30u)
 #define    CANTP_E_INVALID_RX_ID                                              (0x40u)
+
+
+//Runtime Errors
+#define    CANTP_E_PADDING                                                 (0x70u)
+#define    CANTP_E_INVALID_TATYPE                                          (0x90u)
+#define    CANTP_E_OPER_NOT_SUPPORTED                                      (0xA0u)
+#define    CANTP_E_COM                                                     (0xB0u)
+#define    CANTP_E_RX_COM                                                  (0xC0u)
+#define    CANTP_E_TX_COM                                                  (0xD0u)

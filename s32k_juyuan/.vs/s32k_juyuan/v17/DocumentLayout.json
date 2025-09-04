@@ -7,40 +7,52 @@
       "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Cfg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_LCfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_LCfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:Dcm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:Dcm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Types.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Det.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:CanTp_Cfg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\ComStackTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:ComStackTypes.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:Det.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\SecM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:SecM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:MemIf_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\bl_manager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -65,10 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:MemIf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|solutionrelative:MemIf_Cfg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21B92122-226D-4F43-8E19-A631EB57E8B9}|s32k_juyuan.vcxproj|C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -132,61 +140,35 @@
               "RelativeDocumentMoniker": "CanTp.cpp",
               "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp.cpp",
               "RelativeToolTip": "CanTp.cpp",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAAAJwAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACoBAAAAAAAAAAAAACYBAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-02T01:32:24.802Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-09-04T04:05:37.123Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CanTp_Cfg.cpp",
-              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp",
-              "RelativeDocumentMoniker": "CanTp_Cfg.cpp",
-              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp",
-              "RelativeToolTip": "CanTp_Cfg.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Title": "Dcm.cpp",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.cpp",
+              "RelativeDocumentMoniker": "Dcm.cpp",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.cpp",
+              "RelativeToolTip": "Dcm.cpp",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-03T03:44:47.57Z",
+              "WhenOpened": "2025-09-04T03:40:11.961Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "CanTp_Cfg.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.h",
               "RelativeDocumentMoniker": "CanTp_Cfg.h",
               "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.h",
               "RelativeToolTip": "CanTp_Cfg.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABgAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAAoAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-03T07:33:50.555Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Det.h",
-              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.h",
-              "RelativeDocumentMoniker": "Det.h",
-              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.h",
-              "RelativeToolTip": "Det.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-03T03:40:18.159Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CanTp_LCfg.h",
-              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_LCfg.h",
-              "RelativeDocumentMoniker": "CanTp_LCfg.h",
-              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_LCfg.h",
-              "RelativeToolTip": "CanTp_LCfg.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-03T03:45:13.131Z",
               "EditorCaption": ""
             },
             {
@@ -197,39 +179,118 @@
               "RelativeDocumentMoniker": "CanTp_Det.h",
               "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Det.h",
               "RelativeToolTip": "CanTp_Det.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABkAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-03T03:32:29.358Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
+              "Title": "CanTp_Cfg.cpp",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp",
+              "RelativeDocumentMoniker": "CanTp_Cfg.cpp",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cfg.cpp",
+              "RelativeToolTip": "CanTp_Cfg.cpp",
+              "ViewState": "AgIAAAEAAAAAAAAAAAASwBMAAAB7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-03T03:44:47.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CanTp.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp.h",
               "RelativeDocumentMoniker": "CanTp.h",
               "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp.h",
               "RelativeToolTip": "CanTp.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-02T01:32:28.855Z"
+              "WhenOpened": "2025-09-02T01:32:28.855Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
+              "Title": "Det.cpp",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.cpp",
+              "RelativeDocumentMoniker": "Det.cpp",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Det.cpp",
+              "RelativeToolTip": "Det.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-04T04:05:07.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ComStackTypes.h",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\ComStackTypes.h",
+              "RelativeDocumentMoniker": "ComStackTypes.h",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\ComStackTypes.h",
+              "RelativeToolTip": "ComStackTypes.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-04T04:01:22.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CanTp_Types.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Types.h",
               "RelativeDocumentMoniker": "CanTp_Types.h",
               "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Types.h",
               "RelativeToolTip": "CanTp_Types.h",
-              "ViewState": "AgIAAC4AAAAAAAAAAAApwDgAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-02T05:22:21.215Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
+              "Title": "Dcm.h",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.h",
+              "RelativeDocumentMoniker": "Dcm.h",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.h",
+              "RelativeToolTip": "Dcm.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-01T10:16:39.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SecM.cpp",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\SecM.cpp",
+              "RelativeDocumentMoniker": "SecM.cpp",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\SecM.cpp",
+              "RelativeToolTip": "SecM.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-04T04:05:06.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MemIf_Cfg.h",
+              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h",
+              "RelativeDocumentMoniker": "MemIf_Cfg.h",
+              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h",
+              "RelativeToolTip": "MemIf_Cfg.h",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAADYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-01T09:57:20.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "common.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\common.h",
               "RelativeDocumentMoniker": "common.h",
@@ -241,7 +302,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "bl_manager.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\bl_manager.cpp",
               "RelativeDocumentMoniker": "bl_manager.cpp",
@@ -253,19 +314,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Dcm.h",
-              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.h",
-              "RelativeDocumentMoniker": "Dcm.h",
-              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Dcm.h",
-              "RelativeToolTip": "Dcm.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-01T10:16:39.146Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "bl_manager.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\bl_manager.h",
               "RelativeDocumentMoniker": "bl_manager.h",
@@ -277,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
@@ -289,7 +338,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "System.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\System.cpp",
               "RelativeDocumentMoniker": "System.cpp",
@@ -301,7 +350,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "CanTp_Cbk.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanTp_Cbk.h",
               "RelativeDocumentMoniker": "CanTp_Cbk.h",
@@ -313,7 +362,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "MemIf.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf.h",
               "RelativeDocumentMoniker": "MemIf.h",
@@ -325,19 +374,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "MemIf_Cfg.h",
-              "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h",
-              "RelativeDocumentMoniker": "MemIf_Cfg.h",
-              "ToolTip": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf_Cfg.h",
-              "RelativeToolTip": "MemIf_Cfg.h",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAACsAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-01T09:57:20.72Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "MemIf.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MemIf.cpp",
               "RelativeDocumentMoniker": "MemIf.cpp",
@@ -349,7 +386,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "WatchDog.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\WatchDog.h",
               "RelativeDocumentMoniker": "WatchDog.h",
@@ -361,7 +398,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "WatchDog.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\WatchDog.cpp",
               "RelativeDocumentMoniker": "WatchDog.cpp",
@@ -373,7 +410,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "CanIf.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\CanIf.cpp",
               "RelativeDocumentMoniker": "CanIf.cpp",
@@ -385,7 +422,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "MCU_Clock.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\MCU_Clock.h",
               "RelativeDocumentMoniker": "MCU_Clock.h",
@@ -397,7 +434,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "Ea.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Ea.cpp",
               "RelativeDocumentMoniker": "Ea.cpp",
@@ -409,7 +446,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "Timer.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Timer.h",
               "RelativeDocumentMoniker": "Timer.h",
@@ -421,7 +458,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "Timer.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Timer.cpp",
               "RelativeDocumentMoniker": "Timer.cpp",
@@ -433,7 +470,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "Can.cpp",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Can.cpp",
               "RelativeDocumentMoniker": "Can.cpp",
@@ -445,7 +482,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "Can.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Can.h",
               "RelativeDocumentMoniker": "Can.h",
@@ -457,7 +494,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "Port.h",
               "DocumentMoniker": "C:\\Users\\andyn\\Desktop\\remake\\s32k_juyuan\\s32k_juyuan\\Port.h",
               "RelativeDocumentMoniker": "Port.h",

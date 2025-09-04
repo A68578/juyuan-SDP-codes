@@ -1,4 +1,12 @@
+/******************************************************************************************************************************************
+								 *Include
+*******************************************************************************************************************************************/
 #include "CanTp.h"
+/******************************************************************************************************************************************
+								 *Macro
+*******************************************************************************************************************************************/
+#define CANIF_TO_CANTP_PDUID(x)  (x)
+
 /********************************************************************************************************************************************
 								 *Variables static
 *********************************************************************************************************************************************/
@@ -64,7 +72,6 @@ void CanTp_Shutdown(void)
 static void CanTp_HandleAddressMode(CanTp_Change_InfoType* CanTpRuntimeBuffer)
 {
 	unsigned char ISOTP_MAX_PAYLOAD_SF, ISOTP_MAX_PAYLOAD_FF;
-	unsigned char ISOTP_CANFD_PAYLOAD_SF,
 	ISOTP_MAX_PAYLOAD_SF = 7;
 	ISOTP_MAX_PAYLOAD_FF = 6;
 	/*consecutive frame max payload.*/
@@ -115,17 +122,18 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 {
 	Std_ReturnType TransmitResult = E_NOT_OK;
 	unsigned int CanIfTransOffset = 0;
+	unsigned int CanIfTrans_MultiFrame_Partial_Length = 0;
 	if (CanTpInternalState == CANTP_OFF)
 	{
-		Det_ReportError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
 	}
 	else if (PduInfoPtr == NULL_PTR)
 	{
-		Det_ReportError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_PARAM_POINTER);
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_PARAM_POINTER);
 	}
 	else if (TxPduId >= NUMBER_OF_TXNPDU)
 	{
-		Det_ReportError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_INVALID_TX_ID);
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_INVALID_TX_ID);
 	}
 	else if (PduInfoPtr->SduLength > 4096u)
 	{
@@ -145,7 +153,7 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 		{
 			TransmitResult = E_NOT_OK;
 		}
-		else if(CANTPIDLE == CanTp_Change_TxData[TxPduId].state)
+		else if(CANTPIDLE == CanTp_Change_TxData[TxPduId].substate)
 		{
 			CanTp_Change_TxData[TxPduId].transferTotal = PduInfoPtr->SduLength;
 			CanTp_Change_TxData[TxPduId].addressformat = CanTpTxNSdu[TxPduId].CanTpTxAddressingFormat;
@@ -158,21 +166,52 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 			if (CanTp_Change_TxData[TxPduId].transferTotal <= CanTp_Change_TxData[TxPduId].MaxSFPayload)
 			{
 				CanIfTransOffset = CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength;
+				
 				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
-				CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength = CanTp_Change_TxData[TxPduId].transferTotal;
+				
+				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = ISOTP_NPCI_SF;
+				
 				CanIfTransOffset = CanIfTransOffset + 1;
 				
+				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
+				
+				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = CanTp_Change_TxData[TxPduId].transferTotal;
+				
+				CanIfTransOffset = CanIfTransOffset + 1;
 				
 				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
 			}
-			/*multi frame*/
+			/*multi frame:First frame.*/
 			else 
 			{
-				;
+				CanIfTransOffset = CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength;
+				
+				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
+				
+				CanIfTrans_MultiFrame_Partial_Length = (CanTp_Change_TxData[TxPduId].transferTotal) & 0xF00;
+				
+				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = ISOTP_NPCI_FF| CanIfTrans_MultiFrame_Partial_Length;
+				
+				CanIfTrans_MultiFrame_Partial_Length = (CanTp_Change_TxData[TxPduId].transferTotal) & 0xFF;
+
+				CanIfTransOffset = CanIfTransOffset + 1;
+
+				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = CanIfTrans_MultiFrame_Partial_Length;
+
+				CanIfTransOffset = CanIfTransOffset + 1;
+
+				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
 			}
 
 		}
+		CanTp_Change_TxData[TxPduId].substate = TX_WAIT_TRANSMIT;
+		TransmitResult = E_OK;
 	}
+	else
+	{
+		TransmitResult = E_NOT_OK;
+	}
+	return TransmitResult;
 }
 
 void CanTp_Init(const CanTp_ConfigType* CfgPtr)
@@ -197,4 +236,121 @@ void CanTp_Init(const CanTp_ConfigType* CfgPtr)
 
 	/* Putting CanTp Module in the ON state to let other functions work */
 	CanTpInternalState = (unsigned char)CANTP_ON;
+}
+
+
+static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdType RxPduId, const PduInfoType* PduInfoPtr)
+{
+	switch (frametype)
+	{
+		case ISOTP_NPCI_SF:/*Single Frame*/
+			if (CANTP_TX_PROCESSING == CanTp_Change_TxData[CanTpRxNSdu[RxPduId].CanTpTxFcNPduConfirmationPduId].state)
+			{
+				return;
+			}
+			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
+			{
+				Dcm_TpRxIndication(RxPduId, E_NOT_OK);
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_PADDING);
+			}
+			else if (((*(PduInfoPtr->SduDataPtr)) & 0xF0)!= ISOTP_NPCI_SF)
+			{
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_OPER_NOT_SUPPORTED);
+			}
+			else 
+			{
+				/*receive single frame.*/
+				//CanTp_ReceiveSingleFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+			}
+			break;
+
+		case ISOTP_NPCI_FF: /* First Frame */
+			/*[SWS_CanTp_00093]  If a multiple segmented session occurs (on both receiver and sender side) with a handle whose communication type is functional,
+							   the CanTp module shall reject the request and report the runtime error code CANTP_E_INVALID_TATYPE to the Default Error Tracer. */
+
+			if (CANTP_FUNCTIONAL == CanTpRxNSdu[RxPduId].CanTpRxTaType)
+			{
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_INVALID_TATYPE);
+			}
+			if ((((*(PduInfoPtr->SduDataPtr)) & 0xF0) != ISOTP_NPCI_FF))
+			{
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_OPER_NOT_SUPPORTED);
+			}
+			else
+			{
+				/*receive first frame.*/
+				//CanTp_ReceiveFirstFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+			}
+			break;
+
+		case ISOTP_NPCI_CF: /* Consecutive Frame*/
+			/*[SWS_CanTp_00345]  If frames with a payload <= 8 (either CAN 2.0 frames or small CAN FD frames) are used for a Rx N-SDU and CanTpRxPaddingActivation is equal to CANTP_ON,
+								 then CanTp receives by means of CanTp_RxIndication() call an SF Rx N-PDU belonging to that N-SDU, with a length smaller than eight bytes (i.e. PduInfoPtr.SduLength < 8),
+								 CanTp shall reject the reception.The runtime error code CANTP_E_PADDING shall be reported to the Default Error Tracer. */
+			/* [SWS_CanTp_00346]  If frames with a payload <= 8 (either CAN 2.0 frames or small CAN FD frames) are used for a Rx N-SDU and CanTpRxPaddingActivation is equal to CANTP_ON,
+								  and CanTp receives by means of CanTp_RxIndication() call a last CF Rx N-PDU belonging to that NSDU, with a length smaller than eight bytes(i.e. PduInfoPtr. SduLength != 8),
+								  CanTp shall abort the ongoing reception by calling PduR_CanTpRxIndication() with the result E_NOT_OK. The runtime error code CANTP_E_PADDING shall be reported to the Default Error Tracer*/
+			if (CANTP_TX_PROCESSING == CanTp_Change_TxData[CanTpRxNSdu[RxPduId].CanTpTxFcNPduConfirmationPduId].state)
+			{
+				return;
+			}
+			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
+			{
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_PADDING);
+			}
+
+			break;
+	}
+}
+
+
+
+
+/*
+1.LSduR模块在成功接收一个Rx CAN L-PDU后，应调用此函数。
+2.数据将由CAN传输协议（CanTp）通过协议数据单元（PDU）结构PduInfoType进行复制。在这种情况下，L-PDU缓冲区不是全局的，因此分布在相应的CAN传输层中。
+3.请注意，在动态接收N-PDU的情况下，PduInfoPtr还包含元数据。
+[SWS_CanTp_00235] CanTp_RxIndication函数应在中断上下文中可调用（即可以从CAN接收中断中调用）。
+[SWS_CanTp_00322] 如果启用了开发错误检测，那么当参数PduInfoPtr为空指针时，函数CanTp_RxIndication应引发CANTP_E_PARAM_POINTER错误
+[SWS_CanTp_00359] 如果启用了开发错误检测，则CanTp_RxIndication函数应检查函数参数RxPduId的有效性。如果其值无效，则CanTp_RxIndication函数应引发开发错误CANTP_E_INVALID_RX_ID
+*/
+void CanTp_RxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr)
+{
+	unsigned char CanTpPduPCI_Offset;
+	unsigned char CanTp_FrameType;
+	unsigned char* CanTp_AddressOffset = 0;
+
+	if (CanTpInternalState == CANTP_OFF)
+	{
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
+	}
+	else if (PduInfoPtr == NULL_PTR)
+	{
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_PARAM_POINTER);
+	}
+	else if (RxPduId >= NUMBER_OF_RXNPDU)
+	{
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_INVALID_RX_ID);
+	}
+	/*canif to cantp*/
+	RxPduId = CANIF_TO_CANTP_PDUID(RxPduId);
+
+	CanTp_Change_RxData[RxPduId].addressformat = CanTpRxNSdu[RxPduId].CanTpRxAddressingFormat;
+
+	/*select the N-PDU PCI address type.*/
+	CanTp_SelectAddressMode(&CanTp_Change_RxData[RxPduId]);
+	/*handle the payload of data.*/
+	CanTp_HandleAddressMode(&CanTp_Change_RxData[RxPduId]);
+
+	/*cantp_pci_offset.*/
+	CanTpPduPCI_Offset = CanTp_Change_RxData[RxPduId].ISOTP_NPCI_Offset;
+
+	/* Get The Frame Type */
+	//CanTp_FrameType = PduInfoPtr->SduDataPtr[CanTpPduPCI_Offset] & ISO15765_NPCI_MASK;
+	CanTp_AddressOffset = (PduInfoPtr->SduDataPtr + CanTpPduPCI_Offset);
+
+	CanTp_FrameType = *CanTp_AddressOffset & ISOTP_NPCI_MASK;
+
+	CanTp_RxIndication_HandledFrameType(CanTp_FrameType, RxPduId, PduInfoPtr);
+
 }

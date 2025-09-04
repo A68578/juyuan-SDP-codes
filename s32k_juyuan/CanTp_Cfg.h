@@ -4,7 +4,11 @@
 #define    NUMBER_OF_TXNPDU                                                (1u)
 #define    NUMBER_OF_RXNPDU                                                (2u)
 
+#define    CANTP_RESP_LOWLAYER_TXPDUID										0
+#define    CANTP_REQ_LOWLAYER_RXPDUID										0
 
+
+#define   CANIF_TX_DL                                                       0x40
 
 typedef struct
 {
@@ -20,8 +24,8 @@ typedef struct
 	unsigned int stateTimeOutCounter;
     unsigned int ISOTP_STmin;
     unsigned int ISOTP_BS;
-    
-   TransferStateTypes state;
+    CanTp_TransferSubStateType substate;
+    CanTp_TransferStateType state;
     unsigned int transferTotal;
     unsigned int transferCount;
     PduLengthType availableDataSize;
@@ -66,20 +70,6 @@ typedef struct
     unsigned short CanTpTxNPduConfirmationPduId;
     unsigned short CanTpRxFcNPduId;
 }CanTpTxNSduType;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 extern CanTp_Change_InfoType CanTp_Change_RxData[2];

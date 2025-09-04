@@ -139,6 +139,7 @@
     <ClCompile Include="Dcm.cpp" />
     <ClCompile Include="Dcm_Appl.cpp" />
     <ClCompile Include="Dcm_Lcfg.cpp" />
+    <ClCompile Include="Det.cpp" />
     <ClCompile Include="Ea.cpp" />
     <ClCompile Include="EEPROM.cpp" />
     <ClCompile Include="Fee.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="CanTp_LCfg.h" />
     <ClInclude Include="CanTp_Types.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="ComStackTypes.h" />
     <ClInclude Include="Dcm.h" />
     <ClInclude Include="Dcm_Appl.h" />
     <ClInclude Include="Dcm_Cfg.h" />

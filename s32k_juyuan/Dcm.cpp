@@ -7,3 +7,9 @@ void Dcm_Init(void)
 {
 	printf("Task Dcm Init\n");
 }
+
+
+void Dcm_TpRxIndication(PduIdType id, Std_ReturnType result)
+{
+	printf("Task Dcm TpRxIndication\n");
+}

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ComStackTypes.h"
 /******************************************************************************************************************************************
                                  *Macro
 *******************************************************************************************************************************************/
@@ -7,8 +7,15 @@
 #define    CANTP_OFF                                                        (0u)
 #define    CANTP_ON                                                         (1u)
 
+
+typedef    unsigned char                                                CanTp_TransferStateType;
+#define    CANTP_RX_WAIT                                                ((CanTp_TransferStateType)0x00u)
+#define    CANTP_RX_PROCESSING                                          ((CanTp_TransferStateType)0x01u)
+#define    CANTP_TX_WAIT                                                ((CanTp_TransferStateType)0x02u)
+#define    CANTP_TX_PROCESSING                                          ((CanTp_TransferStateType)0x03u)
+
 /* implement of 15765-2 */
-typedef unsigned char ISOTPTransType;
+typedef unsigned char                                                   ISOTPTransType;
 #define    ISOTP_NPCI_MASK                                              ((ISOTPTransType)0xF0u)
 #define    ISOTP_NPCI_SF                                                ((ISOTPTransType)0x00u)  /* Single Frame */
 #define    ISOTP_NPCI_FF                                                ((ISOTPTransType)0x10u)  /* First Frame */
@@ -20,19 +27,29 @@ typedef unsigned char ISOTPTransType;
 #define    ISOTP_FLOW_CONTROL_STATUS_WAIT                               ((ISOTPTransType)0x01u)  /* FC Waiting Status */
 #define    ISOTP_FLOW_CONTROL_STATUS_OVFLW                              ((ISOTPTransType)0x02u)  /* FC OverFlows Status */
 
-typedef unsigned char TransferStateTypes;
-#define    UNINITIALIZED                                                 ((TransferStateTypes)0x00u)
-#define    CANTPIDLE                                                     ((TransferStateTypes)0x01u)
-#define    SF_OR_FF_RECEIVED_WAITING_UPPERLAYER_BUFFER                   ((TransferStateTypes)0x02u)
-#define    RX_WAIT_CONSECUTIVE_FRAME                                     ((TransferStateTypes)0x03u)
-#define    RX_WAIT_SDU_BUFFER                                            ((TransferStateTypes)0x04u)
-#define    RX_WAIT_TX_CONFIRMATION                                       ((TransferStateTypes)0x05u)
-#define    TX_WAIT_STMIN                                                 ((TransferStateTypes)0x06u)
-#define    TX_WAIT_TRANSMIT                                              ((TransferStateTypes)0x07u)
-#define    TX_WAIT_FLOW_CONTROL                                          ((TransferStateTypes)0x08u)
-#define    TX_WAIT_TX_CONFIRMATION                                       ((TransferStateTypes)0x09u)
-#define    CANTP_RX_PROCESSING                                           ((TransferStateTypes)0x0Au)
-#define    CANTP_TX_PROCESSING                                           ((TransferStateTypes)0x0Bu)
+
+#define    ISOTP_MAX_FRAME_CAN_BYTES                                    ((unsigned char)0x08u)
+#define    ISOTP_MAX_FRAME_CANFD_BYTES                                  ((unsigned char)CANIF_TX_DL) //0x0C 0x10 0x14 0x18 0x20 0x30 0x40
+
+#define    ISOTP_MAX_PAYLOAD_CAN_SF                                     (ISOTP_MAX_FRAME_CAN_BYTES - 1u)
+#define    ISOTP_MAX_PAYLOAD_CANFD_SF                                   (ISOTP_MAX_FRAME_CANFD_BYTES - 2u)
+#define    ISOTP_MAX_PAYLOAD_CAN_FF                                     (ISOTP_MAX_FRAME_CAN_BYTES - 2u)
+#define    ISOTP_MAX_PAYLOAD_CANFD_FF                                   (ISOTP_MAX_FRAME_CANFD_BYTES - 6u)
+
+
+
+
+typedef unsigned char                                                    CanTp_TransferSubStateType;
+#define    UNINITIALIZED                                                 ((CanTp_TransferSubStateType)0x00u)
+#define    CANTPIDLE                                                     ((CanTp_TransferSubStateType)0x01u)
+#define    SF_OR_FF_RECEIVED_WAITING_UPPERLAYER_BUFFER                   ((CanTp_TransferSubStateType)0x02u)
+#define    RX_WAIT_CONSECUTIVE_FRAME                                     ((CanTp_TransferSubStateType)0x03u)
+#define    RX_WAIT_SDU_BUFFER                                            ((CanTp_TransferSubStateType)0x04u)
+#define    RX_WAIT_TX_CONFIRMATION                                       ((CanTp_TransferSubStateType)0x05u)
+#define    TX_WAIT_STMIN                                                 ((CanTp_TransferSubStateType)0x06u)
+#define    TX_WAIT_TRANSMIT                                              ((CanTp_TransferSubStateType)0x07u)
+#define    TX_WAIT_FLOW_CONTROL                                          ((CanTp_TransferSubStateType)0x08u)
+#define    TX_WAIT_TX_CONFIRMATION                                       ((CanTp_TransferSubStateType)0x09u)
 
 typedef    unsigned char                                                 AddressingFormatType;
 #define    CANTP_EXTENDED                                                ((AddressingFormatType)0x00u)
@@ -41,22 +58,9 @@ typedef    unsigned char                                                 Address
 #define    CANTP_NORMALFIXED                                             ((AddressingFormatType)0x03u)
 #define    CANTP_STANDARD                                                ((AddressingFormatType)0x04u)
 
-/********************************************************************************************************************************************
-                                 *Type definition
-********************************************************************************************************************************************/
-typedef unsigned int PduLengthType;
-typedef unsigned short PduIdType;
-typedef struct
-{
-    unsigned char* SduDataPtr; /*Pointer to the SDU (i.e. payload data) of the PDU. The type of this
-                        pointer depends on the memory model being used at compile time*/
-    unsigned char* MetaDataPtr; /*Pointer to the meta data (e.g. CAN ID, socket ID, diagnostic addresses)
-                          of the PDU, consisting of a sequence of meta data items. The length
-                          and type of the meta data items is statically configured for each PDU.
-                          Meta data items with more than 8 bits use platform byte order.*/
-    PduLengthType SduLength;
-
-}PduInfoType;
+typedef    unsigned char                                                  TaType;
+#define    CANTP_FUNCTIONAL                                               ((TaType)0x00u)
+#define    CANTP_PHYSICAL                                                 ((TaType)0x01u)
 
 
 

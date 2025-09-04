@@ -109,6 +109,12 @@
     <Filter Include="头文件\RTD_related">
       <UniqueIdentifier>{414bab8f-640e-443e-afa9-00e79aff7db3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\RTD_related">
+      <UniqueIdentifier>{704bd7b7-d1e5-4f0d-bfe1-3e506094d4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Com">
+      <UniqueIdentifier>{f5b92dc5-e418-4895-be30-12274ab4351a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -188,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>源文件\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Det.cpp">
+      <Filter>源文件\RTD_related</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="Det.h">
       <Filter>头文件\RTD_related</Filter>
+    </ClInclude>
+    <ClInclude Include="ComStackTypes.h">
+      <Filter>头文件\Com</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

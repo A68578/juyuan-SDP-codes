@@ -1,4 +1,7 @@
-﻿  CanTp.cpp
-  WatchDog.cpp
+﻿  bl_manager.cpp
+  CanTp.cpp
+  Det.cpp
+  main.cpp
   正在生成代码...
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(117,1): error C4716: “CanTp_Transmit”: 必须返回一个值
+s32k_juyuan\x64\Debug\CanPBCfg.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

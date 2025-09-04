@@ -1,6 +1,3 @@
 #pragma once
 #include "common.h"
-Std_ReturnType Det_ReportError(unsigned short ModuleId,unsigned char InstanceId, unsigned char ApiId, unsigned char ErrorId)
-{
-    return E_OK;
-}
+extern Std_ReturnType Det_ReportRuntimeError(unsigned short ModuleId, unsigned char InstanceId, unsigned char ApiId, unsigned char ErrorId);

@@ -173,6 +173,7 @@
     <ClInclude Include="Dcm_CoreType.h" />
     <ClInclude Include="Dcm_LCfg.h" />
     <ClInclude Include="Dcm_Types.h" />
+    <ClInclude Include="Det.h" />
     <ClInclude Include="Ea.h" />
     <ClInclude Include="EEPROM.h" />
     <ClInclude Include="Fee.h" />

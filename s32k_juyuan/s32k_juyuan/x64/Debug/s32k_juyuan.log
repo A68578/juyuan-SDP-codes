@@ -1,14 +1,4 @@
 ﻿  CanTp.cpp
-  CanTp_Cfg.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,7): error C2065: “ChannelCounter”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,27): error C2065: “ChannelCounter”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(21,62): error C2065: “ChannelCounter”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,31): error C2065: “CanTpRunTimeTxData”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,50): error C2065: “ChannelCounter”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(23,3): error C3861: “CanTp_StartNewTransmission”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(29,2): error C2065: “InternalState”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(29,19): error C2065: “CanTp_InternalStateType”: 未声明的标识符
-  System.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\System.cpp(10,1): error C2059: 语法错误:“}”
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\System.cpp(10,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+  WatchDog.cpp
   正在生成代码...
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(117,1): error C4716: “CanTp_Transmit”: 必须返回一个值

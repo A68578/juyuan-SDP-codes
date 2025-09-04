@@ -3,16 +3,9 @@
 /******************************************************************************************************************************************
                                  *Macro
 *******************************************************************************************************************************************/
-/* [SWS_CanTp_00027] The CanTp module shall have two internal states, CANTP_OFF and CANTP_ON. */
+/* [SWS_CanTp_00027] The CanTp module shall have two internal states, CANTP_OFF and CANTP_ON.(CanTp mode) */
 #define    CANTP_OFF                                                        (0u)
 #define    CANTP_ON                                                         (1u)
-
-
-typedef unsigned int CanTp_TransferMode;
-#define    CANTP_RX_WAIT                                                   ((CanTp_TransferMode)0x00u)
-#define    CANTP_RX_PROCESSING                                             ((CanTp_TransferMode)0x01u)
-#define    CANTP_TX_WAIT                                                   ((CanTp_TransferMode)0x02u)
-#define    CANTP_TX_PROCESSING                                             ((CanTp_TransferMode)0x03u)
 
 /* implement of 15765-2 */
 typedef unsigned char ISOTPTransType;
@@ -30,7 +23,7 @@ typedef unsigned char ISOTPTransType;
 typedef unsigned char TransferStateTypes;
 #define    UNINITIALIZED                                                 ((TransferStateTypes)0x00u)
 #define    CANTPIDLE                                                     ((TransferStateTypes)0x01u)
-#define    SF_OR_FF_RECEIVED_WAITING_PDUR_BUFFER                         ((TransferStateTypes)0x02u)
+#define    SF_OR_FF_RECEIVED_WAITING_UPPERLAYER_BUFFER                   ((TransferStateTypes)0x02u)
 #define    RX_WAIT_CONSECUTIVE_FRAME                                     ((TransferStateTypes)0x03u)
 #define    RX_WAIT_SDU_BUFFER                                            ((TransferStateTypes)0x04u)
 #define    RX_WAIT_TX_CONFIRMATION                                       ((TransferStateTypes)0x05u)
@@ -38,11 +31,21 @@ typedef unsigned char TransferStateTypes;
 #define    TX_WAIT_TRANSMIT                                              ((TransferStateTypes)0x07u)
 #define    TX_WAIT_FLOW_CONTROL                                          ((TransferStateTypes)0x08u)
 #define    TX_WAIT_TX_CONFIRMATION                                       ((TransferStateTypes)0x09u)
+#define    CANTP_RX_PROCESSING                                           ((TransferStateTypes)0x0Au)
+#define    CANTP_TX_PROCESSING                                           ((TransferStateTypes)0x0Bu)
+
+typedef    unsigned char                                                 AddressingFormatType;
+#define    CANTP_EXTENDED                                                ((AddressingFormatType)0x00u)
+#define    CANTP_MIXED                                                   ((AddressingFormatType)0x01u)
+#define    CANTP_MIXED29BIT                                              ((AddressingFormatType)0x02u)
+#define    CANTP_NORMALFIXED                                             ((AddressingFormatType)0x03u)
+#define    CANTP_STANDARD                                                ((AddressingFormatType)0x04u)
 
 /********************************************************************************************************************************************
                                  *Type definition
 ********************************************************************************************************************************************/
 typedef unsigned int PduLengthType;
+typedef unsigned short PduIdType;
 typedef struct
 {
     unsigned char* SduDataPtr; /*Pointer to the SDU (i.e. payload data) of the PDU. The type of this

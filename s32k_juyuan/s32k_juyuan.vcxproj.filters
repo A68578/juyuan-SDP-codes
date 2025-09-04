@@ -106,6 +106,9 @@
     <Filter Include="源文件\WatchDog">
       <UniqueIdentifier>{de793433-75ce-45b6-9588-e6ce3feb559a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\RTD_related">
+      <UniqueIdentifier>{414bab8f-640e-443e-afa9-00e79aff7db3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="MCU_Clock.h">
       <Filter>头文件\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Det.h">
+      <Filter>头文件\RTD_related</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -386,6 +386,7 @@ static bl_manager_ReturnType FBltaskhandler(fblManagerContext* fblmanagercontext
 	return result;
 }
 
+/*
 static bl_manager_ReturnType forspecial_task(fblManagerContext* fblmanagercontext)
 {
 	bl_manager_ReturnType result = Boot_Check_Fail;
@@ -406,14 +407,14 @@ static bl_manager_ReturnType forspecial_task(fblManagerContext* fblmanagercontex
 	}
 	return result;
 }
-
+*/
 void fblmaintask_cycle(fblManagerContext* fblmanager)
 {
 	bl_manager_ReturnType result = Boot_Check_Fail;
 	result = FuncConfig[0](fblmanager);
 	for (int i = 0; i < SIZEARRAY(FuncRouter); i++)
 	{
-		result = forspecial_task(fblmanager);
+		//result = forspecial_task(fblmanager);
 		if (FuncConfig[0] == FuncRouter[i].originfunc)
 		{
 			if (result == Boot_Check_Success)

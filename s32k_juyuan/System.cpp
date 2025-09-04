@@ -7,4 +7,3 @@ void MCU_ISR_Init(void)
 {
 	printf("task mcu isr init\n");
 }
-}

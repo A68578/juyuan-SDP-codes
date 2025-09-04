@@ -2,6 +2,7 @@
 #include "common.h"
 #include "CanTp_Cfg.h"
 #include "CanTp_Types.h"
+#include "CanTp_Det.h"
 
 
 

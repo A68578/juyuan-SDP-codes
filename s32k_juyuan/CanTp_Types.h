@@ -36,7 +36,9 @@ typedef unsigned char                                                   ISOTPTra
 #define    ISOTP_MAX_PAYLOAD_CAN_FF                                     (ISOTP_MAX_FRAME_CAN_BYTES - 2u)
 #define    ISOTP_MAX_PAYLOAD_CANFD_FF                                   (ISOTP_MAX_FRAME_CANFD_BYTES - 6u)
 
+#define    ISOTP_SF_DL_MASK                                             ((unsigned char)0x0Fu)  /* Single frame data length mask */
 
+#define    ISOTP_FF_DL_MASK                                             ((unsigned char)0x0Fu)  /* First frame First 4 bits data length mask */
 
 
 typedef unsigned char                                                    CanTp_TransferSubStateType;
@@ -62,6 +64,31 @@ typedef    unsigned char                                                  TaType
 #define    CANTP_FUNCTIONAL                                               ((TaType)0x00u)
 #define    CANTP_PHYSICAL                                                 ((TaType)0x01u)
 
+typedef    unsigned char                                                  FrameType;
+#define    INVALID_FRAME                                                  ((FrameType)0x00u)
+#define    SINGLE_FRAME                                                   ((FrameType)0x01u)
+#define    FIRST_FRAME                                                    ((FrameType)0x02u)
+#define    CONSECUTIVE_FRAME                                              ((FrameType)0x03u)
+#define    FLOW_CONTROL_CTS_FRAME                                         ((FrameType)0x04u)
+#define    FLOW_CONTROL_WAIT_FRAME                                        ((FrameType)0x05u)
+#define    FLOW_CONTROL_OVERFLOW_FRAME                                    ((FrameType)0x06u)
+
+
+
+
+
+
+
+
+
+
+
+#define TIMER_DECREMENT(timer) \
+        if (timer > 0) { \
+            timer = timer - 1; \
+        } \
+
+#define COUNT_DECREMENT(count) TIMER_DECREMENT(count)
 
 
 

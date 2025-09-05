@@ -10,6 +10,12 @@
 
 #define   CANIF_TX_DL                                                       0x40
 
+
+#define    CanTpMainFunctionPeriod                                         (0.01f)
+
+#define    MAIN_FUNCTION_PERIOD_MILLISECONDS                              (unsigned int)CanTpMainFunctionPeriod * 1000
+
+
 typedef struct
 {
     unsigned char* SduDataPtr;

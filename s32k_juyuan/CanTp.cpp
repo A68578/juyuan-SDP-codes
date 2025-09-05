@@ -239,6 +239,71 @@ void CanTp_Init(const CanTp_ConfigType* CfgPtr)
 }
 
 
+static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* CanTpPduData)
+{
+	unsigned char rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
+	PduInfoType rxPduData;  /* Pdur Receive Data */
+	BufReq_ReturnType BufferRequest_Result = BUFREQ_E_NOT_OK;
+	BufReq_ReturnType CopyData_Result = BUFREQ_E_NOT_OK;
+
+	/* Idle = CANTP_ON.CANTP_RX_WAIT and CANTP_ON.CANTP_TX_WAIT */
+   /* CanTp status = Idle so   Process the SF N-PDU as the start of a new reception */
+   /* [SWS_CanTp_00124] When an SF or FF N-PDU without MetaData is received, and
+					   the corresponding connection channel is currently receiving the same connection
+					   (state CANTP_RX_PROCESSING, same N_AI), the CanTp module shall abort the
+					   reception in progress and shall process the received frame as the start of a new reception */
+
+	if (CANTP_RX_PROCESSING == rxRuntime->state)
+	{
+		/* Report an PDUR with E_NOT_OK to Abort*/
+		Dcm_TpRxIndication(rxNSdu->CanTpRxNPduId, E_NOT_OK);
+
+
+		/* Start new Reception */
+		CanTp_Start_RX(rxRuntime);
+	}
+	else
+	{
+		/* Do Nothing */
+	}
+
+	/* Total length of the N-SDU Data to be received. */
+	rxRuntime->transferTotal = *(CanTpPduData->SduDataPtr + rxSDU_Offset) & ISOTP_SF_DL_MASK;
+
+
+	/* Pdu Recieved Data */
+	rxPduData.SduDataPtr = CanTpPduData->SduDataPtr + rxSDU_Offset;
+	rxPduData.SduLength = rxRuntime->transferTotal;
+
+	/* Processing Mode*/
+	rxRuntime->state = CANTP_RX_PROCESSING;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdType RxPduId, const PduInfoType* PduInfoPtr)
 {
 	switch (frametype)
@@ -250,17 +315,17 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 			}
 			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
 			{
-				Dcm_TpRxIndication(RxPduId, E_NOT_OK);
 				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_PADDING);
 			}
 			else if (((*(PduInfoPtr->SduDataPtr)) & 0xF0)!= ISOTP_NPCI_SF)
 			{
+				Dcm_TpRxIndication(RxPduId, E_NOT_OK);
 				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_OPER_NOT_SUPPORTED);
 			}
 			else 
 			{
 				/*receive single frame.*/
-				//CanTp_ReceiveSingleFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+				CanTp_ReceiveSingleFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
 			}
 			break;
 
@@ -298,7 +363,45 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 			{
 				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_PADDING);
 			}
+			/* [SWS_CanTp_00093]  If a multiple segmented session occurs (on both receiver and sender side) with a handle whose communication type is functional,
+								 the CanTp module shall reject the request and report the runtime error code CANTP_E_INVALID_TATYPE to the Default Error Tracer. */
+			else if (CANTP_FUNCTIONAL == CanTpRxNSdu[RxPduId].CanTpRxTaType)
+			{
+				Dcm_TpRxIndication(RxPduId, E_NOT_OK);
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID,CANTP_RXINDICATION_SERVICE_ID, CANTP_E_INVALID_TATYPE);
+			}
+			else
+			{
+				//CanTp_ReceiveConsecutiveFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+			}
+			break;
 
+		case ISOTP_NPCI_FC: /* Flow Control*/
+			/* [SWS_CanTp_00349]  If CanTpTxPaddingActivation is equal to CANTP_ON for a Tx N-SDU,and if a FC N-PDU is received for that Tx N-SDU on a ongoing transmission,by means of CanTp_RxIndication() call,
+								  and the length of this FC is smaller than eight bytes (i.e. PduInfoPtr.SduLength <8) the CanTp module shall abort the transmission session calling PduR_CanTpTxConfirmation() with the result E_NOT_OK.
+								  The runtime error code CANTP_E_PADDING shall be reported to the Default Error Tracer. */
+			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
+			{
+				Dcm_TpTxConfirmation(CanTpTxNSdu[RxPduId].CanTpRxFcNPduId, E_NOT_OK);
+
+				CanTp_Start_TX(&CanTp_Change_TxData[0]);
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID,CANTP_RXINDICATION_SERVICE_ID, CANTP_E_PADDING);
+			}
+			/* [SWS_CanTp_00093]  If a multiple segmented session occurs (on both receiver and sender side) with a handle whose communication type is functional,
+								  the CanTp module shall reject the request and report the runtime error code CANTP_E_INVALID_TATYPE to the Default Error Tracer. */
+			else if (CANTP_FUNCTIONAL == CanTpRxNSdu[RxPduId].CanTpRxTaType)
+			{
+				Dcm_TpRxIndication(RxPduId, E_NOT_OK);
+				Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_RXINDICATION_SERVICE_ID, CANTP_E_INVALID_TATYPE);
+			}
+			else
+			{
+				/* Get the Frame Status for Flow Control */
+				//CanTp_ReceiveFlowControlFrame(&CanTpTxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+			}
+			break;
+
+		default:
 			break;
 	}
 }
@@ -346,11 +449,110 @@ void CanTp_RxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr)
 	CanTpPduPCI_Offset = CanTp_Change_RxData[RxPduId].ISOTP_NPCI_Offset;
 
 	/* Get The Frame Type */
-	//CanTp_FrameType = PduInfoPtr->SduDataPtr[CanTpPduPCI_Offset] & ISO15765_NPCI_MASK;
 	CanTp_AddressOffset = (PduInfoPtr->SduDataPtr + CanTpPduPCI_Offset);
 
 	CanTp_FrameType = *CanTp_AddressOffset & ISOTP_NPCI_MASK;
 
 	CanTp_RxIndication_HandledFrameType(CanTp_FrameType, RxPduId, PduInfoPtr);
+
+}
+
+/*
+在通过CAN网络传输与TP相关的CAN帧（SF、FF、CF、FC）后，LSduR模块应调用CanTp_TxConfirmation函数。
+[SWS_CanTp_00236] CanTp_TxConfirmation函数应在中断上下文中可调用（即可以从CAN发送中断中调用）
+[SWS_CanTp_00360] 如果启用了开发错误检测，则CanTp_TxConfirmation函数应检查函数参数TxPduId的有效性。
+如果其值无效，则CanTp_TxConfirmation函数应引发开发错误CANTP_E_INVALID_TX_ID
+*/
+
+void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result)
+{
+	FrameType TxPduIDtype;
+	unsigned char ConfirmFlag = 0;
+	//[SWS_CanTp_00031] If development error detection for the CanTp module is enabled 
+	// the CanTp module shall raise an error (CANTP_E_UNINIT)
+	//when the PDU Router or CAN Interface tries to use any function (except CanTp_GetVersionInfo) 
+	// before the function CanTp_Init has been called. (SRS_Can_01076)
+	if (CANTP_OFF == CanTpInternalState)
+	{
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
+	}
+	else if (TxPduId >= NUMBER_OF_TXNPDU)
+	{
+		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TXCONFIRMATION_SERVICE_ID, CANTP_E_INVALID_TX_ID);
+	}
+	if (TxPduId < NUMBER_OF_TXNPDU)
+	{
+		if (E_NOT_OK == result)
+		{
+			//[SWS_CanTp_00355] CanTp shall abort the corrensponding session, when CanTp_TxConfirmation() is called with the result E_NOT_OK.
+			CanTp_Change_TxData[TxPduId].state = CANTP_TX_WAIT;
+			CanTp_Change_TxData[TxPduId].substate = CANTPIDLE;
+			ConfirmFlag = 1;
+		}
+		else
+		{
+			TxPduIDtype = *(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) & ISOTP_NPCI_MASK;
+
+			switch (TxPduIDtype)
+			{
+			case ISOTP_NPCI_SF:
+				CanTp_Change_TxData[TxPduId].state = CANTP_TX_WAIT;
+				CanTp_Change_TxData[TxPduId].substate = CANTPIDLE;
+				ConfirmFlag = 1;
+				break;
+
+				// According to ISO15765-2,if a First Frame was sent,N_Bs Timer will start,then the Flow Control Frame waits to Send.
+			case ISOTP_NPCI_FF:
+				CanTp_Change_TxData[TxPduId].stateTimeOutCounter = (unsigned int)((CanTpTxNSdu[TxPduId].CanTpNbs) * 1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+				CanTp_Change_TxData[TxPduId].substate = TX_WAIT_FLOW_CONTROL;
+				break;
+
+			case ISOTP_NPCI_CF:
+				//CanTp_HandleNextTxFrame(&CanTpTxNSdu[TxPduId], &CanTp_Change_TxData[TxPduId]);
+				break;
+
+			default:
+				/* Do Nothing */
+				break;
+			}
+		}
+		if (ConfirmFlag)
+		{
+			/*[SWS_CanTp_00204] The CanTp module shall notify the upper layer by calling the
+		   PduR_CanTpTxConfirmation callback when the transmit request has been completed */
+			Dcm_TpTxConfirmation(TxPduId, result);
+		}
+	}
+	else
+	{
+		/* Do Nothing */
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
 
 }

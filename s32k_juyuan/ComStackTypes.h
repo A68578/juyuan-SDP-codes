@@ -15,3 +15,18 @@ typedef struct
     PduLengthType SduLength;
 
 }PduInfoType;
+
+
+
+typedef enum
+{
+    BUFREQ_OK, /*Buffer request accomplished successful. This 
+                 status shall have the value 0.*/
+    BUFREQ_E_NOT_OK, /*Buffer request not successful. Buffer cannot
+                       be accessed. This status shall have the value 1*/
+    BUFREQ_E_BUSY, /*Temporarily no buffer available. It¡¯s up the
+                     requester to retry request for a certain time.
+                     This status shall have the value 2.*/
+    BUFREQ_E_OVFL /*No Buffer of the required length can be provided. 
+                  This status shall have the value 3.*/
+}BufReq_ReturnType;

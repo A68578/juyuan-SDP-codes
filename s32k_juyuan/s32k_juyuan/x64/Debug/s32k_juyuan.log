@@ -1,7 +1,21 @@
-﻿  bl_manager.cpp
-  CanTp.cpp
+﻿  CanTp.cpp
+  CanTp_Cfg.cpp
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,6): error C2065: “BufReq_ReturnType”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,25): error C2065: “AUTOMATIC”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,2): error C3861: “VAR”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,36): error C2146: 语法错误: 缺少“;”(在标识符“BufferRequest_Status”的前面)
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,36): error C2065: “BufferRequest_Status”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(251,59): error C2065: “BUFREQ_E_NOT_OK”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,6): error C2065: “BufReq_ReturnType”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,25): error C2065: “AUTOMATIC”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,2): error C3861: “VAR”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,36): error C2146: 语法错误: 缺少“;”(在标识符“CopyData_Status”的前面)
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,36): error C2065: “CopyData_Status”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(252,54): error C2065: “BUFREQ_E_NOT_OK”: 未声明的标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(524,1): error C2059: 语法错误:“}”
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(524,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)
+  Dcm.cpp
   Det.cpp
+  bl_manager.cpp
   main.cpp
   正在生成代码...
-s32k_juyuan\x64\Debug\CanPBCfg.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
-  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

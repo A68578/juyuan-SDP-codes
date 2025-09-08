@@ -278,11 +278,254 @@ static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change
 	/* Processing Mode*/
 	rxRuntime->state = CANTP_RX_PROCESSING;
 
+	/* [SWS_CanTp_00079] When receiving an SF or an FF N-PDU, the CanTp module
+			 shall notify the upper layer (PDU Router) about this reception using the
+			 PduR_CanTpStartOfReception function */
+
+	BufferRequest_Result = Dcm_CanTpStartOfReception(rxNSdu->CanTpRxNSduId, &rxPduData, rxRuntime->transferTotal, &rxRuntime->Buffersize);
+
+	switch (BufferRequest_Result)
+	{
+		/* [SWS_CanTp_00339] After the reception of a First Frame or Single Frame, if the
+							 function PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller
+							 available buffer size than needed for the already received data, the CanTp module
+							 shall abort the reception of the N-SDU and call PduR_CanTpRxIndication() with
+							 the result E_NOT_OK */
+	case BUFREQ_OK:
+		if (rxRuntime->Buffersize < rxRuntime->transferTotal)
+		{
+			Dcm_TpRxIndication(rxNSdu->CanTpRxNPduId, E_NOT_OK);
+		}
+		else
+		{
+			/* Id           ->  id of the received I-PDU.
+			 * info         -> Provides the source buffer (SduDataPtr) and the number of
+							   bytes to be copied
+			 *bufferSizePtr -> Available receive buffer after data has been copied.
+			 */
+			CopyData_Result = Dcm_CopyRxData(rxNSdu->CanTpRxNSduId, &rxPduData, &rxRuntime->Buffersize);
+
+			if (CopyData_Result == BUFREQ_OK)
+			{
+				Dcm_TpRxIndication(rxNSdu->CanTpRxNPduId, E_OK);
+			}
+			else if (CopyData_Result == BUFREQ_E_NOT_OK)
+			{
+				Dcm_TpRxIndication(rxNSdu->CanTpRxNPduId, E_NOT_OK);
+			}
+			/* End of the reception*/
+			rxRuntime->substate = CANTPIDLE;
+			rxRuntime->state = CANTP_RX_WAIT;
+			break;
+		}
+		/*[SWS_CanTp_00081] After the reception of a First Frame or Single Frame, if the function
+							   PduR_CanTpStartOfReception()returns BUFREQ_E_NOT_OK to the CanTp module,
+							   the CanTp module shall abort the reception of this N-SDU. No Flow
+							   Control will be sent and PduR_CanTpRxIndication() will not be called in this case. */
+
+
+							   /* [SWS_CanTp_00353] After the reception of a Single Frame, if the function
+												   PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+												   the CanTp module shall abort the N-SDU reception.*/
+	case BUFREQ_E_NOT_OK:
+		/* abort the reception*/
+	case BUFREQ_E_OVFL:
+		/* abort the reception*/
+		rxRuntime->substate = CANTPIDLE;
+		rxRuntime->state = CANTP_RX_WAIT;
+		break;
+
+	default:
+		/* Do Nothing */
+		break;
+	}
+}
+
+static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* CanTpPduData)
+{
+	unsigned char rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
+	unsigned char MaxPayload;
+	BufReq_ReturnType BufferRequest_Result = BUFREQ_E_NOT_OK;
+	BufReq_ReturnType CopyData_Result = BUFREQ_E_NOT_OK;
+	PduLengthType BuffersizeTemp;
+
+	CanTp_SelectAddressMode(rxRuntime);
+
+	MaxPayload = rxRuntime->MaxCFPayload;
+
+	/* Status -> Segmented Receive in progress
+			 Terminate the current reception,report an indication, with parameter Result set to
+			 E_NOT_OK, to the upper layer, and process the FF N-PDU as the start of a new reception
+   Status -> IDle
+			Process the SF N-PDU as the start of a new reception */
+	if (CANTP_RX_PROCESSING == rxRuntime->state)
+	{
+		/* Report an PDUR with E_NOT_OK to Abort*/
+		Dcm_TpRxIndication(rxNSdu->CanTpRxNPduId, E_NOT_OK);
+
+		/* Start new Reception */
+		CanTp_Start_RX(rxRuntime);
+	}
+	else
+	{
+		/* Do Nothing */
+	}
+
+	/* Get total Length FF_DL */
+	rxRuntime->transferTotal = ((CanTpPduData->SduDataPtr[rxSDU_Offset++] & ISOTP_FF_DL_MASK) << 8);
+	rxRuntime->transferTotal |= CanTpPduData->SduDataPtr[rxSDU_Offset++];
 
 
 
 
+#if CANTP_EXTENDED
+	if (CanTpPduData->SduLength >= ISOTP_MAX_FRAME_CAN_BYTES)
+	{
+		if (0 == rxRuntime->transferTotal)
+		{
+			for (unsigned char i = 0; i < 4u; i++) {
+				rxRuntime->transferTotal |= CanTpPduData->SduDataPtr[rxSDU_Offset] << (24 - 8 * i);
+				rxSDU_Offset++;
+			}
+		}
+	}
+#endif
 
+	/* Pdu Recieved Data */
+	rxRuntimeParam->pdurBuffer.SduDataPtr = &CanTpPduData->SduDataPtr[indexCount];
+
+
+
+	rxRuntimeParam->pdurBuffer.SduLength = CanTpPduData->SduLength - (PduLengthType)indexCount;
+
+
+	/* Processing Mode*/
+	rxRuntimeParam->mode = CANTP_RX_PROCESSING;
+	BufferRequest_Status = Dcm_StartOfReception(rxNSduConfig->CanTpRxNSduId, &rxRuntimeParam->pdurBuffer, (PduLengthType)rxRuntimeParam->transferTotal, &rxRuntimeParam->Buffersize);
+	BuffersizeTemp = rxRuntimeParam->Buffersize;
+
+	switch (BufferRequest_Status)
+	{
+	case BUFREQ_OK:
+
+
+		/* [SWS_CanTp_00339] After the reception of a First Frame or Single Frame, if the
+							 function PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller
+							 available buffer size than needed for the already received data, the CanTp module
+							 shall abort the reception of the N-SDU and call PduR_CanTpRxIndication() with
+							 the result E_NOT_OK */
+		if (rxRuntimeParam->Buffersize < rxRuntimeParam->pdurBuffer.SduLength)
+		{
+			/* call PduR_CanTpRxIndication() with the result E_NOT_OK */
+			Dcm_TpRxIndication(rxNSduConfig->CanTpRxNPduId, E_NOT_OK);
+			/* abort the reception*/
+			rxRuntimeParam->state = CANTPIDLE;
+			rxRuntimeParam->mode = CANTP_RX_WAIT;
+
+
+		}
+		else
+		{
+			/*[SWS_CanTp_00224] When the Rx buffer is large enough for the next block
+							   (directly after the First Frame or the last Consecutive Frame of a block, or after
+							   repeated calls to PduR_CanTpCopyRxData() according to SWS_CanTp_00222),
+							   the CanTp module shall send a Flow Control N-PDU with ClearToSend status
+							   (FC(CTS)) and shall then expect the reception of Consecutive Frame N-PDUs.*/
+
+
+							   /* Id           ->  dentification of the received I-PDU.
+								* info         -> Provides the source buffer (SduDataPtr) and the number of
+												  bytes to be copied
+								*bufferSizePtr -> Available receive buffer after data has been copied.
+								*/
+			CopyData_Status = Dcm_CopyRxData(rxNSduConfig->CanTpRxNSduId, &rxRuntimeParam->pdurBuffer, &rxRuntimeParam->Buffersize);
+
+			switch (CopyData_Status)
+			{
+			case BUFREQ_OK: /* Data copied successfully */
+
+				/* increase size of successfully transfered bytes */
+				rxRuntimeParam->transferCount += rxRuntimeParam->pdurBuffer.SduLength;
+
+
+				/* [SWS_CanTp_00082] After the reception of a First Frame, if the function
+													 PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller available buffer
+													 size than needed for the next block, the CanTp module shall start the timer N_Br.*/
+				if (rxRuntimeParam->Buffersize < ((rxRuntimeParam->transferTotal - rxRuntimeParam->transferCount) & MaxPayload))
+				{
+					/* [SWS_CanTp_00222] While the timer N_Br is active, the CanTp module shall call
+										 the service PduR_CanTpCopyRxData() with a data length 0 (zero) and NULL_PTR
+										 as data buffer during each processing of the MainFunction */
+										 /* Set N_BR timer */
+					rxRuntimeParam->stateTimeoutCount = KILOSCALE(rxNSduConfig->CanTpNbr) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+
+					/* main function will check this state to handle if the buffer size
+					  become available or not and if the timer is expired send wait flow control */
+					rxRuntimeParam->state = RX_WAIT_SDU_BUFFER;
+
+					/* Receiver in progressing mode */
+				}
+				else /* size of available buffer is sufficient for next block */
+				{
+					rxRuntimeParam->Buffersize = BuffersizeTemp;
+
+					/* Change State To wait Consecutive Frame */
+					rxRuntimeParam->state = RX_WAIT_CONSECUTIVE_FRAME;
+
+					/* Processing Received mode */
+
+					/* Count on First CF = 1 */
+					rxRuntimeParam->framesHandledCount = 1;
+
+					/* send a Flow Control N-PDU with ContinueToSend status  */
+					CanTp_SendFlowControlFrame(rxNSduConfig, rxRuntimeParam, FLOW_CONTROL_CTS_FRAME);
+				}
+				break;
+
+			case BUFREQ_E_NOT_OK:
+				Dcm_TpRxIndication(rxNSduConfig->CanTpRxNPduId, E_NOT_OK);
+				break;
+
+			default:
+				/* Nothing */
+				break;
+			}
+		}
+		break;
+
+
+		/*[SWS_CanTp_00081] After the reception of a First Frame or Single Frame, if the function
+							PduR_CanTpStartOfReception()returns BUFREQ_E_NOT_OK to the CanTp module,
+							the CanTp module shall abort the reception of this N-SDU. No Flow
+							Control will be sent and PduR_CanTpRxIndication() will not be called in this case. */
+	case BUFREQ_E_NOT_OK:
+		/* abort the reception*/
+		rxRuntimeParam->state = CANTPIDLE;
+		rxRuntimeParam->mode = CANTP_RX_WAIT;
+		break;
+
+
+		/*[SWS_CanTp_00318]  After the reception of a First Frame, if the function
+							 PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+							 the CanTp module shall send a Flow Control N-PDU with overflow status
+							 (FC(OVFLW)) and abort the N-SDU reception.*/
+							 /* No buffer of the required length can be
+								  provided; reception is aborted. bufferSizePtr */
+								  /* [SWS_CanTp_00353] After the reception of a Single Frame, if the function
+														  PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+														  the CanTp module shall abort the N-SDU reception.*/
+	case BUFREQ_E_OVFL:
+		/* send a Flow Control N-PDU with overflow status */
+		CanTp_SendFlowControlFrame(rxNSduConfig, rxRuntimeParam, FLOW_CONTROL_OVERFLOW_FRAME);
+
+
+		/* abort the reception*/
+		rxRuntimeParam->state = CANTPIDLE;
+		rxRuntimeParam->mode = CANTP_RX_WAIT;
+		break;
+	default:
+		break;
+	}
 
 }
 
@@ -344,7 +587,7 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 			else
 			{
 				/*receive first frame.*/
-				//CanTp_ReceiveFirstFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
+				CanTp_ReceiveFirstFrame(&CanTpRxNSdu[RxPduId], &CanTp_Change_TxData[RxPduId], PduInfoPtr);
 			}
 			break;
 
@@ -553,6 +796,3 @@ void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result)
 
 
 
-
-
-}

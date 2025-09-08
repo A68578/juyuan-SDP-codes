@@ -18,3 +18,17 @@ void Dcm_TpTxConfirmation(PduIdType txPduID, Std_ReturnType result)
 {
 	printf("Task Dcm TpTxConfirmation\n");
 }
+
+BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduInfoType* PduInfo,
+	PduLengthType TpSduLength, PduLengthType* bufferSizePtr)
+{
+	printf("Task Dcm_CanTpStartOfReception\n");
+	return BUFREQ_OK;
+}
+
+BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
+	unsigned short* bufferSizePtr)
+{
+	printf("Task  Dcm_CopyRxData\n");
+	return BUFREQ_OK;
+}

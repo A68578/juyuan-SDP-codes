@@ -4,6 +4,8 @@
 #define    NUMBER_OF_TXNPDU                                                (1u)
 #define    NUMBER_OF_RXNPDU                                                (2u)
 
+#define    CANTP_EXTENDED                                                   0
+
 #define    CANTP_RESP_LOWLAYER_TXPDUID										0
 #define    CANTP_REQ_LOWLAYER_RXPDUID										0
 

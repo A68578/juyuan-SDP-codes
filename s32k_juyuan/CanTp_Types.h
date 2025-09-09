@@ -73,7 +73,7 @@ typedef    unsigned char                                                  FrameT
 #define    FLOW_CONTROL_WAIT_FRAME                                        ((FrameType)0x05u)
 #define    FLOW_CONTROL_OVERFLOW_FRAME                                    ((FrameType)0x06u)
 
-
+#define    SEGMENT_NUMBER_MASK                                            ((unsigned char)0x0Fu)
 
 
 

@@ -27,7 +27,7 @@
 #define INVALID_RESET_FLAG              0x05U
 
 
-/*blmanager Req_Resulturn type*/
+/*blmanager return type*/
 typedef enum
 {
 	Boot_Check_Success,

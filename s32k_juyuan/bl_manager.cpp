@@ -77,7 +77,7 @@ bl_manager_ReturnType FBL_CheckTargetFlag(unsigned int readflagId)
 		result = Boot_Check_Fail;
 	}
 
-	Req_Resulturn result;
+	 return result;
 }
 
 
@@ -102,7 +102,7 @@ bl_manager_ReturnType FBL_ClearFlag(unsigned int readflagId)
 		result = (bl_manager_ReturnType)MemIf_Erase(addr, len, &data);
 	}
 
-	Req_Resulturn result;
+	return result;
 }
 
 bl_manager_ReturnType FBL_CheckReprog_Event(fblManagerContext* fblmanagercontext)
@@ -157,7 +157,7 @@ bl_manager_ReturnType FBL_CheckReprog_Event(fblManagerContext* fblmanagercontext
 			}
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 
@@ -199,7 +199,7 @@ bl_manager_ReturnType FBL_CheckReset_Event(fblManagerContext* fblmanagercontext)
 			}
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 
@@ -237,7 +237,7 @@ bl_manager_ReturnType FBL_Mcal_Init_Event(fblManagerContext* fblmanagercontext)
 			result = Boot_Check_Success;
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 bl_manager_ReturnType FBL_Diagnostic_Init_Event(fblManagerContext* fblmanagercontext)
@@ -263,7 +263,7 @@ bl_manager_ReturnType FBL_Diagnostic_Init_Event(fblManagerContext* fblmanagercon
 			result = Boot_Check_Success;
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 
@@ -293,7 +293,7 @@ bl_manager_ReturnType FBL_MainFunction_Event(fblManagerContext* fblmanagercontex
 		}
 
 	}
-	Req_Resulturn Boot_Check_Success;
+	return Boot_Check_Success;
 }
 
 bl_manager_ReturnType FBL_CheckApp_Event(fblManagerContext* fblmanagercontext)
@@ -326,7 +326,7 @@ bl_manager_ReturnType FBL_CheckApp_Event(fblManagerContext* fblmanagercontext)
 			}
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 bl_manager_ReturnType FBL_GotoApp_Event(fblManagerContext* fblmanagercontext)
@@ -353,7 +353,7 @@ bl_manager_ReturnType FBL_GotoApp_Event(fblManagerContext* fblmanagercontext)
 			}
 		}
 	}
-	Req_Resulturn result;
+	return result;
 }
 
 static fblManagerEvent fblchange_channel_select[] =
@@ -383,7 +383,7 @@ static bl_manager_ReturnType FBltaskhandler(fblManagerContext* fblmanagercontext
 {
 	bl_manager_ReturnType result = Boot_Check_Fail;
 	result = fblchange_channel_select[fblmanagercontext->currentstate].handle(fblmanagercontext);
-	Req_Resulturn result;
+	return result;
 }
 
 /*
@@ -405,7 +405,7 @@ static bl_manager_ReturnType forspecial_task(fblManagerContext* fblmanagercontex
 	{
 		result = Boot_Check_Success;
 	}
-	Req_Resulturn result;
+	return result;
 }
 */
 void fblmaintask_cycle(fblManagerContext* fblmanager)

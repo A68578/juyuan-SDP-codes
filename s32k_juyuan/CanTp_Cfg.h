@@ -4,7 +4,7 @@
 #define    NUMBER_OF_TXNPDU                                                (1u)
 #define    NUMBER_OF_RXNPDU                                                (2u)
 
-#define    CANTP_EXTENDED                                                   0
+#define    CANTP_EXTEND                                                     0
 
 #define    CANTP_RESP_LOWLAYER_TXPDUID										0
 #define    CANTP_REQ_LOWLAYER_RXPDUID										0
@@ -23,7 +23,7 @@ Used for the initialization of unused bytes with a certain value
 #define    CanTpPaddingByte                                                (0x55u)
 
 #define    CustomInOut(x,condition,y1,y2)                                 (((x) <= (condition))?(y1):(y2))
-#if CANTP_EXTENDED
+#if (CANTP_EXTEND == 1)
 #define    ISOTP_MAX_PADDING_BYTES(x)                                     CustomInOut((uint8)x,ISOI5765_MAX_FRAME_CAN20_BYTES,ISOI5765_MAX_FRAME_CAN20_BYTES,CustomInOut((uint8)x,0x18u,(uint8)(((uint8)(x - 1u) & 0xFCu) + 0x04u),CustomInOut(x,0x40u,(uint8)(((uint8)(x - 1u) & 0xF0u) + 0x10u),0u)))
 #endif
 #define ISOTP_MAX_PADDING_BYTES                                           (0x08u)

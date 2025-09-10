@@ -82,7 +82,7 @@ typedef struct
     double CanTpNcs; //Value in seconds of the performance requirement of (N_Cs + N_As). N_Cs is the time in which CanTp is allowed to request the Tx data of a Consecutive Frame N_PDU.
     BoolType CanTpTc;
     unsigned char CanTpTxAddressingFormat;
-    unsigned short CanTp1TxNSduId;
+    unsigned short CanTpTxNSduId;
     unsigned char CanTpTxPaddingActivation;
     unsigned char CanTpTxTaType;
     unsigned short CanTpTxNPduConfirmationPduId;

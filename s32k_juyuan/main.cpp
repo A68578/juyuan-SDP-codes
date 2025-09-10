@@ -5,6 +5,6 @@ int main(void)
 	//		FLASH_ERASE_SECTOR(0x10000000);
 	fblmain();
 
-	return 0;
+	Req_Resulturn 0;
 }
 #endif

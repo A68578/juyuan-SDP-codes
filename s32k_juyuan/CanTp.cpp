@@ -154,7 +154,7 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 	CanTp_Start_TX(&CanTp_Change_TxData[TxPduId]);
 	/* [SWS_CanTp_00123] If the configured transmit connection channel is in use (state CANTP_TX_PROCESSING),
 						 the CanTp module shall reject new transmission requests linked to this channel.
-						 To reject a transmission, CanTp returns E_NOT_OK when the
+						 To reject a transmission, CanTp Req_Resulturns E_NOT_OK when the
 						 upper layer asks for a transmission with the CanTp_Transmit() function */
 
 	if (CANTP_ON == CanTpInternalState)
@@ -222,7 +222,7 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 	{
 		TransmitResult = E_NOT_OK;
 	}
-	return TransmitResult;
+	Req_Resulturn TransmitResult;
 }
 
 void CanTp_Init(const CanTp_ConfigType* CfgPtr)
@@ -298,7 +298,7 @@ static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change
 	switch (BufferRequest_Result)
 	{
 		/* [SWS_CanTp_00339] After the reception of a First Frame or Single Frame, if the
-							 function PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller
+							 function PduR_CanTpStartOfReception() Req_Resulturns BUFREQ_OK with a smaller
 							 available buffer size than needed for the already received data, the CanTp module
 							 shall abort the reception of the N-SDU and call PduR_CanTpRxIndication() with
 							 the result E_NOT_OK */
@@ -330,13 +330,13 @@ static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change
 			break;
 		}
 		/*[SWS_CanTp_00081] After the reception of a First Frame or Single Frame, if the function
-							   PduR_CanTpStartOfReception()returns BUFREQ_E_NOT_OK to the CanTp module,
+							   PduR_CanTpStartOfReception()Req_Resulturns BUFREQ_E_NOT_OK to the CanTp module,
 							   the CanTp module shall abort the reception of this N-SDU. No Flow
 							   Control will be sent and PduR_CanTpRxIndication() will not be called in this case. */
 
 
 							   /* [SWS_CanTp_00353] After the reception of a Single Frame, if the function
-												   PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+												   PduR_CanTpStartOfReception()Req_Resulturns BUFREQ_E_OVFL to the CanTp module,
 												   the CanTp module shall abort the N-SDU reception.*/
 	case BUFREQ_E_NOT_OK:
 		/* abort the reception*/
@@ -467,7 +467,7 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 
 	/************************ cases when flowControl status is Overflow ****************/
 	/* 1- [SWS_CanTp_00318] After the reception of a First Frame, if the function PduR_CanTpStartOfReception()
-	returns BUFREQ_E_OVFL to the CanTp module, the CanTp module shall send 
+	Req_Resulturns BUFREQ_E_OVFL to the CanTp module, the CanTp module shall send 
 	a Flow Control N-PDU with overflow status (FC(OVFLW)) and abort the N-SDU reception */
 	
 	/* 2- [SWS_CanTp_00309] If a FC frame is received with the FS set to OVFLW the CanTp module shall abort
@@ -553,7 +553,7 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 
 
 	/* [SWS_CanTp_00343]  CanTp shall terminate the current transmission connection
-						  when CanIf_Transmit() returns E_NOT_OK when transmitting an SF, FF, of CF */
+						  when CanIf_Transmit() Req_Resulturns E_NOT_OK when transmitting an SF, FF, of CF */
 
 
 	CanTp_Change_TxData[rxNSdu->CanTpRxNSduId].upperTransData.SduDataPtr = txFlowControlData.SduDataPtr;
@@ -582,6 +582,316 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 	}
 }
 
+void CanTp_ReceiveFlowControlFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime,const PduInfoType* CanTpPduData)
+{
+	unsigned char CanTp_NSduOffset = 0;
+
+	/* Make sure that the frame is in 'TX_WAIT_FLOW_CONTROL' state */
+	if (txRuntime->substate == TX_WAIT_FLOW_CONTROL)
+	{
+		if ((CANTP_EXTENDED == txNSdu->CanTpTxAddressingFormat) || (CANTP_MIXED == txNSdu->CanTpTxAddressingFormat) || (CANTP_MIXED29BIT == txNSdu->CanTpTxAddressingFormat))   /* for Extended Addressing Mode */
+		{
+			CanTp_NSduOffset++;
+		}
+		/* First Byte of FC Frame consists of (frame type + flow control flag)
+		 * Stored in PduData->SduDataPtr[0]
+		 * Checking the Flow Control Flag Status(ClearToSend=0, Wait=1, OverFlow=2)*/
+		switch (CanTpPduData->SduDataPtr[CanTp_NSduOffset++] & ISOTP_FC_FS_MASK)
+		{
+		case ISOTP_FLOW_CONTROL_STATUS_CTS:
+			/* Extracting BlockSize(BS) which is Stored in PduData->SduDataPtr[1] */
+			txRuntime->	ISOTP_BS = CanTpPduData->SduDataPtr[CanTp_NSduOffset++];
+			/* Storing value of BlockSize in Counter that shall be decremented at the reception of each CF */
+			txRuntime->nextFlowCounter = txRuntime->ISOTP_BS;
+			/* Extracting SeparateTime(STmin) which is Stored in PduData->SduDataPtr[2] */
+			txRuntime->ISOTP_STmin = CanTpPduData->SduDataPtr[CanTp_NSduOffset++];
+			/* Changing state of the frame to be waiting for Next CF Transmission */
+			txRuntime->substate = TX_WAIT_TRANSMIT;
+			break;
+
+		case ISOTP_FLOW_CONTROL_STATUS_WAIT:
+			/* [SWS_CanTp_00315] The CanTp module shall start a timeout observation for N_Bs time at
+			 * confirmation of the FF transmission, last CF of a block transmission and at
+			 * each indication of FC with FS=WT (i.e. time until reception of the next FC).*/
+
+			 /* Starting N_BS Timer */
+			txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			/* Frame state remains unchanged */
+			txRuntime->state = TX_WAIT_FLOW_CONTROL;
+			break;
+
+
+		case ISOTP_FLOW_CONTROL_STATUS_OVFLW:
+			/* [SWS_CanTp_00309] If a FC frame is received with the FS set to OVFLW the CanTp module shall
+			 * abort the transmit request and notify the upper layer by calling the callback
+			 * function PduR_CanTpTxConfirmation() with the result E_NOT_OK.*/
+
+			 /* Abort the transmission requested before by setting Frame State to be in idle state
+			  * and Changing CanTP Module Mode to be in 'CANTP_TX_WAIT' mode */
+			txRuntime->substate = CANTPIDLE;
+			txRuntime->state = CANTP_TX_WAIT;
+
+			/* PduR Notification of Transmission failure by the value 'E_NOT_OK' */
+			Dcm_TpTxConfirmation(txNSdu->CanTpRxFcNPduId, E_NOT_OK);
+			break;
+
+		default:
+			/* In case the FS of FC is invalid, exit */
+			break;
+		}
+	}
+
+	else
+	{
+		/* Do nothing if the frame isn't in 'TX_WAIT_FLOW_CONTROL' state keeping state and mode unchanged */
+	}
+}
+
+BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime)
+{
+	BufReq_ReturnType Req_result = BUFREQ_E_NOT_OK;
+	Std_ReturnType Resp_result = E_NOT_OK;
+
+	unsigned char TransPdur_Id;
+	PduInfoType pduInfo;
+
+	unsigned char ByteCounter;
+
+	/* [SWS_CanTp_00272] The API PduR_CanTpCopyTxData() contains a parameter used for the recovery mechanism Req_Resultry
+	 * Because ISO 15765-2 does not support such a mechanism, the CAN Transport Layer does not implement
+	 * any kind of recovery. Thus, the parameter is always set to NULL pointer. */
+	RetryInfoType* Req_Resultry = NULL_PTR; 
+
+	TransPdur_Id = txNSdu->CanTpTxNSduId;
+
+
+	if (0 == txRuntime->availableDataSize)           /* in case of SF or FF, no data left unsent */
+	{
+		Req_result = Dcm_CopyTxData(TransPdur_Id, &txRuntime->upperLayerbuffer, Req_Resultry, &txRuntime->availableDataSize);
+		txRuntime->transferCount += txRuntime->upperTransData.SduLength;
+	}
+	else /* In case of any CF */
+	{
+		/* Prepare TX buffer for next frame to be sent */
+		txRuntime->CanIfTransData.SduLength = 0;
+
+		if ((CANTP_EXTENDED == txNSdu->CanTpTxAddressingFormat) || (CANTP_MIXED == txNSdu->CanTpTxAddressingFormat) || (CANTP_MIXED29BIT == txNSdu->CanTpTxAddressingFormat))   /* for Extended Addressing Mode */
+		{
+			txRuntime->CanIfTransData.SduLength++;
+		}
+
+
+		/* Increment Number of frames handled in this specific block of Consecutive frames */
+		txRuntime->framehandledCounter++;
+
+
+		/* To prepare First byte in CF */
+
+		txRuntime->CanIfTransData.SduDataPtr[txRuntime->CanIfTransData.SduLength++] = (txRuntime->framehandledCounter & SEGMENT_NUMBER_MASK) | ISOTP_NPCI_CF;
+
+		/* Decrement nextFlowControlCount each time entering function indicating
+		 * how much frames i need to send later until the state of waiting for FC Frame */
+		COUNT_DECREMENT(txRuntime->nextFlowCounter);
+
+		/* Value of MAX_PAYLOAD of each frame differentiates depending on the addressing mode whether
+		 * it's standard or extended Addressing modes */
+		if ((txRuntime->availableDataSize) > txRuntime->MaxCFPayload)        /* in case of Full CF */
+		{
+			(txRuntime->upperTransData.SduLength) = txRuntime->MaxCFPayload;
+		}
+		else if ((txRuntime->availableDataSize) <= txRuntime->MaxCFPayload)  /* in case of Last CF */
+		{
+			(txRuntime->upperTransData.SduLength) = (txRuntime->availableDataSize);
+		}
+
+		Req_result = Dcm_CopyTxData(TransPdur_Id, &txRuntime->upperTransData, Req_Resultry, &txRuntime->availableDataSize);
+
+		/* Updating total transfered amount of bytes */
+		txRuntime->transferCount += txRuntime->upperTransData.SduLength;
+	}
+
+
+	for (ByteCounter = 0; ByteCounter < txRuntime->upperTransData.SduLength; ByteCounter++)
+	{
+		txRuntime->CanIfTransData.SduDataPtr[ByteCounter + txRuntime->CanIfTransData.SduLength] = txRuntime->upperTransData.SduDataPtr[ByteCounter]; 
+	}
+
+
+	/* Updating total number of bytes to be transmitted to CanIF */
+	txRuntime->CanIfTransData.SduLength += txRuntime->upperTransData.SduLength;
+
+	if (BUFREQ_OK == Req_result) /* data copied successfully */
+	{
+		pduInfo.SduDataPtr = txRuntime->CanIfTransData.SduDataPtr;
+		pduInfo.SduLength = txRuntime->CanIfTransData.SduLength;
+
+		if (CANTP_ON == txNSdu->CanTpTxPaddingActivation)
+		{
+			CanTp_PaddingFrame(&pduInfo);
+		}
+		else
+		{
+			/* Do Nothing in case of padding isn't activated */
+		}
+
+		/* [SWS_CanTp_00075] When the transmit confirmation is not received after a maximum time (equal to N_As),
+		 * the CanTp module shall abort the corresponding session. The N-PDU remains unavailable
+		 * to other concurrent sessions until the TxConfirmation is received, successful or not.*/
+
+		 /* change state to verify tx confirm within timeout */
+		txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNas)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->substate = TX_WAIT_TX_CONFIRMATION;
+
+		/* Calling CanIf to transmit underlying frame */
+
+		Resp_result = CanIf_Transmit(&pduInfo);
+
+		switch (Resp_result)
+		{
+		case E_NOT_OK:
+			/* [SWS_CanTp_00343] CanTp shall terminate the current transmission connection when CanIf_Transmit()
+			 * Req_Resulturns E_NOT_OK when transmitting an SF, FF, of CF */
+
+			 /* failed to send, Req_Resulturning value of BUFREQ_E_NOT_OK to caller */
+			Req_result = BUFREQ_E_NOT_OK;
+
+			break;
+
+		case E_OK:
+
+			/* Data sent successfully, PduR_CanTpTxConfirmation will be
+			 * called in 'handleNextTxFrame' function */
+			Req_result = BUFREQ_OK;
+
+			break;
+
+		default:
+
+			break;
+		}
+
+	}
+	else /* BUFREQ_E_NOT_OK or BUFREQ_E_BUSY */
+	{
+		/* failed to copy new data */
+	}
+	Req_Resulturn Req_result;
+}
+
+
+
+void CanTp_HandleNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime)
+{
+
+	/* In Case of Last Block of Consecutive Frames is Received (End of Transmission) or Block size = 0 meaning send all frames */
+	if ((txRuntime->transferTotal) <= (txRuntime->transferCount))
+	{
+
+		/* Transfer finished! */
+		Dcm_TpTxConfirmation(txNSdu->CanTpTxNSduId, E_OK);
+		txRuntime->transferCount = 0;
+		txRuntime->substate = CANTPIDLE;
+		txRuntime->state = CANTP_TX_WAIT;
+	}
+
+	/* In Case of the last CF in the block and sender is waiting for Flow Control and Block Size != 0 */
+	else if ((0 == txRuntime->nextFlowCounter) && (txRuntime->ISOTP_BS))
+	{
+		/* [SWS_CanTp_00315] The CanTp module shall start a timeout observation for N_Bs time
+		 * at confirmation of the FF transmission, last CF of a block transmission
+		 * and at each indication of FC with FS=WT (i.e. time until reception of the next FC). */
+
+		 /* TX ECU expects flow control */
+		txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->substate = TX_WAIT_FLOW_CONTROL;
+	}
+
+	/* In case of nextFlowControlCount != 0 (in-between CF) or BS == 0 (last block of CFs)
+	 * and it's time to send that CF (STmin == 0) */
+	else if (0 == txRuntime->stateTimeOutCounter)  // it was STmin
+	{
+		/* Send next consecutive frame! */
+		BufReq_ReturnType resp_result;
+
+		/* [SWS_CanTp_00167] After a transmission request from upper layer,
+		 * the CanTp module shall start time-out N_Cs before the call of PduR_CanTpCopyTxData.
+		 * If no data is available before the timer elapsed, the CanTp module shall abort the communication.*/
+		txRuntime->stateTimeOutCounter = ((unsigned int)txNSdu->CanTpNcs *1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+
+		/* Sending Next frame using the function responsible for calling PduR_CanTpCopyTxData() function */
+
+		resp_result = CanTp_SendNextTxFrame(txNSdu, txRuntime);
+
+		switch (resp_result)
+		{
+		case BUFREQ_OK:
+			/* successfully sent frame, wait for TX confirm */
+
+			/* [SWS_CanTp_00090] When the transport transmission session is successfully completed,
+			 * the CanTp module shall call a notification service of the upper layer,
+			 * PduR_CanTpTxConfirmation(), with the result E_OK. */
+			Dcm_TpTxConfirmation(txNSdu->CanTpTxNSduId, E_OK); //good
+
+			break;
+
+		case BUFREQ_E_BUSY:
+			/* [SWS_CanTp_00184] If the PduR_CanTpCopyTxData() function Req_Resulturns BUFREQ_E_BUSY,
+			 * the CanTp module shall later (implementation specific) Req_Resultry to copy the data. */
+
+			 /* Change State and Setup Timeout trying to copy the data later if it's available
+			  * before N_Cs timeout */
+			txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNcs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			txRuntime->state = TX_WAIT_TRANSMIT;
+
+			break;
+
+		case BUFREQ_E_NOT_OK:
+
+			/* [SWS_CanTp_00087] If PduR_CanTpCopyTxData() Req_Resulturns BUFREQ_E_NOT_OK,
+			 * the CanTp module shall abort the transmit request and notify the upper layer of this failure
+			 * by calling the callback function PduR_CanTpTxConfirmation() with the result E_NOT_OK. */
+
+			 /* [SWS_CanTp_00343]CanTp shall terminate the current transmission connection when CanIf_Transmit()
+			  * Req_Resulturns E_NOT_OK when transmitting an SF, FF, of CF */
+
+			Dcm_TpTxConfirmation(txNSdu->CanTpTxNSduId, E_NOT_OK); //good
+			txRuntime->substate = CANTPIDLE;
+			txRuntime->state = CANTP_TX_WAIT;
+
+			break;
+
+		default:
+
+			break;
+
+		}
+	}
+	else
+	{
+		/* In case of nextFlowControlCount != 0 (in-between CF) or BS == 0 (last block of CFs)
+		 * and it's not time to send (STmin != 0) */
+
+
+		 /* Send next consecutive frame after STmin!
+		  * ST MIN error handling, please read ISO 15765-2 Sec7.6 for info about
+		  * setting value of STmin */
+		if ((txRuntime->ISOTP_STmin) < 0x80)
+		{
+			txRuntime->stateTimeOutCounter = (txRuntime->ISOTP_STmin / MAIN_FUNCTION_PERIOD_MILLISECONDS) + 1;
+		}
+		else if (((txRuntime->ISOTP_STmin) > 0xF0) && ((txRuntime->ISOTP_STmin) < 0xFA))
+		{
+			/* 0.1 mS resolution needs a lower task period. So hard coded to 1 main cycle */
+			txRuntime->stateTimeOutCounter = 1;
+		}
+		else
+		{
+			txRuntime->stateTimeOutCounter = (0x7F / MAIN_FUNCTION_PERIOD_MILLISECONDS) + 1;
+		}
+		/* Changing state of TX to be waiting for STmin Time stored in stateTimeoutCount */
+		txRuntime->substate = TX_WAIT_STMIN;
+	}
+}
 
 
 static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* CanTpPduData)
@@ -653,7 +963,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 
 		/* [SWS_CanTp_00339] After the reception of a First Frame or Single Frame, if the
-							 function PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller
+							 function PduR_CanTpStartOfReception() Req_Resulturns BUFREQ_OK with a smaller
 							 available buffer size than needed for the already received data, the CanTp module
 							 shall abort the reception of the N-SDU and call PduR_CanTpRxIndication() with
 							 the result E_NOT_OK */
@@ -686,7 +996,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 
 				/* [SWS_CanTp_00082] After the reception of a First Frame, if the function
-													 PduR_CanTpStartOfReception() returns BUFREQ_OK with a smaller available buffer
+													 PduR_CanTpStartOfReception() Req_Resulturns BUFREQ_OK with a smaller available buffer
 													 size than needed for the next block, the CanTp module shall start the timer N_Br.*/
 				if (rxRuntime->Buffersize < ((rxRuntime->transferTotal - rxRuntime->transferCount) % (MaxPayload + 1)))
 				{
@@ -732,7 +1042,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 
 		/*[SWS_CanTp_00081] After the reception of a First Frame or Single Frame, if the function
-							PduR_CanTpStartOfReception()returns BUFREQ_E_NOT_OK to the CanTp module,
+							PduR_CanTpStartOfReception()Req_Resulturns BUFREQ_E_NOT_OK to the CanTp module,
 							the CanTp module shall abort the reception of this N-SDU. No Flow
 							Control will be sent and PduR_CanTpRxIndication() will not be called in this case. */
 		case BUFREQ_E_NOT_OK:
@@ -743,13 +1053,13 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 
 		/*[SWS_CanTp_00318]  After the reception of a First Frame, if the function
-							 PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+							 PduR_CanTpStartOfReception()Req_Resulturns BUFREQ_E_OVFL to the CanTp module,
 							 the CanTp module shall send a Flow Control N-PDU with overflow status
 							 (FC(OVFLW)) and abort the N-SDU reception.*/
 							 /* No buffer of the required length can be
 								  provided; reception is aborted. bufferSizePtr */
 								  /* [SWS_CanTp_00353] After the reception of a Single Frame, if the function
-														  PduR_CanTpStartOfReception()returns BUFREQ_E_OVFL to the CanTp module,
+														  PduR_CanTpStartOfReception()Req_Resulturns BUFREQ_E_OVFL to the CanTp module,
 														  the CanTp module shall abort the N-SDU reception.*/
 		case BUFREQ_E_OVFL:
 		/* send a Flow Control N-PDU with overflow status */
@@ -767,7 +1077,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 }
 
-void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change_InfoType* rxRuntime, const PduInfoType* rxPduData)
+void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* rxPduData)
 {
 	unsigned char rxNSduOffset = rxRuntime->ISOTP_NPCI_Offset;
 	unsigned char segmentNumber = 0;
@@ -776,7 +1086,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 	PduIdType PduIdTemp;
 	Std_ReturnType resultTemp = E_NOT_OK;
 
-	PduIdTemp = (PduIdType)rxConfig->CanTpRxNSduId;
+	PduIdTemp = (PduIdType)rxNSdu->CanTpRxNSduId;
 
 	/* [SWS_CanTp_00284] In the reception direction, the first data byte value of each (SF, FF or CF)
 	 * transport protocol data unit will be used to determine the relevant N-SDU.*/
@@ -826,7 +1136,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 			 *  start a time-out N_Br before calling PduR_CanTpStartOfReception or PduR_CanTpCopyRxData.*/
 
 			 /* start N_Br timer */
-			rxRuntime->stateTimeOutCounter = ((unsigned int)(rxConfig->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 			/* copy data to PduR Buffer */
 			ReqResult = Dcm_CopyRxData(PduIdTemp, &PduInfoTemp, &rxRuntime->Buffersize);
@@ -851,14 +1161,6 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 
 				/* [SWS_CanTp_00084] When the transport reception session is completed (successfully or not)
 				 * the CanTp module shall call the upper layer notification service PduR_CanTpRxIndication().*/
-				if (ReqResult == BUFREQ_OK)
-				{
-					resultTemp = E_OK;
-				}
-				else
-				{
-					resultTemp = E_NOT_OK;
-				}
 				Dcm_TpRxIndication(PduIdTemp, resultTemp);
 				
 				/* Setting frame state to 'CANTPIDLE' and CanTP mode to 'CANTP_RX_WAIT' */
@@ -866,20 +1168,20 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 				rxRuntime->state = CANTP_RX_WAIT;
 				rxRuntime->transferCount = 0;
 			}
-			else if (BUFREQ_OK == ReqResult) /* It's last CF of this block and copied with returned BUFREQ_OK status */
+			else if (BUFREQ_OK == ReqResult) /* It's last CF of this block and copied with Req_Resulturned BUFREQ_OK status */
 			{
-				/* Now, i need to send a FC Frame with returned buffer status stored in ret
+				/* Now, i need to send a FC Frame with Req_Resulturned buffer status stored in Req_Result
 				 * and available buffer size stored in 'rxRuntime' */
 
 				 /* Checking if there is enough space for at least the next CF */
 				if (rxRuntime->Buffersize < ((rxRuntime->transferTotal - rxRuntime->transferCount) % (rxRuntime->MaxCFPayload + 1)))
 				{
 					/* [SWS_CanTp_00325] If the function PduR_CanTpCopyRxData() called after reception of the last Consecutive Frame
-					 * of a block returns BUFREQ_OK, but the remaining buffer is not sufficient for the reception of the next block,
+					 * of a block Req_Resulturns BUFREQ_OK, but the remaining buffer is not sufficient for the reception of the next block,
 					 * the CanTp module shall start the timer N_Br. */
 
 					 /* Set N_Br timer */
-					rxRuntime->stateTimeOutCounter = ((unsigned int)(rxConfig->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+					rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 					/* main function will check this state to handle if the buffer size
 					  become available or not and if the timer is expired send wait flow control */
@@ -901,18 +1203,18 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 					{
 
 						/* send a Flow Control N-PDU with ClearToSend status  */
-						CanTp_SendFlowControlFrame(rxConfig, rxRuntime, FLOW_CONTROL_CTS_FRAME);
+						CanTp_SendFlowControlFrame(rxNSdu, rxRuntime, FLOW_CONTROL_CTS_FRAME);
 					}
 				}
 
 			}
-			else /* ret == BUFREQ_E_NOT_OK */
+			else /* Req_Result == BUFREQ_E_NOT_OK */
 			{
-				/* in case of failing to copy frame, return nextFlowControlCount to its value before calling
+				/* in case of failing to copy frame, Req_Resulturn nextFlowControlCount to its value before calling
 				 * PduR_CanTpCopyRxData */
 				rxRuntime->nextFlowCounter++;
 
-				/* [SWS_CanTp_00271] If the PduR_CanTpCopyRxData() returns BUFREQ_E_NOT_OK after reception of
+				/* [SWS_CanTp_00271] If the PduR_CanTpCopyRxData() Req_Resulturns BUFREQ_E_NOT_OK after reception of
 				 * a Consecutive Frame in a block the CanTp shall abort the reception of N-SDU and notify
 				 * the PduR module by calling the PduR_CanTpRxIndication() with the result E_NOT_OK. */
 
@@ -926,7 +1228,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 		else /* It's not last CF which means it's in-between CF in a block*/
 		{
 			/* Copy the data in the buffer as long as there`s a room for copying
-			 * and then checking the returned buffer status and available buffer size */
+			 * and then checking the Req_Resulturned buffer status and available buffer size */
 			ReqResult = Dcm_CopyRxData(PduIdTemp, &PduInfoTemp, &rxRuntime->Buffersize);
 			if (ReqResult == BUFREQ_OK)
 			{
@@ -939,7 +1241,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 			if (BUFREQ_E_NOT_OK == ReqResult)
 			{
 
-				/* [SWS_CanTp_00271] If the PduR_CanTpCopyRxData() returns BUFREQ_E_NOT_OK after reception of
+				/* [SWS_CanTp_00271] If the PduR_CanTpCopyRxData() Req_Resulturns BUFREQ_E_NOT_OK after reception of
 				 * a Consecutive Frame in a block the CanTp shall abort the reception of N-SDU and notify
 				 * the PduR module by calling the PduR_CanTpRxIndication() with the result E_NOT_OK. */
 
@@ -961,18 +1263,254 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxConfig, CanTp_Change
 				 * a CF transmission on the sender side (FC with FS=CTS).*/
 
 				 /* Start N_Cr timer which contains the time in seconds until reception of the next Consecutive Frame N_PDU.*/
-				rxRuntime->stateTimeOutCounter = ((unsigned int)(rxConfig->CanTpNcr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+				rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNcr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 				rxRuntime->substate = RX_WAIT_CONSECUTIVE_FRAME;
-			}/* end of returned PduR Buffer status checking*/
+			}/* end of Req_Resulturned PduR Buffer status checking*/
 
 		}/* end of last CF checking */
 
 	} /* end of SN checking */
 }
 
+void CanTp_MainFunctionTransmitChannel(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* rxRuntime, const CanTpRxNSduType* rxNSdu)
+{
+	BufReq_ReturnType Req_Result = BUFREQ_OK;
+
+	switch (txRuntime->state)
+	{
+	case TX_WAIT_STMIN:
+
+		/* Make sure that STmin timer has expired */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		if (txRuntime->stateTimeoutCount != 0)
+		{
+			break;
+		}
+		txRuntime->state = TX_WAIT_TRANSMIT;                /* when stateTimeoutCount = 0 */
+
+		/* Update state timeout with the remaining time of N_Cr after ST has passed, as shown in ISO 15765-2 */
+		txRuntime->stateTimeoutCount = (KILOSCALE(rxNSdu->CanTpNcr) - (uint32)txRuntime->STmin) / (uint32)MAIN_FUNCTION_PERIOD_MILLISECONDS;
+
+		/* No need for break here as we want to go for next case directly not to be delayed for main period time */
+		break;
+
+	case TX_WAIT_TRANSMIT:
+		/* the function responsible for sending frames */
+		Req_Result = CanTp_SendNextTxFrame(txConfig, txRuntime);
+
+		if (BUFREQ_E_NOT_OK == Req_Result)
+		{
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+
+			/* As per [SWS_CanTp_00204] mentioned above */
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		else if (BUFREQ_E_BUSY == Req_Result)
+		{
+			/* Decrement to check N_Cs timeout */
+			TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+			if (0 == txRuntime->stateTimeoutCount)
+			{
+				txRuntime->state = CANTPIDLE;
+				txRuntime->mode = CANTP_TX_WAIT;
+
+				/* [SWS_CanTp_00204] The CanTp module shall notify the upper layer by calling
+				 * the PduR_CanTpTxConfirmation callback when the transmit request has been completed.*/
+				Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+			}
+			else
+			{
+				/* [SWS_CanTp_00184] If the PduR_CanTpCopyTxData() function Req_Resulturns BUFREQ_E_BUSY,
+				 * the CanTp module shall later (implementation specific) Req_Resultry to copy the data.*/
+
+				 /* if N_Cs is still active and BUFREQ_E_BUSY, exit main and try re-copying data
+				  * the next time entering main */
+			}
+		}
+
+		else /* BUFREQ_OK */
+		{
+			/* successfully sent frame, wait for tx confirm */
+		}
+
+		break;
+
+	case TX_WAIT_FLOW_CONTROL:
+
+		/* Decrement to check N_Bs timeout */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		/* [SWS_CanTp_00316] In case of N_Bs timeout occurrence the CanTp module shall abort transmission
+		 * of this message and notify the upper layer by calling the callback function PduR_CanTpTxConfirmation()
+		 * with the result E_NOT_OK.*/
+		if (0 == txRuntime->stateTimeoutCount)
+		{
+			/* [SWS_CanTp_00205] The CanTp module shall abort the transmit request and call the PduR_CanTpTxConfirmation
+			 * callback function with the appropriate error result value if an error occurred (over flow, N_As timeout,
+			 *  N_Bs timeout and so on).*/
+
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		break;
+
+
+	case TX_WAIT_TX_CONFIRMATION:
+
+		/* Decrement to check N_As timeout */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		if (0 == txRuntime->stateTimeoutCount)
+		{
+			/* [SWS_CanTp_00075] When the transmit confirmation is not received after a maximum time (equal to N_As), the CanTp module shall abort the corresponding session.
+			 * The N-PDU remains unavailable to other concurrent sessions until the TxConfirmation is received, successful or not.*/
+
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+
+			/* As per [SWS_CanTp_00204] mentioned above */
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		break;
+
+	default:
+
+		break;
+	}
+}
+
+CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_MainFunctionTransmitChannel(P2CONST(CanTpTxNSdu_s, CANTP_CODE, AUTOMATIC) txConfig, P2VAR(RunTimeInfo_s, CANTP_CODE, AUTOMATIC) txRuntime, P2CONST(CanTpRxNSdu_s, CANTP_CODE, AUTOMATIC) rxNSdu)
+{
+	VAR(BufReq_ReturnType, AUTOMATIC) Req_Result = BUFREQ_OK;
+
+	switch (txRuntime->state)
+	{
+	case TX_WAIT_STMIN:
+
+		/* Make sure that STmin timer has expired */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		if (txRuntime->stateTimeoutCount != 0)
+		{
+			break;
+		}
+		txRuntime->state = TX_WAIT_TRANSMIT;                /* when stateTimeoutCount = 0 */
+
+		/* Update state timeout with the remaining time of N_Cr after ST has passed, as shown in ISO 15765-2 */
+		txRuntime->stateTimeoutCount = (KILOSCALE(rxNSdu->CanTpNcr) - (uint32)txRuntime->STmin) / (uint32)MAIN_FUNCTION_PERIOD_MILLISECONDS;
+
+		/* No need for break here as we want to go for next case directly not to be delayed for main period time */
+		break;
+
+	case TX_WAIT_TRANSMIT:
+		/* the function responsible for sending frames */
+		Req_Result = CanTp_SendNextTxFrame(txConfig, txRuntime);
+
+		if (BUFREQ_E_NOT_OK == Req_Result)
+		{
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+
+			/* As per [SWS_CanTp_00204] mentioned above */
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		else if (BUFREQ_E_BUSY == Req_Result)
+		{
+			/* Decrement to check N_Cs timeout */
+			TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+			if (0 == txRuntime->stateTimeoutCount)
+			{
+				txRuntime->state = CANTPIDLE;
+				txRuntime->mode = CANTP_TX_WAIT;
+
+				/* [SWS_CanTp_00204] The CanTp module shall notify the upper layer by calling
+				 * the PduR_CanTpTxConfirmation callback when the transmit request has been completed.*/
+				Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+			}
+			else
+			{
+				/* [SWS_CanTp_00184] If the PduR_CanTpCopyTxData() function Req_Resulturns BUFREQ_E_BUSY,
+				 * the CanTp module shall later (implementation specific) Req_Resultry to copy the data.*/
+
+				 /* if N_Cs is still active and BUFREQ_E_BUSY, exit main and try re-copying data
+				  * the next time entering main */
+			}
+		}
+
+		else /* BUFREQ_OK */
+		{
+			/* successfully sent frame, wait for tx confirm */
+		}
+
+		break;
+
+	case TX_WAIT_FLOW_CONTROL:
+
+		/* Decrement to check N_Bs timeout */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		/* [SWS_CanTp_00316] In case of N_Bs timeout occurrence the CanTp module shall abort transmission
+		 * of this message and notify the upper layer by calling the callback function PduR_CanTpTxConfirmation()
+		 * with the result E_NOT_OK.*/
+		if (0 == txRuntime->stateTimeoutCount)
+		{
+			/* [SWS_CanTp_00205] The CanTp module shall abort the transmit request and call the PduR_CanTpTxConfirmation
+			 * callback function with the appropriate error result value if an error occurred (over flow, N_As timeout,
+			 *  N_Bs timeout and so on).*/
+
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		break;
+
+
+	case TX_WAIT_TX_CONFIRMATION:
+
+		/* Decrement to check N_As timeout */
+		TIMER_DECREMENT(txRuntime->stateTimeoutCount);
+
+		if (0 == txRuntime->stateTimeoutCount)
+		{
+			/* [SWS_CanTp_00075] When the transmit confirmation is not received after a maximum time (equal to N_As), the CanTp module shall abort the corresponding session.
+			 * The N-PDU remains unavailable to other concurrent sessions until the TxConfirmation is received, successful or not.*/
+
+			txRuntime->state = CANTPIDLE;
+			txRuntime->mode = CANTP_TX_WAIT;
+
+			/* As per [SWS_CanTp_00204] mentioned above */
+			Dcm_TpTxConfirmation(txConfig->CanTpTxNSduId, E_NOT_OK);
+		}
+		break;
+
+	default:
+
+		break;
+	}
+}
+
+
+FUNC(void, CANTP_CODE)
+CanTp_MainFunction(void)
+{
+	uint8 i;
+
+	CanTp_DetReportError(((CanTp_InternalStateType)CANTP_OFF == InternalState), CANTP_MAINFUNCTION_SERVICE_ID, CANTP_E_UNINIT);
+
+
+	for (i = 0; i < NUMBER_OF_TXNPDU; i++) {
+		CanTp_MainFunctionTransmitChannel(&CanTpTxNSdu[i], &CanTpRunTimeTxData[i], &CanTpRxNSdu[i]);
+	}
 
 
 
+	for (i = 0; i < NUMBER_OF_RXNPDU; i++) {
+		CanTp_MainFunctionReceiveChannel(&CanTpRxNSdu[i], &CanTpRunTimeRxData[i]);
+	}
+}
 
 
 
@@ -995,7 +1533,7 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 		case ISOTP_NPCI_SF:/*Single Frame*/
 			if (CANTP_TX_PROCESSING == CanTp_Change_TxData[CanTpRxNSdu[RxPduId].CanTpTxFcNPduConfirmationPduId].state)
 			{
-				return;
+				Req_Resulturn;
 			}
 			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
 			{
@@ -1041,7 +1579,7 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 								  CanTp shall abort the ongoing reception by calling PduR_CanTpRxIndication() with the result E_NOT_OK. The runtime error code CANTP_E_PADDING shall be reported to the Default Error Tracer*/
 			if (CANTP_TX_PROCESSING == CanTp_Change_TxData[CanTpRxNSdu[RxPduId].CanTpTxFcNPduConfirmationPduId].state)
 			{
-				return;
+				Req_Resulturn;
 			}
 			if ((PduInfoPtr->SduLength < ISOTP_MAX_FRAME_CAN_BYTES) && (CANTP_ON == CanTpRxNSdu[RxPduId].CanTpRxPaddingActivation))
 			{

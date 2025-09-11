@@ -1,105 +1,11 @@
-﻿  CanTp.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(7,12): warning C4005: “CANTP_EXTENDED”: 宏重定义
-  (编译源文件“CanTp.cpp”)
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Types.h(57,12):
-      参见“CANTP_EXTENDED”的前一个定义
-  
+﻿  bl_manager.cpp
+  CanTp.cpp
 C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(563,20): error C3861: “CanIf_Transmit”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(647,25): error C3861: “Dcm_StartOfReception”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(822,25): error C2039: "nextFlowControlCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(822,62): error C2039: "BS": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(822,87): error C2039: "BS": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(828,15): error C2039: "stateTimeoutCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(828,35): error C3861: “KILOSCALE”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(831,4): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(831,25): error C2065: “Id”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(831,30): error C2065: “info”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(834,15): error C2059: 语法错误:“++”
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(837,32): error C2065: “info”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(846,24): error C2065: “Id”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(846,28): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(850,16): error C2039: "mode": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(853,26): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(866,17): error C2039: "stateTimeoutCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(866,37): error C3861: “KILOSCALE”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(873,17): error C2039: "mode": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(882,17): error C2039: "mode": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(884,26): error C2039: "BS": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(897,16): error C2039: "nextFlowControlCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(904,16): error C2039: "mode": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(905,24): error C2065: “Id”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(905,28): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(914,4): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(914,25): error C2065: “Id”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(914,30): error C2065: “info”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(916,27): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(923,24): error C2065: “Id”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(923,28): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(925,16): error C2039: "mode": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(928,26): error C2065: “ret”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(931,16): error C2039: "framesHandledCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(934,33): error C2065: “info”: 未声明的标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(941,16): error C2039: "stateTimeoutCount": 不是 "CanTp_Change_InfoType" 的成员
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(39,1):
-      参见“CanTp_Change_InfoType”的声明
-  
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(941,36): error C3861: “KILOSCALE”: 找不到标识符
-  CanTp_Cfg.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(7,12): warning C4005: “CANTP_EXTENDED”: 宏重定义
-  (编译源文件“CanTp_Cfg.cpp”)
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Types.h(57,12):
-      参见“CANTP_EXTENDED”的前一个定义
-  
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(665,23): warning C4244: “=”: 从“const unsigned short”转换到“unsigned char”，可能丢失数据
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(670,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(707,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(747,17): error C3861: “CanIf_Transmit”: 找不到标识符
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(957,25): error C3861: “Dcm_StartOfReception”: 找不到标识符
   Dcm.cpp
-  bl_manager.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(7,12): warning C4005: “CANTP_EXTENDED”: 宏重定义
-  (编译源文件“bl_manager.cpp”)
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Types.h(57,12):
-      参见“CANTP_EXTENDED”的前一个定义
-  
   main.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Cfg.h(7,12): warning C4005: “CANTP_EXTENDED”: 宏重定义
-  (编译源文件“main.cpp”)
-      C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp_Types.h(57,12):
-      参见“CANTP_EXTENDED”的前一个定义
-  
   正在生成代码...

@@ -198,6 +198,9 @@
     <ClCompile Include="Det.cpp">
       <Filter>源文件\RTD_related</Filter>
     </ClCompile>
+    <ClCompile Include="sourcetask.cpp">
+      <Filter>源文件\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bl_manager.h">
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="ComStackTypes.h">
       <Filter>头文件\Com</Filter>
+    </ClInclude>
+    <ClInclude Include="sourcetask.h">
+      <Filter>源文件\src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

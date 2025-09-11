@@ -1,12 +1,12 @@
 
 #include "CanTp_Cfg.h"
-CanTp_Change_InfoType CanTp_Change_RxData[] =
+CanTp_Change_InfoType CanTp_Change_RxData[NUMBER_OF_RXNPDU] =
 {
 	{},
 	{}
 };
 
-CanTp_Change_InfoType CanTp_Change_TxData[] =
+CanTp_Change_InfoType CanTp_Change_TxData[NUMBER_OF_TXNPDU] =
 {
 	{}
 };

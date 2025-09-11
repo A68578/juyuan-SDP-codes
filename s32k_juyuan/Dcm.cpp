@@ -32,3 +32,16 @@ BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
 	printf("Task  Dcm_CopyRxData\n");
 	return BUFREQ_OK;
 }
+
+BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,const RetryInfoType* retry,
+	PduLengthType* availableDataPtr
+)
+{
+	printf("Task  Dcm_CopyTxData\n");
+	return BUFREQ_OK;
+}
+
+void Dcm_StartSendData(unsigned char* dataptr)
+{
+
+}

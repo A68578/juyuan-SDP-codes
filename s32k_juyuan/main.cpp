@@ -1,5 +1,6 @@
 #include "bl_manager.h"
-#if 1
+#include "sourcetask.h"
+#if 0
 int main(void)
 {
 	//		FLASH_ERASE_SECTOR(0x10000000);
@@ -8,3 +9,9 @@ int main(void)
 	return 0;
 }
 #endif
+
+
+int main()
+{
+	sourcetask();
+}

@@ -23,7 +23,7 @@ static void CanTp_Start_RX(CanTp_Change_InfoType* rxRunBuffer)
 	 /* Initialize all Tx runtime variable that will be used during runTime */
 
 	 /* Initialize all Tx runtime variable that will be used during runTime */
-	rxRunBuffer->state = CANTPIDLE;
+	rxRunBuffer->substate = CANTPIDLE;
 	rxRunBuffer->transferTotal = 0;
 	rxRunBuffer->Buffersize = 0;
 	rxRunBuffer->availableDataSize = 0;
@@ -45,7 +45,7 @@ static void CanTp_Start_TX(CanTp_Change_InfoType* txRunBuffer)
 	 /* Initialize all Tx runtime variable that will be used during runTime */
 
 
-	txRunBuffer->state = CANTPIDLE;
+	txRunBuffer->substate = CANTPIDLE;
 	txRunBuffer->transferCount = 0;
 	txRunBuffer->framehandledCounter = 0;
 	txRunBuffer->transferTotal = 0;
@@ -134,6 +134,7 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 	Std_ReturnType TransmitResult = E_NOT_OK;
 	unsigned int CanIfTransOffset = 0;
 	unsigned int CanIfTrans_MultiFrame_Partial_Length = 0;
+	unsigned char* SduDataPtrTemp = 0;
 	if (CanTpInternalState == CANTP_OFF)
 	{
 		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
@@ -177,41 +178,39 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 			if (CanTp_Change_TxData[TxPduId].transferTotal <= CanTp_Change_TxData[TxPduId].MaxSFPayload)
 			{
 				CanIfTransOffset = CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength;
-				
-				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
-				
-				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = ISOTP_NPCI_SF;
-				
+
+				SduDataPtrTemp = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr;
+
+				*(SduDataPtrTemp + CanIfTransOffset) = ISOTP_NPCI_SF;
+
 				CanIfTransOffset = CanIfTransOffset + 1;
-				
-				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
-				
-				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = CanTp_Change_TxData[TxPduId].transferTotal;
-				
-				CanIfTransOffset = CanIfTransOffset + 1;
-				
+
+				*(SduDataPtrTemp + CanIfTransOffset) = CanTp_Change_TxData[TxPduId].transferTotal;
+
 				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
+
+				CanTp_Change_TxData[TxPduId].upperTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr; //Dcm_copy_data
 			}
 			/*multi frame:First frame.*/
 			else 
 			{
 				CanIfTransOffset = CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength;
-				
-				CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr + CanIfTransOffset;
+
+				SduDataPtrTemp = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr;
 				
 				CanIfTrans_MultiFrame_Partial_Length = (CanTp_Change_TxData[TxPduId].transferTotal) & 0xF00;
-				
-				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = ISOTP_NPCI_FF| CanIfTrans_MultiFrame_Partial_Length;
+
+				*(SduDataPtrTemp + CanIfTransOffset) = ISOTP_NPCI_FF | CanIfTrans_MultiFrame_Partial_Length;
 				
 				CanIfTrans_MultiFrame_Partial_Length = (CanTp_Change_TxData[TxPduId].transferTotal) & 0xFF;
 
 				CanIfTransOffset = CanIfTransOffset + 1;
 
-				*(CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr) = CanIfTrans_MultiFrame_Partial_Length;
-
-				CanIfTransOffset = CanIfTransOffset + 1;
+				*(SduDataPtrTemp + CanIfTransOffset) = CanIfTrans_MultiFrame_Partial_Length;
 
 				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
+
+				CanTp_Change_TxData[TxPduId].upperTransData.SduDataPtr = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr; //Dcm_copy_data
 			}
 
 		}
@@ -667,7 +666,7 @@ BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Cha
 
 	if (0 == txRuntime->availableDataSize)           /* in case of SF or FF, no data left unsent */
 	{
-		Req_result = Dcm_CopyTxData(TransPdur_Id, &txRuntime->upperLayerbuffer, Req_Resultry, &txRuntime->availableDataSize);
+		Req_result = Dcm_CopyTxData(TransPdur_Id, &txRuntime->upperTransData, Req_Resultry, &txRuntime->availableDataSize);
 		txRuntime->transferCount += txRuntime->upperTransData.SduLength;
 	}
 	else /* In case of any CF */
@@ -744,7 +743,7 @@ BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Cha
 
 		/* Calling CanIf to transmit underlying frame */
 
-		Resp_result = CanIf_Transmit(&pduInfo);
+		Resp_result = CanIf_Transmit(TransPdur_Id,&pduInfo);
 
 		switch (Resp_result)
 		{
@@ -1502,7 +1501,7 @@ void CanTp_MainFunctionTransmitChannel(const CanTpTxNSduType* txNSdu, CanTp_Chan
 {
 	BufReq_ReturnType Req_Result = BUFREQ_OK;
 
-	switch (txRuntime->state)
+	switch (txRuntime->substate)
 	{
 	case TX_WAIT_STMIN:
 
@@ -1513,7 +1512,7 @@ void CanTp_MainFunctionTransmitChannel(const CanTpTxNSduType* txNSdu, CanTp_Chan
 		{
 			break;
 		}
-		txRuntime->state = TX_WAIT_TRANSMIT;                /* when stateTimeoutCount = 0 */
+		txRuntime->substate = TX_WAIT_TRANSMIT;                /* when stateTimeoutCount = 0 */
 
 		/* Update state timeout with the remaining time of N_Cr after ST has passed, as shown in ISO 15765-2 */
 		txRuntime->stateTimeOutCounter = (((unsigned int)(rxNSdu->CanTpNcr)*1000) - txRuntime->ISOTP_STmin) / MAIN_FUNCTION_PERIOD_MILLISECONDS;

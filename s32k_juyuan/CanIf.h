@@ -1,18 +1,12 @@
 #pragma once
 #include "CanIf_Cfg.h"
+#include "Can.h"
+
+
 typedef struct {
     int dummy; //never used
 } CanIf_ConfigType;
 
-typedef unsigned int Can_IdType;
-typedef unsigned short Can_HwHandleType;
-
-typedef struct
-{
-    Can_IdType CanId;
-    Can_HwHandleType Hoh;
-    unsigned char ControllerId;
-}Can_HwType;
 
 
 extern void CanIf_Init(const CanIf_ConfigType* ConfigPtr);

@@ -198,7 +198,10 @@
     <ClCompile Include="Det.cpp">
       <Filter>源文件\RTD_related</Filter>
     </ClCompile>
-    <ClCompile Include="sourcetask.cpp">
+    <ClCompile Include="sourceswc.cpp">
+      <Filter>源文件\src</Filter>
+    </ClCompile>
+    <ClCompile Include="sourcecfg.cpp">
       <Filter>源文件\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -305,8 +308,11 @@
     <ClInclude Include="ComStackTypes.h">
       <Filter>头文件\Com</Filter>
     </ClInclude>
-    <ClInclude Include="sourcetask.h">
+    <ClInclude Include="sourceswc.h">
       <Filter>源文件\src</Filter>
+    </ClInclude>
+    <ClInclude Include="Can_GeneralTypes.h">
+      <Filter>头文件\Can</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

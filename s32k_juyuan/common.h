@@ -1,5 +1,10 @@
 #pragma once
 #include "stdio.h"
+#define DEBUG 1
+#if DEBUG
+#include <Windows.h>
+#pragma comment(lib, "kernel32.lib")
+#endif
 
 #define NULL_PTR 0
 

@@ -40,8 +40,3 @@ BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,co
 	printf("Task  Dcm_CopyTxData\n");
 	return BUFREQ_OK;
 }
-
-void Dcm_StartSendData(unsigned char* dataptr)
-{
-
-}

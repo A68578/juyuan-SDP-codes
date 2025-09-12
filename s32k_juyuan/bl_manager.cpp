@@ -15,8 +15,6 @@
 #include "bl_manager.h"
 
 
-#include "Windows.h"
-
 
   /*global macros*/
 #define SIZEARRAY(list) sizeof(list)/sizeof(list[0])

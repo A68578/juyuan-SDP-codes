@@ -10,3 +10,6 @@ extern BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduI
 	PduLengthType TpSduLength, PduLengthType* bufferSizePtr);
 extern BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
 	unsigned short* bufferSizePtr);
+BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID, const PduInfoType* PduInfo, const RetryInfoType* retry,
+	PduLengthType* availableDataPtr
+);

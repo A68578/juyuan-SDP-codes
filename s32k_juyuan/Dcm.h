@@ -1,7 +1,20 @@
 #pragma once
+#define DEBUG 1
 #include "ComStack_Types.h"
 #include "common.h"
 #include "CanTp.h"
+#include "Dcm_Types.h"
+#include "sourceswc.h"
+
+
+
+#if DEBUG
+#include "string.h" 
+#include "stdlib.h"
+#endif
+
+
+
 extern void DCM_10DelayCancel(void);
 extern void Dcm_Init(void);
 extern void Dcm_TpRxIndication(PduIdType id, Std_ReturnType result);

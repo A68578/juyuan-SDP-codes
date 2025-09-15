@@ -174,6 +174,11 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 			CanTp_SelectAddressMode(&CanTp_Change_TxData[TxPduId]);
 			/*handle the payload of data.*/
 			CanTp_HandleAddressMode(&CanTp_Change_TxData[TxPduId]);
+#if DEBUG
+			/*assign data*/
+			CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength = 0; //start of frame.
+			CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = (unsigned char*)malloc(sizeof(unsigned char));
+#endif
 			/*single frame.*/
 			if (CanTp_Change_TxData[TxPduId].transferTotal <= CanTp_Change_TxData[TxPduId].MaxSFPayload)
 			{
@@ -182,10 +187,15 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 				SduDataPtrTemp = CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr;
 
 				*(SduDataPtrTemp + CanIfTransOffset) = ISOTP_NPCI_SF;
+				printf("%d\n", CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr[CanIfTransOffset]);
 
 				CanIfTransOffset = CanIfTransOffset + 1;
 
 				*(SduDataPtrTemp + CanIfTransOffset) = CanTp_Change_TxData[TxPduId].transferTotal;
+				
+				CanIfTransOffset = CanIfTransOffset + 1;
+
+				*(SduDataPtrTemp + CanIfTransOffset) = *(PduInfoPtr->SduDataPtr);
 
 				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
 
@@ -229,23 +239,25 @@ void CanTp_Init(const CanTp_ConfigType* CfgPtr)
 	PduIdInfoType rxChannelCount = 0;
 	PduIdInfoType txChannelCount = 0;
 
-	/* [SWS_CanTp_00030] The function CanTp_Init shall initialize all global variables of the module and sets
-	* all transport protocol connections in a sub-state of CANTP_ON, in which neither segmented transmission
-	* nor segmented reception are in progress (Rx thread in state CANTP_RX_WAIT and Tx thread in state CANTP_TX_WAIT). (SRS_Can_01075)*/
-	/*change to initial table*/
-	for (rxChannelCount = 0; rxChannelCount < NUMBER_OF_RXNPDU; rxChannelCount++)
+	if (CanTpInternalState == (unsigned char)CANTP_OFF)
 	{
-		CanTp_Start_RX(&CanTp_Change_RxData[rxChannelCount]);
+		/* [SWS_CanTp_00030] The function CanTp_Init shall initialize all global variables of the module and sets
+		* all transport protocol connections in a sub-state of CANTP_ON, in which neither segmented transmission
+		* nor segmented reception are in progress (Rx thread in state CANTP_RX_WAIT and Tx thread in state CANTP_TX_WAIT). (SRS_Can_01075)*/
+		/*change to initial table*/
+		for (rxChannelCount = 0; rxChannelCount < NUMBER_OF_RXNPDU; rxChannelCount++)
+		{
+			CanTp_Start_RX(&CanTp_Change_RxData[rxChannelCount]);
+		}
+		for (txChannelCount = 0; txChannelCount < NUMBER_OF_TXNPDU; txChannelCount++)
+		{
+			CanTp_Start_TX(&CanTp_Change_TxData[txChannelCount]);
+		}
+		/* [ SWS_CanTp_00170] The CanTp module shall change to the internal state CANTP_ON
+		* when the CanTp has been successfully initialized with CanTp_Init(). (SRS_Can_01075)*/
+		/* Putting CanTp Module in the ON state to let other functions work */
+		CanTpInternalState = (unsigned char)CANTP_ON;
 	}
-	for (txChannelCount = 0; txChannelCount < NUMBER_OF_TXNPDU; txChannelCount++)
-	{
-		CanTp_Start_TX(&CanTp_Change_TxData[txChannelCount]);
-	}
-	/* [ SWS_CanTp_00170] The CanTp module shall change to the internal state CANTP_ON
-	* when the CanTp has been successfully initialized with CanTp_Init(). (SRS_Can_01075)*/
-
-	/* Putting CanTp Module in the ON state to let other functions work */
-	CanTpInternalState = (unsigned char)CANTP_ON;
 }
 
 
@@ -743,7 +755,7 @@ BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Cha
 
 		/* Calling CanIf to transmit underlying frame */
 
-		Resp_result = CanIf_Transmit(TransPdur_Id,&pduInfo);
+		Resp_result = CanIf_Transmit(&pduInfo);
 
 		switch (Resp_result)
 		{
@@ -953,7 +965,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 	/* Processing Mode*/
 	rxRuntime->state = CANTP_RX_PROCESSING;
-	BufferRequest_Result = Dcm_StartOfReception(rxNSdu->CanTpRxNSduId, &rxRuntime->upperTransData, (PduLengthType)rxRuntime->transferTotal, &rxRuntime->Buffersize);
+	//BufferRequest_Result = Dcm_StartOfReception(rxNSdu->CanTpRxNSduId, &rxRuntime->upperTransData, (PduLengthType)rxRuntime->transferTotal, &rxRuntime->Buffersize);
 	BuffersizeTemp = rxRuntime->Buffersize;
 
 	switch (BufferRequest_Result)

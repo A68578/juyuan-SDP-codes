@@ -1,11 +1,2 @@
-﻿  bl_manager.cpp
-  CanTp.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(563,20): error C3861: “CanIf_Transmit”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(665,23): warning C4244: “=”: 从“const unsigned short”转换到“unsigned char”，可能丢失数据
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(670,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(707,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(747,17): error C3861: “CanIf_Transmit”: 找不到标识符
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(957,25): error C3861: “Dcm_StartOfReception”: 找不到标识符
-  Dcm.cpp
-  main.cpp
-  正在生成代码...
+﻿  CanIf.cpp
+  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

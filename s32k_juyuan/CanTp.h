@@ -19,3 +19,4 @@ extern void CanTp_Init(const CanTp_ConfigType* CfgPtr);
 extern Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr);
 extern void CanTp_MainFunction(void);
 extern BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime);
+extern void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result);

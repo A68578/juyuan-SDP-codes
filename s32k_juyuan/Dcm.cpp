@@ -16,7 +16,7 @@ void Dcm_TpRxIndication(PduIdType id, Std_ReturnType result)
 
 void Dcm_TpTxConfirmation(PduIdType txPduID, Std_ReturnType result)
 {
-	printf("Task Dcm TpTxConfirmation\n");
+	printf("Task Dcm TpTxConfirmation£¬the result is: %d\n", result);
 }
 
 BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduInfoType* PduInfo,
@@ -38,5 +38,43 @@ BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,co
 )
 {
 	printf("Task  Dcm_CopyTxData\n");
-	return BUFREQ_OK;
+	BufReq_ReturnType copy_result = BUFREQ_E_NOT_OK;
+	unsigned short BufferTrans = 0;
+	unsigned char* sourcebuffer = 0;
+	*availableDataPtr = 8;
+	if ((*(PduInfo->SduDataPtr) & 0xF0) == 0)
+	{
+		sourcebuffer = SingleFrame;
+	}
+	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 1)
+	{
+		sourcebuffer = FirstFrame;
+	}
+	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 2)
+	{
+		sourcebuffer = ConsecutiveFrame1;
+	}
+	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 3)
+	{
+		sourcebuffer = ControlFollowFrameCTS;
+	}
+	if (sourcebuffer)
+	{
+		if (*availableDataPtr > 0 && PduInfo->SduLength <= *availableDataPtr)
+		{
+			memcpy(PduInfo->SduDataPtr, sourcebuffer, PduInfo->SduLength);
+
+
+			*availableDataPtr = *availableDataPtr - PduInfo->SduLength;
+
+
+			copy_result = BUFREQ_OK;
+		}
+	}
+	else
+	{
+		copy_result = BUFREQ_E_NOT_OK;
+	}
+
+	return copy_result;
 }

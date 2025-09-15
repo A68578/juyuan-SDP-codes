@@ -15,7 +15,7 @@
 
 #define    CanTpMainFunctionPeriod                                         (0.01f)
 
-#define    MAIN_FUNCTION_PERIOD_MILLISECONDS                              (unsigned int)CanTpMainFunctionPeriod * 1000
+#define    MAIN_FUNCTION_PERIOD_MILLISECONDS                              (unsigned int)(CanTpMainFunctionPeriod * 1000)
 
 /*
 Used for the initialization of unused bytes with a certain value

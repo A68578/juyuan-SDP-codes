@@ -5,6 +5,7 @@
 #include "Dcm_Appl.h"
 #include "CanIf.h"
 #include "CanTp.h"
+#include "Can.h"
 extern void sourcetask(void);
 
 extern unsigned char SingleFrame[8];

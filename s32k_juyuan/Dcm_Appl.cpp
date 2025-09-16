@@ -18,8 +18,8 @@ Std_ReturnType virtual_send_SF(void)
 {
 	Std_ReturnType transreqresult = E_NOT_OK;
 	PduInfoType	SF_PduInfo;
-	SF_PduInfo.SduLength = 0x05;
-	SF_PduInfo.SduDataPtr = SingleFrame;
+	SF_PduInfo.SduLength = sizeof(SingleDcm10Frame);
+	SF_PduInfo.SduDataPtr = SingleDcm10Frame;
 
 
 	transreqresult = CanTp_Transmit(0, &SF_PduInfo);

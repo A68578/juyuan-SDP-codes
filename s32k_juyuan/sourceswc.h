@@ -8,7 +8,18 @@
 #include "Can.h"
 extern void sourcetask(void);
 
-extern unsigned char SingleFrame[8];
+
+extern unsigned char SingleDcm10Frame[2];
+extern unsigned char SingleDcm22Frame[4];
+extern unsigned char SingleDcm2EFrame[8];
+
+
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
 extern unsigned char FirstFrame[8];
 extern unsigned char ConsecutiveFrame1[8];
 extern unsigned char ConsecutiveFrame2[8];

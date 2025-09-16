@@ -27,7 +27,7 @@ static Can_ReturnType Can_Check(unsigned char* canbuffer)
 	unsigned char* checkbuffer = 0;
 	if ((*(canbuffer) & 0xF0) == 0)
 	{
-		checkbuffer = SingleFrame;
+		checkbuffer = SingleDcm10Frame;
 	}
 	else if ((*(canbuffer) & 0xF0) == 1)
 	{
@@ -94,8 +94,8 @@ void fakeDriverRxSF_Simulate(void)
 	PduInfoType* sourcepdu = (PduInfoType*)malloc(sizeof(sourcepdu));
 	if (sourcepdu)
 	{
-		sourcepdu->SduDataPtr = SingleFrame;
-		sourcepdu->SduLength = 5;
+		sourcepdu->SduDataPtr = SingleDcm10Frame;
+		sourcepdu->SduLength = sizeof(SingleDcm10Frame);
 	}
 
 	Can_Rx_Callback(sourcepdu);

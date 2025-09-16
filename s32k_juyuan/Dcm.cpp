@@ -1,4 +1,25 @@
 #include "Dcm.h"
+
+
+unsigned char DcmlocalSFBuffer[8];
+unsigned char DcmlocalFFBuffer[8];
+
+static void Comm_CopyData(void* des, void* src, unsigned int srcSize)
+{
+	unsigned char* pd, * ps;
+	unsigned int i;
+
+	if ((des != src) && (srcSize != 0))
+	{
+		pd = (unsigned char*)des;
+		ps = (unsigned char*)src;
+		for (i = 0; i <= srcSize; i++)
+		{
+			pd[i] = ps[i];
+		}
+	}
+}
+
 void DCM_10DelayCancel(void)
 {
 	printf("Task Dcm 10 Delay Cancel\n");
@@ -33,48 +54,23 @@ BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
 	return BUFREQ_OK;
 }
 
+void copydata_to_dcmsf(void)
+{
+	memcpy(DcmlocalSFBuffer, SingleDcm10Frame, sizeof(SingleDcm10Frame));
+}
+
 BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,const RetryInfoType* retry,
 	PduLengthType* availableDataPtr
 )
 {
 	printf("Task  Dcm_CopyTxData\n");
 	BufReq_ReturnType copy_result = BUFREQ_E_NOT_OK;
-	unsigned short BufferTrans = 0;
-	unsigned char* sourcebuffer = 0;
-	*availableDataPtr = 8;
-	if ((*(PduInfo->SduDataPtr) & 0xF0) == 0)
-	{
-		sourcebuffer = SingleFrame;
-	}
-	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 1)
-	{
-		sourcebuffer = FirstFrame;
-	}
-	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 2)
-	{
-		sourcebuffer = ConsecutiveFrame1;
-	}
-	else if ((*(PduInfo->SduDataPtr) & 0xF0) == 3)
-	{
-		sourcebuffer = ControlFollowFrameCTS;
-	}
-	if (sourcebuffer)
-	{
-		if (*availableDataPtr > 0 && PduInfo->SduLength <= *availableDataPtr)
-		{
-			memcpy(PduInfo->SduDataPtr, sourcebuffer, PduInfo->SduLength);
 
+	copydata_to_dcmsf();
 
-			*availableDataPtr = *availableDataPtr - PduInfo->SduLength;
+	memcpy(PduInfo->SduDataPtr, DcmlocalSFBuffer, PduInfo->SduLength);
 
-
-			copy_result = BUFREQ_OK;
-		}
-	}
-	else
-	{
-		copy_result = BUFREQ_E_NOT_OK;
-	}
-
+	copy_result = BUFREQ_OK;
+	
 	return copy_result;
 }

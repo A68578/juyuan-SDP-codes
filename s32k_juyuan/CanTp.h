@@ -20,3 +20,4 @@ extern Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduIn
 extern void CanTp_MainFunction(void);
 extern BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime);
 extern void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result);
+extern void CanTp_RxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr);

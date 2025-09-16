@@ -46,6 +46,6 @@ void CanIf_TxConfirmation(PduIdType CanTxPduId)
 
 void CanIf_RxIndication(const PduInfoType* PduInfoPtr)
 {
-
+	CanTp_RxIndication(0,PduInfoPtr);
 }
 

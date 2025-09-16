@@ -3,6 +3,7 @@
 
 unsigned char DcmlocalSFBuffer[8];
 unsigned char DcmlocalFFBuffer[8];
+unsigned char DcmRspSFBuffer[8];
 
 static void Comm_CopyData(void* des, void* src, unsigned int srcSize)
 {
@@ -44,6 +45,18 @@ BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduInfoType
 	PduLengthType TpSduLength, PduLengthType* bufferSizePtr)
 {
 	printf("Task Dcm_CanTpStartOfReception\n");
+	if (!bufferSizePtr)
+	{
+		return BUFREQ_E_NOT_OK;
+	}
+	else
+	{
+		*bufferSizePtr = 8;
+	}
+	
+	
+	
+	
 	return BUFREQ_OK;
 }
 
@@ -51,12 +64,10 @@ BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
 	unsigned short* bufferSizePtr)
 {
 	printf("Task  Dcm_CopyRxData\n");
+	
+	memcpy(DcmlocalSFBuffer, PduInfo->SduDataPtr, *bufferSizePtr);
+	
 	return BUFREQ_OK;
-}
-
-void copydata_to_dcmsf(void)
-{
-	memcpy(DcmlocalSFBuffer, SingleDcm10Frame, sizeof(SingleDcm10Frame));
 }
 
 BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,const RetryInfoType* retry,
@@ -66,9 +77,7 @@ BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID,const PduInfoType* PduInfo,co
 	printf("Task  Dcm_CopyTxData\n");
 	BufReq_ReturnType copy_result = BUFREQ_E_NOT_OK;
 
-	copydata_to_dcmsf();
-
-	memcpy(PduInfo->SduDataPtr, DcmlocalSFBuffer, PduInfo->SduLength);
+	memcpy(PduInfo->SduDataPtr, DcmRspSFBuffer, PduInfo->SduLength);
 
 	copy_result = BUFREQ_OK;
 	

@@ -1,3 +1,1 @@
-﻿  CanTp.cpp
-C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(667,23): warning C4244: “=”: 从“const unsigned short”转换到“unsigned char”，可能丢失数据
-  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe
+﻿  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

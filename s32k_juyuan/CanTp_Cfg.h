@@ -2,7 +2,7 @@
 #include "common.h"
 #include "CanTp_Types.h"
 #define    NUMBER_OF_TXNPDU                                                (1u)
-#define    NUMBER_OF_RXNPDU                                                (2u)
+#define    NUMBER_OF_RXNPDU                                                (1u)
 
 #define    CANTP_EXTEND                                                     0
 
@@ -90,7 +90,7 @@ typedef struct
 }CanTpTxNSduType;
 
 
-extern CanTp_Change_InfoType CanTp_Change_RxData[2];
+extern CanTp_Change_InfoType CanTp_Change_RxData[1];
 extern CanTp_Change_InfoType CanTp_Change_TxData[1];
 extern const CanTpRxNSduType CanTpRxNSdu[NUMBER_OF_RXNPDU];
 extern const CanTpTxNSduType CanTpTxNSdu[NUMBER_OF_TXNPDU];

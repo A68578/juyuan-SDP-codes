@@ -3,6 +3,7 @@
 #include "ComStack_Types.h"
 #include "CanTp.h"
 #include "sourceswc.h"
+#include "Dcm.h"
 
 extern void SendReprogramRespond(void);
 extern void SetReprogramState(void);

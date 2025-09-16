@@ -10,17 +10,23 @@ void sourcetask(void)
 	CanTp_Init(0);
 	Dcm_Init();
 	
-	/*single frame send 10 service*/
+	
+	/*single frame receive 10 01.*/
+	fakeDriverRxSF_Simulate();
+	
+	/*dcm deal with 10 SF session.*/
+	
 	ReqResult = virtual_send_SF();
 
+	
 	if (ReqResult == E_OK)
 	{
 		CanTp_MainFunction();
 	}
+	
 	/*if no error can driver callback.*/
-	//fakeDriver_Simulate();
+	fakeDriver_Simulate();
 
-	/*single frame receive.*/
-	//fakeDriverRxSF_Simulate();
+	
 
 }

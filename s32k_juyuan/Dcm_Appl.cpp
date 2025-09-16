@@ -17,12 +17,17 @@ void SendResponseMCUReset(void)
 Std_ReturnType virtual_send_SF(void)
 {
 	Std_ReturnType transreqresult = E_NOT_OK;
-	PduInfoType	SF_PduInfo;
-	SF_PduInfo.SduLength = sizeof(SingleDcm10Frame);
-	SF_PduInfo.SduDataPtr = SingleDcm10Frame;
+	PduInfoType* SF_PduInfo = new PduInfoType;
+	SF_PduInfo->SduDataPtr = new unsigned char;
 
+	SF_PduInfo->SduDataPtr[0] = 0x50;
+	SF_PduInfo->SduDataPtr[1] = 0x01;
+	
+	SF_PduInfo->SduLength = 2;
 
-	transreqresult = CanTp_Transmit(0, &SF_PduInfo);
+	memcpy(DcmRspSFBuffer, SF_PduInfo->SduDataPtr, SF_PduInfo->SduLength);
+
+	transreqresult = CanTp_Transmit(0, SF_PduInfo);
 
 	return transreqresult;
 

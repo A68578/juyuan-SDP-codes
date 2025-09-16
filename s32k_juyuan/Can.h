@@ -19,3 +19,5 @@ typedef enum
 extern void Can_Init(void);
 extern Can_ReturnType Can_Write(Can_PduType* CanData);
 extern void fakeDriver_Simulate(void);
+
+extern void fakeDriverRxSF_Simulate(void);

@@ -1,1 +1,35 @@
-﻿  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe
+﻿  bl_manager.cpp
+  Can.cpp
+  CanIf.cpp
+  CanIf_Cfg.cpp
+  CanPBCfg.cpp
+  CanPBCfg.h
+  CanTp.cpp
+C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\CanTp.cpp(671,23): warning C4244: “=”: 从“const unsigned short”转换到“unsigned char”，可能丢失数据
+  CanTp_Cfg.cpp
+  common.cpp
+  Dcm.cpp
+  Dcm_Appl.cpp
+  Dcm_Lcfg.cpp
+  Det.cpp
+  Ea.cpp
+  EEPROM.cpp
+  Fee.cpp
+  Fee_Cfg.cpp
+  FLASH.cpp
+  Fls.cpp
+  main.cpp
+  正在生成代码...
+  正在编译...
+  MemIf.cpp
+  MemIf_Cfg.cpp
+  Port.cpp
+  SecM.cpp
+  sourcecfg.cpp
+  sourceswc.cpp
+  System.cpp
+  Timer.cpp
+  WatchDog.cpp
+  正在生成代码...
+s32k_juyuan\x64\Debug\CanPBCfg.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\remake\s32k_juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

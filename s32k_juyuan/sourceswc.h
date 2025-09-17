@@ -10,7 +10,16 @@ extern void sourcetask(void);
 
 
 extern unsigned char SingleDcm10Frame[2];
-extern unsigned char SingleDcm22Frame[4];
+extern unsigned char SingleDcm22ReqFrame[3];
+extern unsigned char MultiDcm22ReadFrame[20];
+extern unsigned char FlowControlFrame[3];
+
+
+
+
+
+
+
 extern unsigned char SingleDcm2EFrame[8];
 
 

@@ -33,7 +33,8 @@ void CanIf_TxConfirmation(PduIdType CanTxPduId)
 	}
 	else
 	{
-		CanIf_TxPduCfg[CanTxPduId].UserTxConfirmationName(CanTxPduId, E_OK);
+		//CanIf_TxPduCfg[CanTxPduId].UserTxConfirmationName(CanTxPduId, E_OK);
+		CanTp_TxConfirmation(CanTxPduId, E_OK);
 	}
 }
 

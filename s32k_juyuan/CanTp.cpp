@@ -211,7 +211,11 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 
 				*(SduDataPtrTemp + CanIfTransOffset) = CanIfTrans_MultiFrame_Partial_Length;
 
+				CanIfTransOffset = CanIfTransOffset + 1;
+
 				CanTp_Change_TxData[TxPduId].upperTransData.SduLength = (PduLengthType)CanTp_Change_TxData[TxPduId].transferTotal;
+
+				CanTp_Change_TxData[TxPduId].CanIfTransData.SduLength = CanIfTransOffset;
 			}
 
 		}

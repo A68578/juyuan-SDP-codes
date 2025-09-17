@@ -1,7 +1,18 @@
 #include "sourceswc.h"
 //10 22 2e
-unsigned char SingleDcm10Frame[2] = { 0x10,0x01};
-unsigned char SingleDcm22Frame[4] = { 0x22,0xF1,0x90,0x01}; //read VIN
+unsigned char SingleDcm10Frame[2] = { 0x10,0x01}; //10 session.
+unsigned char SingleDcm22ReqFrame[3] = { 0x22,0xF1,0x90}; //request VIN.
+unsigned char MultiDcm22ReadFrame[20] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+                                           0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10,
+                                           0x11, 0x12, 0x13, 0x14 }; //read VIN.
+
+unsigned char FlowControlFrame[3] = { 0x30,0x05,0x0A };
+
+
+
+
+
+
 unsigned char SingleDcm2EFrame[8] = { 0x2e,0xF1,0x90,0x77,0x36,0x00,0x00,0x00 };
 /*---------------------------------------------------------------------------------------------------------------------------*/
 

@@ -4,6 +4,7 @@
 unsigned char DcmlocalSFBuffer[8];
 unsigned char DcmlocalFFBuffer[8];
 unsigned char DcmRspSFBuffer[8];
+Std_ReturnType DcmLocalConfirm = E_NOT_OK;
 
 static void Comm_CopyData(void* des, void* src, unsigned int srcSize)
 {
@@ -34,6 +35,12 @@ void Dcm_Init(void)
 void Dcm_TpRxIndication(PduIdType id, Std_ReturnType result)
 {
 	printf("Task Dcm TpRxIndication\n");
+	DcmLocalConfirm = result;
+}
+
+void DcmResetConfirmFlag(void)
+{
+	Std_ReturnType DcmLocalConfirm = E_NOT_OK;
 }
 
 void Dcm_TpTxConfirmation(PduIdType txPduID, Std_ReturnType result)

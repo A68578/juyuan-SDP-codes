@@ -1,3 +1,3 @@
 #pragma once
 #include "common.h"
-extern Std_ReturnType Det_ReportRuntimeError(unsigned short ModuleId, unsigned char InstanceId, unsigned char ApiId, unsigned char ErrorId);
+extern Std_ReturnType Det_ReportRuntimeError(uint16 ModuleId, uint8 InstanceId, uint8 ApiId, uint8 ErrorId);

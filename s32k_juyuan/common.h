@@ -20,3 +20,7 @@ typedef enum
 	False,
 	True
 }BoolType;
+
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef int uint32;

@@ -22,14 +22,14 @@ extern void Dcm_TpTxConfirmation(PduIdType txPduID, Std_ReturnType result);
 extern BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduInfoType* PduInfo,
 	PduLengthType TpSduLength, PduLengthType* bufferSizePtr);
 extern BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
-	unsigned short* bufferSizePtr);
+	uint16* bufferSizePtr);
 BufReq_ReturnType Dcm_CopyTxData(PduIdType txPduID, const PduInfoType* PduInfo, const RetryInfoType* retry,
 	PduLengthType* availableDataPtr
 );
 extern void DcmResetConfirmFlag(void);
 
 
-extern unsigned char DcmlocalSFBuffer[8];
-extern unsigned char DcmlocalFFBuffer[8];
-extern unsigned char DcmRspSFBuffer[8];
+extern uint8 DcmlocalSFBuffer[8];
+extern uint8 DcmlocalFFBuffer[8];
+extern uint8 DcmRspSFBuffer[8];
 extern Std_ReturnType DcmLocalConfirm;

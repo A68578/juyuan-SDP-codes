@@ -11,7 +11,7 @@ typedef struct {
     int dummy; //never used
 } CanTp_ConfigType;
 
-typedef unsigned int PduIdInfoType;
+typedef uint32 PduIdInfoType;
 
 #define CanTp_NULL_PTR (CanTp_ConfigType*)0
 

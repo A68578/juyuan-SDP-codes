@@ -25,9 +25,9 @@ void fakeDriverTxConfirmation_Simulate(void)
 
 Can_ReturnType Can_Write(Can_PduType* CanData)
 {
-	unsigned int len = CanData->length;
+	uint32 len = CanData->length;
 	
-	for (unsigned int i = 0;i<len;i++)
+	for (uint32 i = 0;i<len;i++)
 	{
 		CanBuffer[i] = *(CanData->sdu++);
 	}
@@ -44,8 +44,8 @@ void Can_Rx_Callback(PduInfoType* buffer)
 void fakeDriverRxSF_Simulate(void)
 {
 	PduInfoType* sourcepdu = (PduInfoType*)malloc(sizeof(sourcepdu));
-	unsigned char* sdutempptr = 0;
-	sourcepdu->SduDataPtr = (unsigned char*)malloc(sizeof(char));
+	uint8* sdutempptr = 0;
+	sourcepdu->SduDataPtr = (uint8*)malloc(sizeof(char));
 	sdutempptr = sourcepdu->SduDataPtr;
 	if (sdutempptr)
 	{
@@ -63,8 +63,8 @@ void fakeDriverRxSF_Simulate(void)
 void fakeDriverRx22ReqSession_Simulate(void)
 {
 	PduInfoType* sourcepdu = (PduInfoType*)malloc(sizeof(sourcepdu));
-	unsigned char* sdutempptr = 0;
-	sourcepdu->SduDataPtr = (unsigned char*)malloc(sizeof(char));
+	uint8* sdutempptr = 0;
+	sourcepdu->SduDataPtr = (uint8*)malloc(sizeof(char));
 	sdutempptr = sourcepdu->SduDataPtr;
 	if (sdutempptr)
 	{
@@ -81,8 +81,8 @@ void fakeDriverRx22ReqSession_Simulate(void)
 void fakeDriverRxFlowControlFrame_Simulate(void)
 {
 	PduInfoType* sourcepdu = (PduInfoType*)malloc(sizeof(sourcepdu));
-	unsigned char* sdutempptr = 0;
-	sourcepdu->SduDataPtr = (unsigned char*)malloc(sizeof(char));
+	uint8* sdutempptr = 0;
+	sourcepdu->SduDataPtr = (uint8*)malloc(sizeof(char));
 	sdutempptr = sourcepdu->SduDataPtr;
 	if (sdutempptr)
 	{

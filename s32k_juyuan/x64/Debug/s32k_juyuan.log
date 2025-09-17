@@ -1,14 +1,14 @@
-﻿  bl_manager.cpp
+﻿  Can.cpp
+  CanIf.cpp
+  CanIf_Cfg.cpp
   CanTp.cpp
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(563,20): error C3861: “CanIf_Transmit”: 找不到标识符
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(665,23): warning C4244: “=”: 从“const unsigned short”转换到“unsigned char”，可能丢失数据
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(670,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(690,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(707,16): error C3861: “Dcm_CopyTxData”: 找不到标识符
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(747,17): error C3861: “CanIf_Transmit”: 找不到标识符
-C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(957,25): error C3861: “Dcm_StartOfReception”: 找不到标识符
+C:\Users\andyn\Desktop\juyuan\s32k_juyuan\CanTp.cpp(671,23): warning C4244: “=”: 从“const uint16”转换到“uint8”，可能丢失数据
+  CanTp_Cfg.cpp
   Dcm.cpp
-  Det.cpp
+  Dcm_Appl.cpp
+  bl_manager.cpp
   main.cpp
-  MemIf.cpp
+  sourcecfg.cpp
+  sourceswc.cpp
   正在生成代码...
+  s32k_juyuan.vcxproj -> C:\Users\andyn\Desktop\juyuan\s32k_juyuan\x64\Debug\s32k_juyuan.exe

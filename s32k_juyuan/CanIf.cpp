@@ -12,7 +12,7 @@ Std_ReturnType CanIf_Transmit(const PduInfoType* PduInfoPtr)
 
 	CanIfTransData.swPduHandle = CANIF_CANTXPDUID;
 	CanIfTransData.id = CANIF_TXPDU_CANID;
-	CanIfTransData.length = (unsigned char)PduInfoPtr->SduLength;
+	CanIfTransData.length = (uint8)PduInfoPtr->SduLength;
 	CanIfTransData.sdu = PduInfoPtr->SduDataPtr;
 
 	/* call can write to transmit can msg */

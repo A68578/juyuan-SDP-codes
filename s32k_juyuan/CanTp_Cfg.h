@@ -15,7 +15,7 @@
 
 #define    CanTpMainFunctionPeriod                                         (0.01f)
 
-#define    MAIN_FUNCTION_PERIOD_MILLISECONDS                              (unsigned int)(CanTpMainFunctionPeriod * 1000)
+#define    MAIN_FUNCTION_PERIOD_MILLISECONDS                              (uint32)(CanTpMainFunctionPeriod * 1000)
 
 /*
 Used for the initialization of unused bytes with a certain value
@@ -30,49 +30,49 @@ Used for the initialization of unused bytes with a certain value
 
 typedef struct
 {
-    unsigned char* SduDataPtr;
+    uint8* SduDataPtr;
     PduLengthType SduLength;
 }CanTp_CanIfPduInfoType;
 
 
 typedef struct
 {
-	unsigned int nextFlowCounter;             
-	unsigned int framehandledCounter;
-	unsigned int stateTimeOutCounter;
-    unsigned int ISOTP_STmin;
-    unsigned int ISOTP_BS;
+	uint32 nextFlowCounter;             
+	uint32 framehandledCounter;
+	uint32 stateTimeOutCounter;
+    uint32 ISOTP_STmin;
+    uint32 ISOTP_BS;
     CanTp_TransferSubStateType substate;
     CanTp_TransferStateType state;
-    unsigned int transferTotal;
-    unsigned int transferCount;
+    uint32 transferTotal;
+    uint32 transferCount;
     PduLengthType availableDataSize;
     PduInfoType   upperTransData;       // The PDUR make an instance of this.
     CanTp_CanIfPduInfoType CanIfTransData;
     PduLengthType Buffersize;
-    unsigned char addressformat;
-    unsigned char MaxSFPayload;   //byte;
-    unsigned char MaxFFPayload;    //byte;
-    unsigned char MaxCFPayload;    //byte;
-    unsigned char ISOTP_NPCI_Offset;  
-    unsigned char* CanIfbuffer;
-    unsigned char* upperLayerbuffer;
+    uint8 addressformat;
+    uint8 MaxSFPayload;   //byte;
+    uint8 MaxFFPayload;    //byte;
+    uint8 MaxCFPayload;    //byte;
+    uint8 ISOTP_NPCI_Offset;  
+    uint8* CanIfbuffer;
+    uint8* upperLayerbuffer;
 }CanTp_Change_InfoType;
 
 typedef struct
 {
-    unsigned char CanTpBs;
+    uint8 CanTpBs;
     double CanTpNar;
     double CanTpNbr;
     double CanTpNcr;
-    unsigned char CanTpRxAddressingFormat;
-    unsigned short CanTpRxNSduId;
-    unsigned char CanTpRxPaddingActivation;
-    unsigned char CanTpRxTaType;
-    unsigned short CanTpRxWftMax; 
-    unsigned char CanTpSTmin;
-    unsigned short CanTpRxNPduId;
-    unsigned short CanTpTxFcNPduConfirmationPduId;
+    uint8 CanTpRxAddressingFormat;
+    uint16 CanTpRxNSduId;
+    uint8 CanTpRxPaddingActivation;
+    uint8 CanTpRxTaType;
+    uint16 CanTpRxWftMax; 
+    uint8 CanTpSTmin;
+    uint16 CanTpRxNPduId;
+    uint16 CanTpTxFcNPduConfirmationPduId;
 }CanTpRxNSduType;
 
 typedef struct
@@ -81,12 +81,12 @@ typedef struct
     double CanTpNbs; //Value in seconds of the N_Bs timeout.N_Bs is the time of transmission until reception of the next Flow Control N_PDU.
     double CanTpNcs; //Value in seconds of the performance requirement of (N_Cs + N_As). N_Cs is the time in which CanTp is allowed to request the Tx data of a Consecutive Frame N_PDU.
     BoolType CanTpTc;
-    unsigned char CanTpTxAddressingFormat;
-    unsigned short CanTpTxNSduId;
-    unsigned char CanTpTxPaddingActivation;
-    unsigned char CanTpTxTaType;
-    unsigned short CanTpTxNPduConfirmationPduId;
-    unsigned short CanTpRxFcNPduId;
+    uint8 CanTpTxAddressingFormat;
+    uint16 CanTpTxNSduId;
+    uint8 CanTpTxPaddingActivation;
+    uint8 CanTpTxTaType;
+    uint16 CanTpTxNPduConfirmationPduId;
+    uint16 CanTpRxFcNPduId;
 }CanTpTxNSduType;
 
 

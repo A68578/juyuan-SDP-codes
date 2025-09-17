@@ -1,20 +1,20 @@
 #pragma once
 #include "ComStack_Types.h"
-typedef unsigned int Can_IdType;
-typedef unsigned short Can_HwHandleType;
+typedef uint32 Can_IdType;
+typedef uint16 Can_HwHandleType;
 
 typedef struct
 {
     Can_IdType CanId;
     Can_HwHandleType Hoh;
-    unsigned char ControllerId;
+    uint8 ControllerId;
 }Can_HwType;
 
 
 typedef struct
 {
     PduIdType swPduHandle;
-    unsigned char length;
+    uint8 length;
     Can_IdType id;
-    unsigned char* sdu;
+    uint8* sdu;
 }Can_PduType;

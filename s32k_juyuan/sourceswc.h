@@ -9,10 +9,10 @@
 extern void sourcetask(void);
 
 
-extern unsigned char SingleDcm10Frame[2];
-extern unsigned char SingleDcm22ReqFrame[3];
-extern unsigned char MultiDcm22ReadFrame[20];
-extern unsigned char FlowControlFrame[3];
+extern uint8 SingleDcm10Frame[2];
+extern uint8 SingleDcm22ReqFrame[3];
+extern uint8 MultiDcm22ReadFrame[20];
+extern uint8 FlowControlFrame[3];
 
 
 
@@ -20,7 +20,7 @@ extern unsigned char FlowControlFrame[3];
 
 
 
-extern unsigned char SingleDcm2EFrame[8];
+extern uint8 SingleDcm2EFrame[8];
 
 
 
@@ -29,11 +29,11 @@ extern unsigned char SingleDcm2EFrame[8];
 
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
-extern unsigned char FirstFrame[8];
-extern unsigned char ConsecutiveFrame1[8];
-extern unsigned char ConsecutiveFrame2[8];
-extern unsigned char ConsecutiveFrame3[8];
-extern unsigned char ConsecutiveFrame4[8];
-extern unsigned char ControlFollowFrameCTS[8];
-extern unsigned char ControlFollowFrameWT[8];
-extern unsigned char ControlFollowFrameOVF[8];
+extern uint8 FirstFrame[8];
+extern uint8 ConsecutiveFrame1[8];
+extern uint8 ConsecutiveFrame2[8];
+extern uint8 ConsecutiveFrame3[8];
+extern uint8 ConsecutiveFrame4[8];
+extern uint8 ControlFollowFrameCTS[8];
+extern uint8 ControlFollowFrameWT[8];
+extern uint8 ControlFollowFrameOVF[8];

@@ -37,9 +37,9 @@ typedef enum
 /*state context*/
 typedef struct
 {
-	unsigned int stateCount;       /**< Number of elements in stateDefinitions (set by component(s) using this module) */
-	unsigned int currentstate;     /**< Current state */
-	unsigned int success_flag;     /*if function is successfully handled,skip the check*/
+	uint32 stateCount;       /**< Number of elements in stateDefinitions (set by component(s) using this module) */
+	uint32 currentstate;     /**< Current state */
+	uint32 success_flag;     /*if function is successfully handled,skip the check*/
 }fblManagerContext;
 
 /*handler of event*/

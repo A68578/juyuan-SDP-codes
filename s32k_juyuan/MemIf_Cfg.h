@@ -25,18 +25,18 @@ typedef void (*MemIf_Callback)(void);
 
 typedef struct
 {
-    unsigned int IMemIfConfig_Addr;
-    unsigned int IMemIfConfig_Len;
-    unsigned int IMemIfConfig_Flag;
+    uint32 IMemIfConfig_Addr;
+    uint32 IMemIfConfig_Len;
+    uint32 IMemIfConfig_Flag;
 }IMemIfConfigListType;
 
 
 
 typedef struct
 {
-    unsigned int MemIf_Addr;
-    unsigned int MemIf_Len;
-    unsigned int* MemIf_Buf;
+    uint32 MemIf_Addr;
+    uint32 MemIf_Len;
+    uint32* MemIf_Buf;
     MemIf_Callback MemIfWatchDog;
     MemIf_Callback MemIfNRC78;
 }MemIf_DataPtr;

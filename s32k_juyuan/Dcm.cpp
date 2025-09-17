@@ -1,20 +1,20 @@
 #include "Dcm.h"
 
 
-unsigned char DcmlocalSFBuffer[8];
-unsigned char DcmlocalFFBuffer[8];
-unsigned char DcmRspSFBuffer[8];
+uint8 DcmlocalSFBuffer[8];
+uint8 DcmlocalFFBuffer[8];
+uint8 DcmRspSFBuffer[8];
 Std_ReturnType DcmLocalConfirm = E_NOT_OK;
 
-static void Comm_CopyData(void* des, void* src, unsigned int srcSize)
+static void Comm_CopyData(void* des, void* src, uint32 srcSize)
 {
-	unsigned char* pd, * ps;
-	unsigned int i;
+	uint8* pd, * ps;
+	uint32 i;
 
 	if ((des != src) && (srcSize != 0))
 	{
-		pd = (unsigned char*)des;
-		ps = (unsigned char*)src;
+		pd = (uint8*)des;
+		ps = (uint8*)src;
 		for (i = 0; i <= srcSize; i++)
 		{
 			pd[i] = ps[i];
@@ -68,7 +68,7 @@ BufReq_ReturnType Dcm_CanTpStartOfReception(PduIdType rxPduID, const PduInfoType
 }
 
 BufReq_ReturnType Dcm_CopyRxData(PduIdType rxPduID, const PduInfoType* PduInfo,
-	unsigned short* bufferSizePtr)
+	uint16* bufferSizePtr)
 {
 	printf("Task  Dcm_CopyRxData\n");
 	

@@ -13,7 +13,7 @@
 /* [SWS_CanTp_00168] The CanTp module shall be in the CANTP_OFF state after power up. */
 
 /* Static Global Variable to hold CanTp Internal State {CANTP_OFF,CANTP_ON}*/
-unsigned char CanTpInternalState = (unsigned char)CANTP_OFF;
+uint8 CanTpInternalState = (uint8)CANTP_OFF;
 
 static void CanTp_Start_RX(CanTp_Change_InfoType* rxRunBuffer)
 {
@@ -66,12 +66,12 @@ void CanTp_Shutdown(void)
 	/*[SWS_CanTp_00010] The function CanTp_Shutdown shall stop the CanTp module properly.(SRS_BSW_00336)*/
 
 	/* Putting CanTp Module in the OFF state to stop module safely */
-	CanTpInternalState = (unsigned char)CANTP_OFF;
+	CanTpInternalState = (uint8)CANTP_OFF;
 }
 
 static void CanTp_HandleAddressMode(CanTp_Change_InfoType* CanTpRuntimeBuffer)
 {
-	unsigned char ISOTP_MAX_PAYLOAD_SF, ISOTP_MAX_PAYLOAD_FF;
+	uint8 ISOTP_MAX_PAYLOAD_SF, ISOTP_MAX_PAYLOAD_FF;
 	ISOTP_MAX_PAYLOAD_SF = 7;
 	ISOTP_MAX_PAYLOAD_FF = 6;
 	/*consecutive frame max payload.*/
@@ -132,9 +132,9 @@ static void CanTp_SelectAddressMode(CanTp_Change_InfoType* CanTpRuntimeBuffer)
 Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 {
 	Std_ReturnType TransmitResult = E_NOT_OK;
-	unsigned int CanIfTransOffset = 0;
-	unsigned int CanIfTrans_MultiFrame_Partial_Length = 0;
-	unsigned char* SduDataPtrTemp = 0;
+	uint32 CanIfTransOffset = 0;
+	uint32 CanIfTrans_MultiFrame_Partial_Length = 0;
+	uint8* SduDataPtrTemp = 0;
 	if (CanTpInternalState == CANTP_OFF)
 	{
 		Det_ReportRuntimeError(CANTP_MODULE_ID, CANTP_INSTANCE_ID, CANTP_TRANSMIT_SERVICE_ID, CANTP_E_UNINIT);
@@ -176,8 +176,8 @@ Std_ReturnType CanTp_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr)
 			CanTp_HandleAddressMode(&CanTp_Change_TxData[TxPduId]);
 #if DEBUG
 			/*assign data*/
-			CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = (unsigned char*)malloc(sizeof(unsigned char));
-			CanTp_Change_TxData[TxPduId].upperTransData.SduDataPtr = (unsigned char*)malloc(sizeof(unsigned char));
+			CanTp_Change_TxData[TxPduId].CanIfTransData.SduDataPtr = (uint8*)malloc(sizeof(uint8));
+			CanTp_Change_TxData[TxPduId].upperTransData.SduDataPtr = (uint8*)malloc(sizeof(uint8));
 #endif
 			/*single frame.*/
 			if (CanTp_Change_TxData[TxPduId].transferTotal <= CanTp_Change_TxData[TxPduId].MaxSFPayload)
@@ -234,7 +234,7 @@ void CanTp_Init(const CanTp_ConfigType* CfgPtr)
 	PduIdInfoType rxChannelCount = 0;
 	PduIdInfoType txChannelCount = 0;
 
-	if (CanTpInternalState == (unsigned char)CANTP_OFF)
+	if (CanTpInternalState == (uint8)CANTP_OFF)
 	{
 		/* [SWS_CanTp_00030] The function CanTp_Init shall initialize all global variables of the module and sets
 		* all transport protocol connections in a sub-state of CANTP_ON, in which neither segmented transmission
@@ -251,14 +251,14 @@ void CanTp_Init(const CanTp_ConfigType* CfgPtr)
 		/* [ SWS_CanTp_00170] The CanTp module shall change to the internal state CANTP_ON
 		* when the CanTp has been successfully initialized with CanTp_Init(). (SRS_Can_01075)*/
 		/* Putting CanTp Module in the ON state to let other functions work */
-		CanTpInternalState = (unsigned char)CANTP_ON;
+		CanTpInternalState = (uint8)CANTP_ON;
 	}
 }
 
 
 static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* CanTpPduData)
 {
-	unsigned char rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
+	uint8 rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
 	PduInfoType rxPduData;  /* Pdur Receive Data */
 	BufReq_ReturnType BufferRequest_Result = BUFREQ_E_NOT_OK;
 	BufReq_ReturnType CopyData_Result = BUFREQ_E_NOT_OK;
@@ -358,11 +358,11 @@ static void CanTp_ReceiveSingleFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change
 	}
 }
 
-void CanTp_ComputeBlockSize(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, unsigned char* BlockSizePtr)
+void CanTp_ComputeBlockSize(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, uint8* BlockSizePtr)
 {
-	unsigned char MaxPayload;
-	unsigned int TotalRemainingBytes;      /* Local variable to hold total remaining bytes to be sent */
-	unsigned int TotalNextFrameBytes;                 /* Local variable to hold total bytes of next block */
+	uint8 MaxPayload;
+	uint32 TotalRemainingBytes;      /* Local variable to hold total remaining bytes to be sent */
+	uint32 TotalNextFrameBytes;                 /* Local variable to hold total bytes of next block */
 	MaxPayload = rxRuntime->MaxCFPayload;
 
 
@@ -381,12 +381,12 @@ void CanTp_ComputeBlockSize(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType
 		{
 			/* if it's divisible, the the block size  of next block is calculated by using
 			 * total remaining bytes divided by the MaxPayload */
-			*BlockSizePtr = (unsigned char)(TotalRemainingBytes / MaxPayload);
+			*BlockSizePtr = (uint8)(TotalRemainingBytes / MaxPayload);
 		}
 		else
 		{
 			/* If it's not divisible, then we need an extra CF to cover all bytes which require more space */
-			*BlockSizePtr = (unsigned char)(TotalRemainingBytes / MaxPayload) + 1;
+			*BlockSizePtr = (uint8)(TotalRemainingBytes / MaxPayload) + 1;
 
 
 			/* Calculating Total number of Bytes (after the extra space) required for next block */
@@ -442,9 +442,9 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 
 	PduInfoType txFlowControlData;
 
-	unsigned char NSduDataTemp[8] = { 0 };
-	unsigned char IndexCountTemp = 0;
-	unsigned char BSValueTemp;
+	uint8 NSduDataTemp[8] = { 0 };
+	uint8 IndexCountTemp = 0;
+	uint8 BSValueTemp;
 	PduIdType FlowControl_Id;
 	Std_ReturnType CanIf_ReqResult = E_NOT_OK;
 
@@ -554,7 +554,7 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 	}
 
 
-	rxRuntime->stateTimeOutCounter = ((unsigned int)rxNSdu->CanTpNar) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+	rxRuntime->stateTimeOutCounter = ((uint32)rxNSdu->CanTpNar) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 
 
@@ -590,7 +590,7 @@ static void CanTp_SendFlowControlFrame(const CanTpRxNSduType* rxNSdu, CanTp_Chan
 
 void CanTp_ReceiveFlowControlFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoType* txRuntime,const PduInfoType* CanTpPduData)
 {
-	unsigned char CanTp_NSduOffset = 0;
+	uint8 CanTp_NSduOffset = 0;
 
 	/* Make sure that the frame is in 'TX_WAIT_FLOW_CONTROL' state */
 	if (txRuntime->substate == TX_WAIT_FLOW_CONTROL)
@@ -621,7 +621,7 @@ void CanTp_ReceiveFlowControlFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_I
 			 * each indication of FC with FS=WT (i.e. time until reception of the next FC).*/
 
 			 /* Starting N_BS Timer */
-			txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			txRuntime->stateTimeOutCounter = ((uint32)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 			/* Frame state remains unchanged */
 			txRuntime->state = TX_WAIT_FLOW_CONTROL;
 			break;
@@ -658,10 +658,10 @@ BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Cha
 	BufReq_ReturnType Req_result = BUFREQ_E_NOT_OK;
 	Std_ReturnType Resp_result = E_NOT_OK;
 
-	unsigned char TransPdur_Id;
+	uint8 TransPdur_Id;
 	PduInfoType pduInfo;
 
-	unsigned char ByteCounter;
+	uint8 ByteCounter;
 
 	/* [SWS_CanTp_00272] The API PduR_CanTpCopyTxData() contains a parameter used for the recovery mechanism Req_Resultry
 	 * Because ISO 15765-2 does not support such a mechanism, the CAN Transport Layer does not implement
@@ -746,7 +746,7 @@ BufReq_ReturnType CanTp_SendNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Cha
 		 * to other concurrent sessions until the TxConfirmation is received, successful or not.*/
 
 		 /* change state to verify tx confirm within timeout */
-		txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNas)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->stateTimeOutCounter = ((uint32)(txNSdu->CanTpNas)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 		txRuntime->substate = TX_WAIT_TX_CONFIRMATION;
 
 		/* Calling CanIf to transmit underlying frame */
@@ -809,7 +809,7 @@ void CanTp_HandleNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoTyp
 		 * and at each indication of FC with FS=WT (i.e. time until reception of the next FC). */
 
 		 /* TX ECU expects flow control */
-		txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->stateTimeOutCounter = ((uint32)(txNSdu->CanTpNbs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 		txRuntime->substate = TX_WAIT_FLOW_CONTROL;
 	}
 
@@ -823,7 +823,7 @@ void CanTp_HandleNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoTyp
 		/* [SWS_CanTp_00167] After a transmission request from upper layer,
 		 * the CanTp module shall start time-out N_Cs before the call of PduR_CanTpCopyTxData.
 		 * If no data is available before the timer elapsed, the CanTp module shall abort the communication.*/
-		txRuntime->stateTimeOutCounter = ((unsigned int)txNSdu->CanTpNcs *1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->stateTimeOutCounter = ((uint32)txNSdu->CanTpNcs *1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 		/* Sending Next frame using the function responsible for calling PduR_CanTpCopyTxData() function */
 
@@ -847,7 +847,7 @@ void CanTp_HandleNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoTyp
 
 			 /* Change State and Setup Timeout trying to copy the data later if it's available
 			  * before N_Cs timeout */
-			txRuntime->stateTimeOutCounter = ((unsigned int)(txNSdu->CanTpNcs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			txRuntime->stateTimeOutCounter = ((uint32)(txNSdu->CanTpNcs)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 			txRuntime->state = TX_WAIT_TRANSMIT;
 
 			break;
@@ -903,8 +903,8 @@ void CanTp_HandleNextTxFrame(const CanTpTxNSduType* txNSdu, CanTp_Change_InfoTyp
 
 static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* CanTpPduData)
 {
-	unsigned char rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
-	unsigned char MaxPayload;
+	uint8 rxSDU_Offset = rxRuntime->ISOTP_NPCI_Offset;
+	uint8 MaxPayload;
 	BufReq_ReturnType BufferRequest_Result = BUFREQ_E_NOT_OK;
 	BufReq_ReturnType CopyData_Result = BUFREQ_E_NOT_OK;
 	PduLengthType BuffersizeTemp;
@@ -943,7 +943,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 	{
 		if (0 == rxRuntime->transferTotal)
 		{
-			for (unsigned char i = 0; i < 4u; i++) {
+			for (uint8 i = 0; i < 4u; i++) {
 				rxRuntime->transferTotal |= CanTpPduData->SduDataPtr[rxSDU_Offset] << (24 - 8 * i);
 				rxSDU_Offset++;
 			}
@@ -1011,7 +1011,7 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 										 the service PduR_CanTpCopyRxData() with a data length 0 (zero) and NULL_PTR
 										 as data buffer during each processing of the MainFunction */
 										 /* Set N_BR timer */
-					rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+					rxRuntime->stateTimeOutCounter = ((uint32)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 					/* main function will check this state to handle if the buffer size
 					  become available or not and if the timer is expired send wait flow control */
@@ -1086,8 +1086,8 @@ static void CanTp_ReceiveFirstFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_
 
 void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime, const PduInfoType* rxPduData)
 {
-	unsigned char rxNSduOffset = rxRuntime->ISOTP_NPCI_Offset;
-	unsigned char segmentNumber = 0;
+	uint8 rxNSduOffset = rxRuntime->ISOTP_NPCI_Offset;
+	uint8 segmentNumber = 0;
 	BufReq_ReturnType ReqResult = BUFREQ_E_NOT_OK;
 	PduInfoType PduInfoTemp;
 	PduIdType PduIdTemp;
@@ -1099,7 +1099,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_I
 	 * transport protocol data unit will be used to determine the relevant N-SDU.*/
 
 	 /* Extracting CF SegmentNumber(SN) from the low nibble of Byte 0 */
-	segmentNumber = rxPduData->SduDataPtr[rxNSduOffset++] & ((unsigned char)0x0Fu);
+	segmentNumber = rxPduData->SduDataPtr[rxNSduOffset++] & ((uint8)0x0Fu);
 
 	/* Checking if this consecutive frame is handled or not, if the condition is true then
 	 * it's wromg Segment Number */
@@ -1143,7 +1143,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_I
 			 *  start a time-out N_Br before calling PduR_CanTpStartOfReception or PduR_CanTpCopyRxData.*/
 
 			 /* start N_Br timer */
-			rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+			rxRuntime->stateTimeOutCounter = ((uint32)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 			/* copy data to PduR Buffer */
 			ReqResult = Dcm_CopyRxData(PduIdTemp, &PduInfoTemp, &rxRuntime->Buffersize);
@@ -1188,7 +1188,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_I
 					 * the CanTp module shall start the timer N_Br. */
 
 					 /* Set N_Br timer */
-					rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+					rxRuntime->stateTimeOutCounter = ((uint32)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 					/* main function will check this state to handle if the buffer size
 					  become available or not and if the timer is expired send wait flow control */
@@ -1270,7 +1270,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_I
 				 * a CF transmission on the sender side (FC with FS=CTS).*/
 
 				 /* Start N_Cr timer which contains the time in seconds until reception of the next Consecutive Frame N_PDU.*/
-				rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNcr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+				rxRuntime->stateTimeOutCounter = ((uint32)(rxNSdu->CanTpNcr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 				rxRuntime->substate = RX_WAIT_CONSECUTIVE_FRAME;
 			}/* end of returned PduR Buffer status checking*/
 
@@ -1280,7 +1280,7 @@ void CanTp_ReceiveConsecutiveFrame(const CanTpRxNSduType* rxNSdu, CanTp_Change_I
 }
 
 
-static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdType RxPduId, const PduInfoType* PduInfoPtr)
+static void CanTp_RxIndication_HandledFrameType(uint8 frametype, PduIdType RxPduId, const PduInfoType* PduInfoPtr)
 {
 	switch (frametype)
 	{
@@ -1395,9 +1395,9 @@ static void CanTp_RxIndication_HandledFrameType(unsigned char frametype, PduIdTy
 */
 void CanTp_RxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr)
 {
-	unsigned char CanTpPduPCI_Offset;
-	unsigned char CanTp_FrameType;
-	unsigned char* CanTp_AddressOffset = 0;
+	uint8 CanTpPduPCI_Offset;
+	uint8 CanTp_FrameType;
+	uint8* CanTp_AddressOffset = 0;
 
 	if (CanTpInternalState == CANTP_OFF)
 	{
@@ -1443,7 +1443,7 @@ void CanTp_RxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr)
 void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result)
 {
 	FrameType TxPduIDtype;
-	unsigned char ConfirmFlag = 0;
+	uint8 ConfirmFlag = 0;
 	//[SWS_CanTp_00031] If development error detection for the CanTp module is enabled 
 	// the CanTp module shall raise an error (CANTP_E_UNINIT)
 	//when the PDU Router or CAN Interface tries to use any function (except CanTp_GetVersionInfo) 
@@ -1479,7 +1479,7 @@ void CanTp_TxConfirmation(PduIdType TxPduId, Std_ReturnType result)
 
 				// According to ISO15765-2,if a First Frame was sent,N_Bs Timer will start,then the Flow Control Frame waits to Send.
 			case ISOTP_NPCI_FF:
-				CanTp_Change_TxData[TxPduId].stateTimeOutCounter = (unsigned int)((CanTpTxNSdu[TxPduId].CanTpNbs) * 1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+				CanTp_Change_TxData[TxPduId].stateTimeOutCounter = (uint32)((CanTpTxNSdu[TxPduId].CanTpNbs) * 1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 				CanTp_Change_TxData[TxPduId].substate = TX_WAIT_FLOW_CONTROL;
 				break;
 
@@ -1523,7 +1523,7 @@ void CanTp_MainFunctionTransmitChannel(const CanTpTxNSduType* txNSdu, CanTp_Chan
 		txRuntime->substate = TX_WAIT_TRANSMIT;                /* when stateTimeoutCount = 0 */
 
 		/* Update state timeout with the remaining time of N_Cr after ST has passed, as shown in ISO 15765-2 */
-		txRuntime->stateTimeOutCounter = (((unsigned int)(rxNSdu->CanTpNcr)*1000) - txRuntime->ISOTP_STmin) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+		txRuntime->stateTimeOutCounter = (((uint32)(rxNSdu->CanTpNcr)*1000) - txRuntime->ISOTP_STmin) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 		/* No need for break here as we want to go for next case directly not to be delayed for main period time */
 		break;
@@ -1617,7 +1617,7 @@ void CanTp_MainFunctionTransmitChannel(const CanTpTxNSduType* txNSdu, CanTp_Chan
 
 void CanTp_MainFunctionReceiveChannel(const CanTpRxNSduType* rxNSdu, CanTp_Change_InfoType* rxRuntime)
 {
-	unsigned char FCWaitCount = 0;
+	uint8 FCWaitCount = 0;
 	PduInfoType PduInfo;
 
 	/* Handling Receiver Side timeouts N_Ar,N_Br and N_Cr */
@@ -1681,7 +1681,7 @@ void CanTp_MainFunctionReceiveChannel(const CanTpRxNSduType* rxNSdu, CanTp_Chang
 				 * the CanTp module shall send a new FC(WAIT) to suspend the N-SDU reception and reload the N_Br timer.*/
 
 				CanTp_SendFlowControlFrame(rxNSdu, rxRuntime, FLOW_CONTROL_WAIT_FRAME);
-				rxRuntime->stateTimeOutCounter = ((unsigned int)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
+				rxRuntime->stateTimeOutCounter = ((uint32)(rxNSdu->CanTpNbr)*1000) / MAIN_FUNCTION_PERIOD_MILLISECONDS;
 
 			}
 			else
@@ -1720,7 +1720,7 @@ void CanTp_MainFunctionReceiveChannel(const CanTpRxNSduType* rxNSdu, CanTp_Chang
 
 void CanTp_MainFunction(void)
 {
-	unsigned char i;
+	uint8 i;
 
 	if (CanTpInternalState == CANTP_OFF)
 	{

@@ -31,7 +31,7 @@
 
 /*global definitions*/
 fblManagerContext g_fblchange;
-static unsigned int app_check_flag;
+static uint32 app_check_flag;
 
 
 static void DET_debug(void)
@@ -47,12 +47,12 @@ static void APP_debug(void)
 }
 
 
-bl_manager_ReturnType FBL_CheckTargetFlag(unsigned int readflagId)
+bl_manager_ReturnType FBL_CheckTargetFlag(uint32 readflagId)
 {
-	unsigned int checkFlagData = 0;
-	unsigned int checkFlagDataTemp = 0;
-	unsigned int checkFlagSize = 0;
-	unsigned int checkFlagAddr = 0;
+	uint32 checkFlagData = 0;
+	uint32 checkFlagDataTemp = 0;
+	uint32 checkFlagSize = 0;
+	uint32 checkFlagAddr = 0;
 	bl_manager_ReturnType result = Boot_Check_Fail;
 
 	if (readflagId < 3)
@@ -79,13 +79,13 @@ bl_manager_ReturnType FBL_CheckTargetFlag(unsigned int readflagId)
 }
 
 
-bl_manager_ReturnType FBL_ClearFlag(unsigned int readflagId)
+bl_manager_ReturnType FBL_ClearFlag(uint32 readflagId)
 {
 
 	bl_manager_ReturnType result = Boot_Check_Fail;
-	unsigned int data;
-	unsigned int addr;
-	unsigned int len;
+	uint32 data;
+	uint32 addr;
+	uint32 len;
 
 	/* Check for matching Flag ID */
 	if (readflagId < 3)
@@ -107,7 +107,7 @@ bl_manager_ReturnType FBL_CheckReprog_Event(fblManagerContext* fblmanagercontext
 {
 	printf("check reprog\n");
 	bl_manager_ReturnType checkresult = Boot_Check_Fail;
-	unsigned int flag = 0xFF;
+	uint32 flag = 0xFF;
 	bl_manager_ReturnType ClearFlag_result = Boot_Check_Fail;
 	bl_manager_ReturnType result = Boot_Check_Fail;
 	if (fblmanagercontext == NULL_PTR)
@@ -165,7 +165,7 @@ bl_manager_ReturnType FBL_CheckReset_Event(fblManagerContext* fblmanagercontext)
 	bl_manager_ReturnType result = Boot_Check_Fail;
 	bl_manager_ReturnType checkresult = Boot_Check_Fail;
 	bl_manager_ReturnType ClearFlag_result = Boot_Check_Fail;
-	unsigned int flag = 0xFF;
+	uint32 flag = 0xFF;
 	if (fblmanagercontext == NULL_PTR)
 	{
 		DET_debug();
@@ -242,7 +242,7 @@ bl_manager_ReturnType FBL_Diagnostic_Init_Event(fblManagerContext* fblmanagercon
 {
 	printf("diagnose init\n");
 	bl_manager_ReturnType result = Boot_Check_Fail;
-	unsigned int readflag = 0;
+	uint32 readflag = 0;
 	if (fblmanagercontext == NULL_PTR)
 	{
 		DET_debug();
@@ -268,7 +268,7 @@ bl_manager_ReturnType FBL_Diagnostic_Init_Event(fblManagerContext* fblmanagercon
 bl_manager_ReturnType FBL_MainFunction_Event(fblManagerContext* fblmanagercontext)
 {
 	printf("fbl_bsw_mainfunction\n");
-	unsigned int readflag = 0;
+	uint32 readflag = 0;
 	if (fblmanagercontext == NULL_PTR)
 	{
 		DET_debug();

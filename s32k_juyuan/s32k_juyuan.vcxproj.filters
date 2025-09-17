@@ -305,7 +305,7 @@
     <ClInclude Include="Det.h">
       <Filter>头文件\RTD_related</Filter>
     </ClInclude>
-    <ClInclude Include="ComStackTypes.h">
+    <ClInclude Include="ComStack_Types.h">
       <Filter>头文件\Com</Filter>
     </ClInclude>
     <ClInclude Include="sourceswc.h">

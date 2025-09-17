@@ -14,8 +14,8 @@
 
 typedef struct
 {
-	unsigned int CanId;
-	unsigned int Date_length;
+	uint32 CanId;
+	uint32 Date_length;
 	void (*UserRxIndicationName)(PduIdType, const PduInfoType*);
 }CanIf_RxPduCfg_Type;
 

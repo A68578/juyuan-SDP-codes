@@ -1,3 +1,3 @@
 #include "CanPBCfg.h"
-unsigned char CanBuffer[100];
+uint8 CanBuffer[100];
 

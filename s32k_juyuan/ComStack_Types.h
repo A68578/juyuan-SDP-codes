@@ -1,14 +1,15 @@
 #pragma once
+#include "common.h"
 /********************************************************************************************************************************************
                                  *Type definition
 ********************************************************************************************************************************************/
-typedef unsigned short PduLengthType;
-typedef unsigned short PduIdType;
+typedef uint16 PduLengthType;
+typedef uint16 PduIdType;
 typedef struct
 {
-    unsigned char* SduDataPtr; /*Pointer to the SDU (i.e. payload data) of the PDU. The type of this
+    uint8* SduDataPtr; /*Pointer to the SDU (i.e. payload data) of the PDU. The type of this
                         pointer depends on the memory model being used at compile time*/
-    unsigned char* MetaDataPtr; /*Pointer to the meta data (e.g. CAN ID, socket ID, diagnostic addresses)
+    uint8* MetaDataPtr; /*Pointer to the meta data (e.g. CAN ID, socket ID, diagnostic addresses)
                           of the PDU, consisting of a sequence of meta data items. The length
                           and type of the meta data items is statically configured for each PDU.
                           Meta data items with more than 8 bits use platform byte order.*/
